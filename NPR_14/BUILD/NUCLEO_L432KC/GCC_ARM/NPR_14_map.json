@@ -1,0 +1,800 @@
+[
+    {
+        "module": "[fill]", 
+        "size": {
+            ".data": 21, 
+            ".bss": 55, 
+            ".text": 182
+        }
+    }, 
+    {
+        "module": "[lib]/c.a", 
+        "size": {
+            ".data": 2472, 
+            ".bss": 56, 
+            ".text": 42735
+        }
+    }, 
+    {
+        "module": "[lib]/gcc.a", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 3376
+        }
+    }, 
+    {
+        "module": "[lib]/misc", 
+        "size": {
+            ".data": 16, 
+            ".bss": 28, 
+            ".text": 236
+        }
+    }, 
+    {
+        "module": "mbed-os\\drivers\\AnalogIn.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 52, 
+            ".text": 0
+        }
+    }, 
+    {
+        "module": "mbed-os\\drivers\\CAN.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 66
+        }
+    }, 
+    {
+        "module": "mbed-os\\drivers\\FlashIAP.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 52, 
+            ".text": 570
+        }
+    }, 
+    {
+        "module": "mbed-os\\drivers\\I2C.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 16
+        }
+    }, 
+    {
+        "module": "mbed-os\\drivers\\InterruptIn.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 389
+        }
+    }, 
+    {
+        "module": "mbed-os\\drivers\\InterruptManager.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 12
+        }
+    }, 
+    {
+        "module": "mbed-os\\drivers\\SPI.o", 
+        "size": {
+            ".data": 4, 
+            ".bss": 156, 
+            ".text": 744
+        }
+    }, 
+    {
+        "module": "mbed-os\\drivers\\Serial.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 376
+        }
+    }, 
+    {
+        "module": "mbed-os\\drivers\\SerialBase.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 595
+        }
+    }, 
+    {
+        "module": "mbed-os\\drivers\\Ticker.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 248
+        }
+    }, 
+    {
+        "module": "mbed-os\\drivers\\Timeout.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 137
+        }
+    }, 
+    {
+        "module": "mbed-os\\drivers\\Timer.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 232
+        }
+    }, 
+    {
+        "module": "mbed-os\\drivers\\TimerEvent.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 124
+        }
+    }, 
+    {
+        "module": "mbed-os\\drivers\\UARTSerial.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 20
+        }
+    }, 
+    {
+        "module": "mbed-os\\hal\\mbed_flash_api.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 14
+        }
+    }, 
+    {
+        "module": "mbed-os\\hal\\mbed_gpio.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 120
+        }
+    }, 
+    {
+        "module": "mbed-os\\hal\\mbed_pinmap_common.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 304
+        }
+    }, 
+    {
+        "module": "mbed-os\\hal\\mbed_sleep_manager.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 2, 
+            ".text": 219
+        }
+    }, 
+    {
+        "module": "mbed-os\\hal\\mbed_ticker_api.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 980
+        }
+    }, 
+    {
+        "module": "mbed-os\\hal\\mbed_us_ticker_api.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 64, 
+            ".text": 56
+        }
+    }, 
+    {
+        "module": "mbed-os\\platform\\FileBase.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 56, 
+            ".text": 278
+        }
+    }, 
+    {
+        "module": "mbed-os\\platform\\FileHandle.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 140
+        }
+    }, 
+    {
+        "module": "mbed-os\\platform\\FilePath.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 146
+        }
+    }, 
+    {
+        "module": "mbed-os\\platform\\Stream.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 586
+        }
+    }, 
+    {
+        "module": "mbed-os\\platform\\mbed_alloc_wrappers.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 16
+        }
+    }, 
+    {
+        "module": "mbed-os\\platform\\mbed_assert.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 85
+        }
+    }, 
+    {
+        "module": "mbed-os\\platform\\mbed_board.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 188
+        }
+    }, 
+    {
+        "module": "mbed-os\\platform\\mbed_critical.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 5, 
+            ".text": 307
+        }
+    }, 
+    {
+        "module": "mbed-os\\platform\\mbed_error.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 1, 
+            ".text": 44
+        }
+    }, 
+    {
+        "module": "mbed-os\\platform\\mbed_retarget.o", 
+        "size": {
+            ".data": 4, 
+            ".bss": 316, 
+            ".text": 1127
+        }
+    }, 
+    {
+        "module": "mbed-os\\platform\\mbed_wait_api_rtos.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 74
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\Mutex.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 186
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\TARGET_CORTEX\\mbed_boot.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 4360, 
+            ".text": 467
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\TARGET_CORTEX\\mbed_rtx_handlers.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 663
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\TARGET_CORTEX\\mbed_rtx_idle.o", 
+        "size": {
+            ".data": 4, 
+            ".bss": 0, 
+            ".text": 42
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\TARGET_CORTEX\\rtx5\\TARGET_RTOS_M4_M7\\TOOLCHAIN_GCC\\irq_cm4f.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 196
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\TARGET_CORTEX\\rtx5\\rt_OsEventObserver.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 4, 
+            ".text": 0
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\TARGET_CORTEX\\rtx5\\rtx_delay.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 72
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\TARGET_CORTEX\\rtx5\\rtx_evr.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 112
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\TARGET_CORTEX\\rtx5\\rtx_kernel.o", 
+        "size": {
+            ".data": 176, 
+            ".bss": 0, 
+            ".text": 899
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\TARGET_CORTEX\\rtx5\\rtx_lib.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 1620, 
+            ".text": 260
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\TARGET_CORTEX\\rtx5\\rtx_memory.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 246
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\TARGET_CORTEX\\rtx5\\rtx_mempool.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 298
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\TARGET_CORTEX\\rtx5\\rtx_msgqueue.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 1720
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\TARGET_CORTEX\\rtx5\\rtx_mutex.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 1088
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\TARGET_CORTEX\\rtx5\\rtx_system.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 470
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\TARGET_CORTEX\\rtx5\\rtx_thread.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 2064
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\TARGET_CORTEX\\rtx5\\rtx_timer.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 216
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos\\Thread.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 4, 
+            ".text": 20
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\TARGET_STM32L432xC\\TARGET_NUCLEO_L432KC\\PeripheralPins.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 516
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\TARGET_STM32L432xC\\TARGET_NUCLEO_L432KC\\system_clock.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 268
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\TARGET_STM32L432xC\\device\\TOOLCHAIN_GCC_ARM\\startup_stm32l432xx.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 454
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\analogin_api.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 4, 
+            ".text": 587
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\device\\stm32l4xx_hal.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 4, 
+            ".text": 50
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\device\\stm32l4xx_hal_adc.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 1964
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\device\\stm32l4xx_hal_adc_ex.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 126
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\device\\stm32l4xx_hal_cortex.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 36
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\device\\stm32l4xx_hal_flash.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 32, 
+            ".text": 640
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\device\\stm32l4xx_hal_flash_ex.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 404
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\device\\stm32l4xx_hal_msp_template.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 2
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\device\\stm32l4xx_hal_pwr.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 64
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\device\\stm32l4xx_hal_pwr_ex.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 152
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\device\\stm32l4xx_hal_rcc.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 2224
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\device\\stm32l4xx_hal_rcc_ex.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 1056
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\device\\stm32l4xx_hal_rtc.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 48
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\device\\stm32l4xx_hal_spi.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 2070
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\device\\stm32l4xx_hal_tim.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 252
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\device\\stm32l4xx_hal_uart.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 1053
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\device\\system_stm32l4xx.o", 
+        "size": {
+            ".data": 4, 
+            ".bss": 0, 
+            ".text": 252
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\flash_api.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 424
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\gpio_irq_device.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 192
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\serial_device.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 740, 
+            ".text": 926
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\spi_api.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 78
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\can_api.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 8, 
+            ".text": 248
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\gpio_api.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 446
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\gpio_irq_api.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 536, 
+            ".text": 981
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\hal_tick_32b.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 4, 
+            ".text": 324
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\mbed_overrides.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 22
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\pinmap.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 628
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\rtc_api.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 36, 
+            ".text": 12
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\serial_api.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 261
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\sleep.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 146
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\stm_spi_api.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 866
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\us_ticker_32b.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 60, 
+            ".text": 94
+        }
+    }, 
+    {
+        "module": "source\\DHCP_ARP.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 1480, 
+            ".text": 2961
+        }
+    }, 
+    {
+        "module": "source\\Eth_IPv4.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 1612, 
+            ".text": 814
+        }
+    }, 
+    {
+        "module": "source\\HMI_telnet.o", 
+        "size": {
+            ".data": 108, 
+            ".bss": 125, 
+            ".text": 8433
+        }
+    }, 
+    {
+        "module": "source\\L1L2_radio.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 11507, 
+            ".text": 2323
+        }
+    }, 
+    {
+        "module": "source\\SI4463.o", 
+        "size": {
+            ".data": 32, 
+            ".bss": 401, 
+            ".text": 67266
+        }
+    }, 
+    {
+        "module": "source\\TDMA.o", 
+        "size": {
+            ".data": 4, 
+            ".bss": 267, 
+            ".text": 2212
+        }
+    }, 
+    {
+        "module": "source\\W5500.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 1604, 
+            ".text": 2238
+        }
+    }, 
+    {
+        "module": "source\\config_flash.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 264, 
+            ".text": 1434
+        }
+    }, 
+    {
+        "module": "source\\global_variables.o", 
+        "size": {
+            ".data": 515, 
+            ".bss": 25685, 
+            ".text": 140
+        }
+    }, 
+    {
+        "module": "source\\main.o", 
+        "size": {
+            ".data": 4, 
+            ".bss": 896, 
+            ".text": 1473
+        }
+    }, 
+    {
+        "module": "source\\signaling.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 372, 
+            ".text": 2752
+        }
+    }, 
+    {
+        "summary": {
+            "static_ram": 55832, 
+            "total_flash": 177037
+        }
+    }
+]

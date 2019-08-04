@@ -1,0 +1,172 @@
+// This file is part of "NPR70 modem firmware" software
+// (A GMSK data modem for ham radio 430-440MHz, at several hundreds of kbps) 
+// Copyright (c) 2017-2018 Guillaume F. F4HDK (amateur radio callsign)
+// 
+// "NPR70 modem firmware" is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// "NPR70 modem firmware" is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with "NPR70 modem firmware".  If not, see <http://www.gnu.org/licenses/>
+
+#include "SI4463.h"
+#include "W5500.h"
+#include "global_variables.h"
+
+SI4463_Chip* G_SI4463;
+W5500_chip* W5500_p1;
+
+#ifdef EXT_SRAM_USAGE
+ext_SRAM_chip* SPI_SRAM_p;
+#endif
+
+Serial pc(SERIAL_TX, SERIAL_RX);
+//DigitalOut* LED_connected_p;
+
+Timeout SI4463_prepa_TX_1_call;
+
+char HMI_out_str[100];
+
+unsigned int RX_FIFO_WR_point = 0;
+unsigned int RX_FIFO_RD_point = 0;
+unsigned int RX_FIFO_last_received = 0;
+unsigned char RX_FIFO_data[0x2000]; //8kB
+
+//unsigned int debug_counter = 0;
+int RX_Eth_IPv4_counter = 0;
+int TX_radio_IPv4_counter = 0;
+int RX_radio_IPv4_counter = 0;
+unsigned int RSSI_total_stat = 0;
+unsigned int RSSI_stat_pkt_nb = 0;
+
+
+int slave_new_burst_tx_pending = 0;
+
+//TXPS_FIFO_data 16ko 0x4000 without ext SRAM
+//TXPS_FIFO_data 4ko 0x1000 with ext SRAM
+#ifdef EXT_SRAM_USAGE
+static unsigned char TXPS_FIFO_data[0x4000]; 
+#else
+static unsigned char TXPS_FIFO_data[0x4000]; 
+#endif
+
+
+TX_buffer_struct TXPS_struct = {
+	0, // is_single; 
+	0, //WR_point;
+	0, //RD_point;
+	0, //last_ready;
+	TXPS_FIFO_data, //data (pointer)
+	TXPS_FIFO_mask // mask;
+}; 
+
+TX_buffer_struct* TXPS_FIFO = &TXPS_struct; 
+
+unsigned char TX_signaling_TDMA_frame[300]; // STATIC
+
+TX_buffer_struct TX_signaling_TDMA_struct = {
+	1, // is_single; 
+	0, //WR_point;
+	0, //RD_point;
+	0, //last_ready;
+	TX_signaling_TDMA_frame, //data (pointer)
+	0xFFFF // mask;
+}; 
+
+TX_buffer_struct* TX_signaling_TDMA = &TX_signaling_TDMA_struct; 
+
+unsigned char is_TDMA_master = 0; //truc
+unsigned char is_telnet_active = 1;
+unsigned char is_telnet_routed = 0;
+unsigned char CONF_radio_modulation;
+unsigned char CONF_radio_frequency;
+unsigned char CONF_frequency_band;
+unsigned char CONF_radio_network_ID;
+unsigned int CONF_TDMA_frame_duration = 65000; // 
+unsigned int CONF_TDMA_slot_duration = 3360;
+unsigned int CONF_reduced_TDMA_slot_duration = 2360;
+unsigned int CONF_TDMA_slot_margin = 300;
+unsigned int CONF_TR_margain = 500;
+unsigned int CONF_TA_margain = 2000;
+unsigned int CONF_preamble_duration_for_decide = 590;
+unsigned int CONF_long_preamble_duration_for_TA = 1000;
+unsigned int CONF_byte_duration = 8;
+unsigned int CONF_additional_preamble = 700;
+unsigned long int CONF_radio_timeout = 30000000;
+unsigned long int CONF_radio_timeout_small = 10000000;
+unsigned int offset_time_TX_slave = 48000; 
+unsigned int time_next_TX_slave;
+unsigned int time_max_TX_burst = 45000;//47000
+int CONF_delay_prepTX1_2_TX = 1030;
+unsigned char my_radio_client_ID = 0xFE;
+int CONF_Tx_rframe_timeout = 30;//unit 1/65000 th of a second
+int CONF_signaling_period = 1;
+
+Timer GLOBAL_timer;
+
+LAN_conf_T LAN_conf_saved;
+LAN_conf_T LAN_conf_applied; 
+
+unsigned char CONF_modem_MAC[6]; 
+
+char CONF_radio_my_callsign[16];
+char CONF_radio_master_callsign[16];
+unsigned long int CONF_radio_addr_table_IP_begin[radio_addr_table_size];
+unsigned long int CONF_radio_addr_table_IP_size[radio_addr_table_size];
+char CONF_radio_addr_table_callsign[radio_addr_table_size][16];
+char CONF_radio_addr_table_status[radio_addr_table_size];
+unsigned int CONF_radio_addr_table_date[radio_addr_table_size];
+unsigned long int CONF_radio_IP_start;
+unsigned long int CONF_radio_IP_size;
+unsigned int my_client_radio_connexion_state;
+unsigned int my_client_radio_connexion_date;
+unsigned char G_connect_rejection_reason;
+int G_temperature_SI4463;
+int G_need_temperature_check = 0;
+unsigned long int CONF_radio_IP_size_requested;
+unsigned char CONF_radio_static_IP_requested;
+unsigned char CONF_radio_state_ON_OFF = 0;
+unsigned char CONF_radio_default_state_ON_OFF;
+unsigned char CONF_radio_PA_PWR = 0x7F;
+unsigned char CONF_preamble_TX_long;
+unsigned char CONF_preamble_TX_short;
+unsigned long int last_rframe_seen = 0;
+
+long int TDMA_table_TA[radio_addr_table_size];
+
+unsigned short int G_downlink_RSSI; 
+unsigned short int G_radio_addr_table_RSSI[radio_addr_table_size]; 
+unsigned short int G_downlink_BER; 
+unsigned short int G_radio_addr_table_BER[radio_addr_table_size]; 
+short int G_downlink_TA; 
+int G_downlink_bandwidth_temp;
+int G_uplink_bandwidth_temp;
+
+int super_debug = 0;
+
+unsigned char parity_bit_elab[128] = {
+	0x00,0x80,0x80,0x00,0x80,0x00,0x00,0x80,0x80,0x00,0x00,0x80,0x00,0x80,0x80,0x00,
+	0x80,0x00,0x00,0x80,0x00,0x80,0x80,0x00,0x00,0x80,0x80,0x00,0x80,0x00,0x00,0x80,
+	0x80,0x00,0x00,0x80,0x00,0x80,0x80,0x00,0x00,0x80,0x80,0x00,0x80,0x00,0x00,0x80,
+	0x00,0x80,0x80,0x00,0x80,0x00,0x00,0x80,0x80,0x00,0x00,0x80,0x00,0x80,0x80,0x00,
+	0x80,0x00,0x00,0x80,0x00,0x80,0x80,0x00,0x00,0x80,0x80,0x00,0x80,0x00,0x00,0x80,
+	0x00,0x80,0x80,0x00,0x80,0x00,0x00,0x80,0x80,0x00,0x00,0x80,0x00,0x80,0x80,0x00,
+	0x00,0x80,0x80,0x00,0x80,0x00,0x00,0x80,0x80,0x00,0x00,0x80,0x00,0x80,0x80,0x00,
+	0x80,0x00,0x00,0x80,0x00,0x80,0x80,0x00,0x00,0x80,0x80,0x00,0x80,0x00,0x00,0x80
+};
+unsigned char parity_bit_check[256] = {
+	1,0,0,1,0,1,1,0,0,1,1,0,1,0,0,1,0,1,1,0,1,0,0,1,1,0,0,1,0,1,1,0,
+	0,1,1,0,1,0,0,1,1,0,0,1,0,1,1,0,1,0,0,1,0,1,1,0,0,1,1,0,1,0,0,1,
+	0,1,1,0,1,0,0,1,1,0,0,1,0,1,1,0,1,0,0,1,0,1,1,0,0,1,1,0,1,0,0,1,
+	1,0,0,1,0,1,1,0,0,1,1,0,1,0,0,1,0,1,1,0,1,0,0,1,1,0,0,1,0,1,1,0,
+	0,1,1,0,1,0,0,1,1,0,0,1,0,1,1,0,1,0,0,1,0,1,1,0,0,1,1,0,1,0,0,1,
+	1,0,0,1,0,1,1,0,0,1,1,0,1,0,0,1,0,1,1,0,1,0,0,1,1,0,0,1,0,1,1,0,
+	1,0,0,1,0,1,1,0,0,1,1,0,1,0,0,1,0,1,1,0,1,0,0,1,1,0,0,1,0,1,1,0,
+	0,1,1,0,1,0,0,1,1,0,0,1,0,1,1,0,1,0,0,1,0,1,1,0,0,1,1,0,1,0,0,1
+};

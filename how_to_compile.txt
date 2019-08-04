@@ -1,0 +1,2 @@
+The current code do not work well with makefile and GCC_ARM. Under investigation. 
+Please use "ARM Mbed CLI" instead (the offline toolchain for ARM Mbed). 
