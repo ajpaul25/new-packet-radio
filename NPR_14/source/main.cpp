@@ -32,6 +32,7 @@
 #include "ext_SRAM.h"
 #endif
 
+
 //Serial pc(SERIAL_TX, SERIAL_RX); // Nucleo
 //Serial pc(USBTX, USBRX); //NXP LPC1769
 
@@ -54,7 +55,7 @@ SPI spi_1(PA_7, PA_6, PA_5); // mosi, miso, sclk
 int main()
 {
     pc.baud(921600);
-    pc.printf("\r\n\r\nNPR FW 2019_06_16\r\n");
+    pc.printf("\r\n\r\nNPR FW %s\r\n", FW_VERSION);
 	
 	Timer slow_timer; 
 	int i = 1;

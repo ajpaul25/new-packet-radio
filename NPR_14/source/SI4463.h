@@ -82,6 +82,8 @@ void SI4463_set_TX_preamble_length (SI4463_Chip* SI4463, unsigned char preamble_
 
 int SI4463_read_temperature(SI4463_Chip* SI4463);
 
+int check_RSSI_without_packet (void);
+
 void SI4463_periodic_temperature_check(SI4463_Chip* SI4463);
 
 void SI4463_periodic_temperature_check_2(void); 
@@ -110,5 +112,8 @@ void RADIO_on(int need_disconnect, int need_radio_reconfigure, int HMI_output);
 void RADIO_off_if_necessary(int need_disconnect);
 void RADIO_restart_if_necessary(int need_disconnect, int need_radio_reconfigure, int HMI_output);
 void SI4432_TX_test(unsigned int req_duration);
+
+void SI4463_set_frequency(float freq_base, float freq_step);
+void RADIO_compute_freq_params();
 
 #endif

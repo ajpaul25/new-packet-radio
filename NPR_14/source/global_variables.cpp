@@ -31,7 +31,7 @@ Serial pc(SERIAL_TX, SERIAL_RX);
 
 Timeout SI4463_prepa_TX_1_call;
 
-char HMI_out_str[100];
+char HMI_out_str[120];
 
 unsigned int RX_FIFO_WR_point = 0;
 unsigned int RX_FIFO_RD_point = 0;
@@ -88,6 +88,15 @@ unsigned char CONF_radio_modulation;
 unsigned char CONF_radio_frequency;
 unsigned char CONF_frequency_band;
 unsigned char CONF_radio_network_ID;
+unsigned short int CONF_frequency_HD;
+short int CONF_freq_shift=0;
+unsigned char CONF_channel_TX;
+unsigned char CONF_channel_RX;
+unsigned char CONF_SI4463_freq_conf_RX[15];
+unsigned char CONF_SI4463_freq_conf_TX[15];
+unsigned char CONF_transmission_method=0;
+unsigned char CONF_master_FDD=0;
+unsigned long int CONF_master_down_IP;
 unsigned int CONF_TDMA_frame_duration = 65000; // 
 unsigned int CONF_TDMA_slot_duration = 3360;
 unsigned int CONF_reduced_TDMA_slot_duration = 2360;

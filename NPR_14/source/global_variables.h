@@ -21,13 +21,33 @@
 #include "W5500.h"
 
 //#define EXT_SRAM_USAGE
+//#define FREQ_BAND_2M
 
 #ifdef EXT_SRAM_USAGE
 #include "ext_SRAM.h"
 extern ext_SRAM_chip* SPI_SRAM_p;
 #endif
 
-extern SI4463_Chip* G_SI4463;
+#ifdef FREQ_BAND_2M
+	#define CONF_DEF_FREQ 1000
+	#define FREQ_RANGE_MIN 144
+	#define FREQ_RANGE_MAX 148
+	#define FREQ_MAX_RAW 4000
+	#define FREQ_BAND "2m"
+	#define SI4463_NOUTDIV 24
+#else 
+	//420 - 450MHz
+	#define CONF_DEF_FREQ 17000
+	#define FREQ_RANGE_MIN 420
+	#define FREQ_RANGE_MAX 450
+	#define FREQ_MAX_RAW 30000
+	#define FREQ_BAND "70cm"
+	#define SI4463_NOUTDIV 8
+#endif
+
+#define FW_VERSION "2019_09_15"
+
+extern SI4463_Chip* G_SI4463; 
 
 extern W5500_chip* W5500_p1;
 
@@ -52,7 +72,7 @@ extern TX_buffer_struct* TXPS_FIFO;
 
 extern TX_buffer_struct* TX_signaling_TDMA;
 
-extern char HMI_out_str[100];
+extern char HMI_out_str[120];
 
 // RX FIFO (RX from radio)
 extern unsigned int RX_FIFO_WR_point;
@@ -90,6 +110,15 @@ extern unsigned char CONF_radio_modulation;
 extern unsigned char CONF_radio_frequency;
 extern unsigned char CONF_frequency_band;
 extern unsigned char CONF_radio_network_ID;
+extern unsigned short int CONF_frequency_HD;
+extern short int CONF_freq_shift;
+extern unsigned char CONF_channel_TX;
+extern unsigned char CONF_channel_RX;
+extern unsigned char CONF_SI4463_freq_conf_RX[15];
+extern unsigned char CONF_SI4463_freq_conf_TX[15];
+extern unsigned char CONF_transmission_method;
+extern unsigned char CONF_master_FDD;
+extern unsigned long int CONF_master_down_IP;
 extern unsigned int CONF_TDMA_frame_duration;
 extern unsigned int CONF_TDMA_slot_duration;
 extern unsigned int CONF_reduced_TDMA_slot_duration;

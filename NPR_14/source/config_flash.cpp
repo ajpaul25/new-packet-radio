@@ -210,13 +210,21 @@ void apply_config_from_raw_string(unsigned char* data_r) {
 	CONF_radio_default_state_ON_OFF = data_r[60];
 	CONF_radio_PA_PWR = data_r[61];
 	
+	CONF_frequency_HD = ((data_r[64]) <<8 ) | data_r[65];
+	if ( (CONF_frequency_HD == 0x0000) || (CONF_frequency_HD > FREQ_MAX_RAW) ) {
+		CONF_frequency_HD = CONF_DEF_FREQ; // force to default frequency
+	}
+	CONF_freq_shift = ((data_r[66]) <<8) | data_r[67];
+	CONF_transmission_method = data_r[68];
+	CONF_master_FDD = data_r[69];
+	CONF_master_down_IP = IP_char2int(data_r+70);
+	
 	if (LAN_conf_applied.DHCP_server_active == 1) {
 		LAN_conf_applied.DHCP_range_start = CONF_radio_IP_start;
 		LAN_conf_applied.DHCP_range_size = CONF_radio_IP_size_requested;
 		
 	}
-		
-	/// !!! missing static client entries
+	
 }
 
 void write_config_to_raw_string (unsigned char* data_r) {
@@ -252,4 +260,12 @@ void write_config_to_raw_string (unsigned char* data_r) {
 	data_r[59] = CONF_modem_MAC[5];
 	data_r[60] = CONF_radio_default_state_ON_OFF;
 	data_r[61] = CONF_radio_PA_PWR;
+	
+	data_r[64] = (CONF_frequency_HD & 0xFF00)>>8;
+	data_r[65] = (CONF_frequency_HD & 0x00FF);
+	data_r[66] = (CONF_freq_shift & 0xFF00)>>8;
+	data_r[67] = (CONF_freq_shift & 0x00FF);
+	data_r[68] = CONF_transmission_method;
+	data_r[69] = CONF_master_FDD;
+	IP_int2char(CONF_master_down_IP, data_r+70);
 }

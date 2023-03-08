@@ -5348,6 +5348,8 @@ Discarded input sections
                 0x00000000       0x5c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
  .text._Z16SI4463_FIFO_readP11SI4463_ChipPhi
                 0x00000000       0x50 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+ .text._Z13SI4463_TX_HOPv
+                0x00000000       0x38 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
  .text._ZN4mbed8CallbackIFvvEED2Ev
                 0x00000000       0x10 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
  .text._ZN4mbed6TickerD2Ev
@@ -6183,7 +6185,7 @@ END GROUP
 LOAD c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crtend.o
 LOAD c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crtn.o
 
-.text           0x08000000    0x2a5e0
+.text           0x08000000    0x2a830
  *(.isr_vector)
  .isr_vector    0x08000000      0x18c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/device/TOOLCHAIN_GCC_ARM/startup_stm32l432xx.o
                 0x08000000                g_pfnVectors
@@ -7763,789 +7765,797 @@ LOAD c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm
  .text._Z11HMI_TX_testPc
                 0x08008c04       0xd0 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
                 0x08008c04                HMI_TX_test(char*)
- *fill*         0x08008cd4        0x4 
  .text._Z18HMI_display_configv
-                0x08008cd8      0x2a4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
-                0x08008cd8                HMI_display_config()
+                0x08008cd4      0x29c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
+                0x08008cd4                HMI_display_config()
  .text._Z10HMI_str2IPPc
-                0x08008f7c       0x6c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
-                0x08008f7c                HMI_str2IP(char*)
+                0x08008f70       0x6c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
+                0x08008f70                HMI_str2IP(char*)
  .text._Z15HMI_yes_no_2intPc
-                0x08008fe8       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
-                0x08008fe8                HMI_yes_no_2int(char*)
- *fill*         0x08009024        0x4 
+                0x08008fdc       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
+                0x08008fdc                HMI_yes_no_2int(char*)
  .text._Z15HMI_set_commandPcS_
-                0x08009028      0x5e4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
-                0x08009028                HMI_set_command(char*, char*)
+                0x08009018      0x5f8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
+                0x08009018                HMI_set_command(char*, char*)
  .text._Z13HMI_print_whov
-                0x0800960c      0x21c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
-                0x0800960c                HMI_print_who()
+                0x08009610      0x21c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
+                0x08009610                HMI_print_who()
+ *fill*         0x0800982c        0x4 
  .text._Z16HMI_print_statusv
-                0x08009828      0x2e4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
-                0x08009828                HMI_print_status()
+                0x08009830      0x320 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
+                0x08009830                HMI_print_status()
  .text._Z17HMI_periodic_callv
-                0x08009b0c       0x34 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
-                0x08009b0c                HMI_periodic_call()
+                0x08009b50       0x34 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
+                0x08009b50                HMI_periodic_call()
  .text._Z14HMI_line_parsePci
-                0x08009b40      0x234 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
-                0x08009b40                HMI_line_parse(char*, int)
+                0x08009b84      0x260 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
+                0x08009b84                HMI_line_parse(char*, int)
  .text._Z11telnet_loopP10W5500_chip
-                0x08009d74      0x2e4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
-                0x08009d74                telnet_loop(W5500_chip*)
+                0x08009de4      0x2e4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
+                0x08009de4                telnet_loop(W5500_chip*)
  .text._Z16serial_term_loopv
-                0x0800a058       0xd0 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
-                0x0800a058                serial_term_loop()
+                0x0800a0c8       0xd0 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
+                0x0800a0c8                serial_term_loop()
  .text._Z10FEC_encodePhP16TX_buffer_structi
-                0x0800a128      0x100 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/L1L2_radio.o
-                0x0800a128                FEC_encode(unsigned char*, TX_buffer_struct*, int)
+                0x0800a198      0x100 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/L1L2_radio.o
+                0x0800a198                FEC_encode(unsigned char*, TX_buffer_struct*, int)
  .text._Z10FEC_decodePhiPj
-                0x0800a228      0x210 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/L1L2_radio.o
-                0x0800a228                FEC_decode(unsigned char*, int, unsigned int*)
+                0x0800a298      0x210 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/L1L2_radio.o
+                0x0800a298                FEC_decode(unsigned char*, int, unsigned int*)
  .text._Z18size_w_FEC_computei
-                0x0800a438       0x18 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/L1L2_radio.o
-                0x0800a438                size_w_FEC_compute(int)
+                0x0800a4a8       0x18 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/L1L2_radio.o
+                0x0800a4a8                size_w_FEC_compute(int)
  .text._Z16segment_and_pushPhihh
-                0x0800a450      0x1b8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/L1L2_radio.o
-                0x0800a450                segment_and_push(unsigned char*, int, unsigned char, unsigned char)
+                0x0800a4c0      0x1b8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/L1L2_radio.o
+                0x0800a4c0                segment_and_push(unsigned char*, int, unsigned char, unsigned char)
  .text._Z19radio_flush_TX_FIFOv
-                0x0800a608       0x14 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/L1L2_radio.o
-                0x0800a608                radio_flush_TX_FIFO()
- *fill*         0x0800a61c        0x4 
+                0x0800a678       0x14 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/L1L2_radio.o
+                0x0800a678                radio_flush_TX_FIFO()
+ *fill*         0x0800a68c        0x4 
  .text._Z19radio_save_RSSI_BERhhhj
-                0x0800a620      0x120 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/L1L2_radio.o
-                0x0800a620                radio_save_RSSI_BER(unsigned char, unsigned char, unsigned char, unsigned int)
+                0x0800a690      0x120 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/L1L2_radio.o
+                0x0800a690                radio_save_RSSI_BER(unsigned char, unsigned char, unsigned char, unsigned int)
  .text._Z21radio_RX_FIFO_dequeueP10W5500_chip
-                0x0800a740      0x29c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/L1L2_radio.o
-                0x0800a740                radio_RX_FIFO_dequeue(W5500_chip*)
+                0x0800a7b0      0x29c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/L1L2_radio.o
+                0x0800a7b0                radio_RX_FIFO_dequeue(W5500_chip*)
  .text.unlikely.__NVIC_SystemReset
-                0x0800a9dc       0x24 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0800aa4c       0x24 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
  .text._ZN4mbed7TimeoutC2Ev
-                0x0800aa00       0x30 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0800aa00                mbed::Timeout::Timeout()
-                0x0800aa00                mbed::Timeout::Timeout()
+                0x0800aa70       0x30 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0800aa70                mbed::Timeout::Timeout()
+                0x0800aa70                mbed::Timeout::Timeout()
  .text._Z19SI4463_send_commandP11SI4463_ChipPhi
-                0x0800aa30       0x2c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0800aa30                SI4463_send_command(SI4463_Chip*, unsigned char*, int)
+                0x0800aaa0       0x2c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0800aaa0                SI4463_send_command(SI4463_Chip*, unsigned char*, int)
  .text._Z22SI4463_CTS_read_answerP11SI4463_ChipPhii
-                0x0800aa5c       0xae ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0800aa5c                SI4463_CTS_read_answer(SI4463_Chip*, unsigned char*, int, int)
- *fill*         0x0800ab0a        0x2 
+                0x0800aacc       0xae ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0800aacc                SI4463_CTS_read_answer(SI4463_Chip*, unsigned char*, int, int)
+ *fill*         0x0800ab7a        0x2 
  .text._Z23SI4463_configure_from_hP11SI4463_ChipPh
-                0x0800ab0c      0x2b8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0800ab0c                SI4463_configure_from_h(SI4463_Chip*, unsigned char*)
+                0x0800ab7c      0x22c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0800ab7c                SI4463_configure_from_h(SI4463_Chip*, unsigned char*)
  .text._Z24SI4463_configure_from_20P11SI4463_Chip
-                0x0800adc4     0x1adc ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0800adc4                SI4463_configure_from_20(SI4463_Chip*)
+                0x0800ada8     0x1ae0 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0800ada8                SI4463_configure_from_20(SI4463_Chip*)
  .text._Z24SI4463_configure_from_11P11SI4463_Chip
-                0x0800c8a0     0x1b0c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0800c8a0                SI4463_configure_from_11(SI4463_Chip*)
+                0x0800c888     0x1ac0 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0800c888                SI4463_configure_from_11(SI4463_Chip*)
  .text._Z24SI4463_configure_from_21P11SI4463_Chip
-                0x0800e3ac     0x1afc ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0800e3ac                SI4463_configure_from_21(SI4463_Chip*)
+                0x0800e348     0x1ac8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0800e348                SI4463_configure_from_21(SI4463_Chip*)
  .text._Z24SI4463_configure_from_12P11SI4463_Chip
-                0x0800fea8     0x1b14 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0800fea8                SI4463_configure_from_12(SI4463_Chip*)
+                0x0800fe10     0x1ac4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0800fe10                SI4463_configure_from_12(SI4463_Chip*)
  .text._Z24SI4463_configure_from_22P11SI4463_Chip
-                0x080119bc     0x1b28 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x080119bc                SI4463_configure_from_22(SI4463_Chip*)
+                0x080118d4     0x1ae4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x080118d4                SI4463_configure_from_22(SI4463_Chip*)
  .text._Z24SI4463_configure_from_13P11SI4463_Chip
-                0x080134e4     0x1aec ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x080134e4                SI4463_configure_from_13(SI4463_Chip*)
+                0x080133b8     0x1afc ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x080133b8                SI4463_configure_from_13(SI4463_Chip*)
  .text._Z24SI4463_configure_from_23P11SI4463_Chip
-                0x08014fd0     0x1aa8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x08014fd0                SI4463_configure_from_23(SI4463_Chip*)
+                0x08014eb4     0x1aa4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x08014eb4                SI4463_configure_from_23(SI4463_Chip*)
  .text._Z24SI4463_configure_from_14P11SI4463_Chip
-                0x08016a78     0x1ac0 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x08016a78                SI4463_configure_from_14(SI4463_Chip*)
+                0x08016958     0x1a94 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x08016958                SI4463_configure_from_14(SI4463_Chip*)
  .text._Z24SI4463_configure_from_24P11SI4463_Chip
-                0x08018538     0x1a94 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x08018538                SI4463_configure_from_24(SI4463_Chip*)
+                0x080183ec     0x1aa0 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x080183ec                SI4463_configure_from_24(SI4463_Chip*)
  .text._Z16SI4463_set_powerP11SI4463_Chip
-                0x08019fcc       0x58 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x08019fcc                SI4463_set_power(SI4463_Chip*)
+                0x08019e8c       0x58 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x08019e8c                SI4463_set_power(SI4463_Chip*)
  .text._Z20SI4463_print_versionP11SI4463_Chip
-                0x0801a024       0xa8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a024                SI4463_print_version(SI4463_Chip*)
+                0x08019ee4       0xa8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x08019ee4                SI4463_print_version(SI4463_Chip*)
  .text._Z18SI4463_FIFO_statusP11SI4463_ChipPiS1_i
-                0x0801a0cc       0x42 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a0cc                SI4463_FIFO_status(SI4463_Chip*, int*, int*, int)
+                0x08019f8c       0x42 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x08019f8c                SI4463_FIFO_status(SI4463_Chip*, int*, int*, int)
  .text._Z19SI4463_change_stateP11SI4463_Chiph
-                0x0801a10e       0x26 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a10e                SI4463_change_state(SI4463_Chip*, unsigned char)
+                0x08019fce       0x26 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x08019fce                SI4463_change_state(SI4463_Chip*, unsigned char)
  .text._Z15SI4463_start_RXP11SI4463_Chiph
-                0x0801a134       0x24 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a134                SI4463_start_RX(SI4463_Chip*, unsigned char)
+                0x08019ff4       0x24 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x08019ff4                SI4463_start_RX(SI4463_Chip*, unsigned char)
  .text._Z15SI4463_start_TXP11SI4463_Chiphj
-                0x0801a158       0x18 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a158                SI4463_start_TX(SI4463_Chip*, unsigned char, unsigned int)
+                0x0801a018       0x18 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a018                SI4463_start_TX(SI4463_Chip*, unsigned char, unsigned int)
  .text._Z15SI4463_read_FRRP11SI4463_ChipPh
-                0x0801a170       0x4a ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a170                SI4463_read_FRR(SI4463_Chip*, unsigned char*)
+                0x0801a030       0x4a ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a030                SI4463_read_FRR(SI4463_Chip*, unsigned char*)
  .text._Z16SI4463_get_stateP11SI4463_Chip
-                0x0801a1ba       0x26 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a1ba                SI4463_get_state(SI4463_Chip*)
+                0x0801a07a       0x26 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a07a                SI4463_get_state(SI4463_Chip*)
  .text._Z15SI4463_clear_ITP11SI4463_Chiphh
-                0x0801a1e0       0x24 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a1e0                SI4463_clear_IT(SI4463_Chip*, unsigned char, unsigned char)
+                0x0801a0a0       0x24 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a0a0                SI4463_clear_IT(SI4463_Chip*, unsigned char, unsigned char)
  .text._Z29SI4463_set_TX_preamble_lengthP11SI4463_Chiph
-                0x0801a204       0x4c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a204                SI4463_set_TX_preamble_length(SI4463_Chip*, unsigned char)
+                0x0801a0c4       0x4c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a0c4                SI4463_set_TX_preamble_length(SI4463_Chip*, unsigned char)
  .text._Z23SI4463_read_temperatureP11SI4463_Chip
-                0x0801a250       0x88 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a250                SI4463_read_temperature(SI4463_Chip*)
+                0x0801a110       0x88 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a110                SI4463_read_temperature(SI4463_Chip*)
  .text._Z23SI4463_FIFO_RX_transferj
-                0x0801a2d8       0x8c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a2d8                SI4463_FIFO_RX_transfer(unsigned int)
+                0x0801a198       0x8c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a198                SI4463_FIFO_RX_transfer(unsigned int)
  .text._Z23SI4463_FIFO_TX_transferj
-                0x0801a364       0xe8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a364                SI4463_FIFO_TX_transfer(unsigned int)
+                0x0801a224       0xe8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a224                SI4463_FIFO_TX_transfer(unsigned int)
+ .text._Z13SI4463_RX_HOPv
+                0x0801a30c       0x38 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a30c                SI4463_RX_HOP()
  .text._Z12SI4463_RX_ITv
-                0x0801a44c      0x248 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a44c                SI4463_RX_IT()
+                0x0801a344      0x248 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a344                SI4463_RX_IT()
  .text._Z22Radio_purge_old_framesP16TX_buffer_struct
-                0x0801a694       0x44 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a694                Radio_purge_old_frames(TX_buffer_struct*)
+                0x0801a58c       0x44 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a58c                Radio_purge_old_frames(TX_buffer_struct*)
  .text._Z19SI4463_TX_new_frameh
-                0x0801a6d8       0x7c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a6d8                SI4463_TX_new_frame(unsigned char)
- .text._Z20SI4463_configure_allv
-                0x0801a754       0xc0 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a754                SI4463_configure_all()
- .text._Z33SI4463_periodic_temperature_checkP11SI4463_Chip
-                0x0801a814       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a814                SI4463_periodic_temperature_check(SI4463_Chip*)
- .text._Z35SI4463_periodic_temperature_check_2v
-                0x0801a850       0xd8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a850                SI4463_periodic_temperature_check_2()
+                0x0801a5d0       0x7c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a5d0                SI4463_TX_new_frame(unsigned char)
  .text._Z9RADIO_offi
-                0x0801a928       0x9c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a928                RADIO_off(int)
+                0x0801a64c       0x9c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a64c                RADIO_off(int)
  .text._Z22RADIO_off_if_necessaryi
-                0x0801a9c4       0x20 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a9c4                RADIO_off_if_necessary(int)
+                0x0801a6e8       0x20 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a6e8                RADIO_off_if_necessary(int)
  .text._Z14SI4432_TX_testj
-                0x0801a9e4       0x4c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801a9e4                SI4432_TX_test(unsigned int)
+                0x0801a708       0x4c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a708                SI4432_TX_test(unsigned int)
+ .text._Z20SI4463_set_frequencyff
+                0x0801a754       0xd8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a754                SI4463_set_frequency(float, float)
+ .text._Z25RADIO_compute_freq_paramsv
+                0x0801a82c      0x158 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a82c                RADIO_compute_freq_params()
+ .text._Z20SI4463_configure_allv
+                0x0801a984       0xc8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801a984                SI4463_configure_all()
+ .text._Z33SI4463_periodic_temperature_checkP11SI4463_Chip
+                0x0801aa4c       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801aa4c                SI4463_periodic_temperature_check(SI4463_Chip*)
+ .text._Z35SI4463_periodic_temperature_check_2v
+                0x0801aa88       0xd8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801aa88                SI4463_periodic_temperature_check_2()
  .text._ZN4mbed6Ticker9attach_usENS_8CallbackIFvvEEEy
-                0x0801aa30       0x52 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801aa30                mbed::Ticker::attach_us(mbed::Callback<void ()>, unsigned long long)
- *fill*         0x0801aa82        0x2 
+                0x0801ab60       0x52 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801ab60                mbed::Ticker::attach_us(mbed::Callback<void ()>, unsigned long long)
+ *fill*         0x0801abb2        0x2 
  .text._ZN4mbed8CallbackIFvvEE8generateIPS1_EEvRKT_
-                0x0801aa84       0x20 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801aa84                void mbed::Callback<void ()>::generate<void (*)()>(void (* const&)())
+                0x0801abb4       0x20 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801abb4                void mbed::Callback<void ()>::generate<void (*)()>(void (* const&)())
  .text._Z17SI4463_prepa_TX_1v
-                0x0801aaa4       0xc0 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801aaa4                SI4463_prepa_TX_1()
+                0x0801abd4       0xc0 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801abd4                SI4463_prepa_TX_1()
  .text._Z17SI4463_RX_timeoutv
-                0x0801ab64       0x30 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801ab64                SI4463_RX_timeout()
+                0x0801ac94       0x30 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801ac94                SI4463_RX_timeout()
  .text._Z17SI4463_prepa_TX_2v
-                0x0801ab94       0xc4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801ab94                SI4463_prepa_TX_2()
+                0x0801acc4       0xc4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801acc4                SI4463_prepa_TX_2()
  .text._Z26SI4463_TX_to_RX_transitionv
-                0x0801ac58       0xb0 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801ac58                SI4463_TX_to_RX_transition()
+                0x0801ad88       0xb4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801ad88                SI4463_TX_to_RX_transition()
  .text._Z27SI4463_decide_new_TX_or_notv
-                0x0801ad08      0x108 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801ad08                SI4463_decide_new_TX_or_not()
+                0x0801ae3c      0x108 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801ae3c                SI4463_decide_new_TX_or_not()
  .text._Z15SI4463_HW_TX_ITv
-                0x0801ae10       0xa0 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801ae10                SI4463_HW_TX_IT()
+                0x0801af44       0xa0 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801af44                SI4463_HW_TX_IT()
  .text._Z19SI4463_HW_interruptv
-                0x0801aeb0       0x34 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801aeb0                SI4463_HW_interrupt()
+                0x0801afe4       0x34 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801afe4                SI4463_HW_interrupt()
  .text._Z18SI4463_radio_startv
-                0x0801aee4       0x58 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801aee4                SI4463_radio_start()
+                0x0801b018       0x58 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801b018                SI4463_radio_start()
  .text._Z8RADIO_oniii
-                0x0801af3c       0x94 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801af3c                RADIO_on(int, int, int)
+                0x0801b070       0x94 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801b070                RADIO_on(int, int, int)
  .text._Z26RADIO_restart_if_necessaryiii
-                0x0801afd0       0x14 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
-                0x0801afd0                RADIO_restart_if_necessary(int, int, int)
+                0x0801b104       0x14 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801b104                RADIO_restart_if_necessary(int, int, int)
  .text.startup._GLOBAL__sub_I_SI4463_prepa_TX_2_call
-                0x0801afe4       0x54 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0801b118       0x54 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
  .text._Z13TDMA_init_allv
-                0x0801b038       0x30 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
-                0x0801b038                TDMA_init_all()
+                0x0801b16c       0x30 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
+                0x0801b16c                TDMA_init_all()
  .text._Z21TDMA_byte_elaborationh
-                0x0801b068       0x5c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
-                0x0801b068                TDMA_byte_elaboration(unsigned char)
- *fill*         0x0801b0c4        0x4 
+                0x0801b19c       0x5c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
+                0x0801b19c                TDMA_byte_elaboration(unsigned char)
  .text._Z28TDMA_TA_measure_single_framejhhi
-                0x0801b0c8       0xf8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
-                0x0801b0c8                TDMA_TA_measure_single_frame(unsigned int, unsigned char, unsigned char, int)
+                0x0801b1f8       0xf8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
+                0x0801b1f8                TDMA_TA_measure_single_frame(unsigned int, unsigned char, unsigned char, int)
  .text._Z12TDMA_init_TAhi
-                0x0801b1c0       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
-                0x0801b1c0                TDMA_init_TA(unsigned char, int)
+                0x0801b2f0       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
+                0x0801b2f0                TDMA_init_TA(unsigned char, int)
  .text._Z16TDMA_top_measurev
-                0x0801b1dc       0x18 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
-                0x0801b1dc                TDMA_top_measure()
+                0x0801b30c       0x18 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
+                0x0801b30c                TDMA_top_measure()
  .text._Z27TDMA_master_allocation_slowv
-                0x0801b1f4       0x48 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
-                0x0801b1f4                TDMA_master_allocation_slow()
+                0x0801b324       0x48 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
+                0x0801b324                TDMA_master_allocation_slow()
  .text._Z22TDMA_master_allocationv
-                0x0801b23c      0x370 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
-                0x0801b23c                TDMA_master_allocation()
+                0x0801b36c      0x370 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
+                0x0801b36c                TDMA_master_allocation()
  .text._Z20TDMA_NULL_frame_initi
-                0x0801b5ac       0x54 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
-                0x0801b5ac                TDMA_NULL_frame_init(int)
+                0x0801b6dc       0x54 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
+                0x0801b6dc                TDMA_NULL_frame_init(int)
  .text._Z29TDMA_slave_alloc_exploitationPhi
-                0x0801b600       0xc8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
-                0x0801b600                TDMA_slave_alloc_exploitation(unsigned char*, int)
+                0x0801b730       0xc8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
+                0x0801b730                TDMA_slave_alloc_exploitation(unsigned char*, int)
  .text._Z19TDMA_byte_RX_interphhhj
-                0x0801b6c8      0x124 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
-                0x0801b6c8                TDMA_byte_RX_interp(unsigned char, unsigned char, unsigned char, unsigned int)
+                0x0801b7f8      0x124 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
+                0x0801b7f8                TDMA_byte_RX_interp(unsigned char, unsigned char, unsigned char, unsigned int)
  .text._Z18TDMA_slave_timeoutv
-                0x0801b7ec       0xec ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
-                0x0801b7ec                TDMA_slave_timeout()
+                0x0801b91c       0xec ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
+                0x0801b91c                TDMA_slave_timeout()
  .text._Z15W5500_read_longP10W5500_chipjhPhi
-                0x0801b8d8       0x5e ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
-                0x0801b8d8                W5500_read_long(W5500_chip*, unsigned int, unsigned char, unsigned char*, int)
- *fill*         0x0801b936        0x2 
+                0x0801ba08       0x5e ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
+                0x0801ba08                W5500_read_long(W5500_chip*, unsigned int, unsigned char, unsigned char*, int)
+ *fill*         0x0801ba66        0x2 
  .text._Z16W5500_write_longP10W5500_chipjhPhi
-                0x0801b938       0x64 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
-                0x0801b938                W5500_write_long(W5500_chip*, unsigned int, unsigned char, unsigned char*, int)
+                0x0801ba68       0x64 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
+                0x0801ba68                W5500_write_long(W5500_chip*, unsigned int, unsigned char, unsigned char*, int)
  .text._Z16W5500_read_shortP10W5500_chipjhPhi
-                0x0801b99c       0x5c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
-                0x0801b99c                W5500_read_short(W5500_chip*, unsigned int, unsigned char, unsigned char*, int)
+                0x0801bacc       0x5c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
+                0x0801bacc                W5500_read_short(W5500_chip*, unsigned int, unsigned char, unsigned char*, int)
  .text._Z17W5500_write_shortP10W5500_chipjhPhi
-                0x0801b9f8       0x5e ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
-                0x0801b9f8                W5500_write_short(W5500_chip*, unsigned int, unsigned char, unsigned char*, int)
+                0x0801bb28       0x5e ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
+                0x0801bb28                W5500_write_short(W5500_chip*, unsigned int, unsigned char, unsigned char*, int)
  .text._Z15W5500_read_byteP10W5500_chipjh
-                0x0801ba56       0x44 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
-                0x0801ba56                W5500_read_byte(W5500_chip*, unsigned int, unsigned char)
+                0x0801bb86       0x44 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
+                0x0801bb86                W5500_read_byte(W5500_chip*, unsigned int, unsigned char)
  .text._Z16W5500_write_byteP10W5500_chipjhh
-                0x0801ba9a       0x4e ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
-                0x0801ba9a                W5500_write_byte(W5500_chip*, unsigned int, unsigned char, unsigned char)
+                0x0801bbca       0x4e ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
+                0x0801bbca                W5500_write_byte(W5500_chip*, unsigned int, unsigned char, unsigned char)
  .text._Z24W5500_read_received_sizeP10W5500_chipi
-                0x0801bae8       0x3a ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
-                0x0801bae8                W5500_read_received_size(W5500_chip*, int)
+                0x0801bc18       0x3a ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
+                0x0801bc18                W5500_read_received_size(W5500_chip*, int)
  .text._Z20W5500_read_RX_bufferP10W5500_chipiPhi
-                0x0801bb22       0x7a ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
-                0x0801bb22                W5500_read_RX_buffer(W5500_chip*, int, unsigned char*, int)
+                0x0801bc52       0x7a ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
+                0x0801bc52                W5500_read_RX_buffer(W5500_chip*, int, unsigned char*, int)
  .text._Z19W5500_read_UDP_pcktP10W5500_chipiPh
-                0x0801bb9c       0xd0 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
-                0x0801bb9c                W5500_read_UDP_pckt(W5500_chip*, int, unsigned char*)
+                0x0801bccc       0xd0 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
+                0x0801bccc                W5500_read_UDP_pckt(W5500_chip*, int, unsigned char*)
  .text._Z19W5500_read_MAC_pcktP10W5500_chipiPh
-                0x0801bc6c       0xd2 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
-                0x0801bc6c                W5500_read_MAC_pckt(W5500_chip*, int, unsigned char*)
+                0x0801bd9c       0xd2 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
+                0x0801bd9c                W5500_read_MAC_pckt(W5500_chip*, int, unsigned char*)
  .text._Z21W5500_write_TX_bufferP10W5500_chipiPhii
-                0x0801bd3e       0x8e ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
-                0x0801bd3e                W5500_write_TX_buffer(W5500_chip*, int, unsigned char*, int, int)
+                0x0801be6e       0x8e ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
+                0x0801be6e                W5500_write_TX_buffer(W5500_chip*, int, unsigned char*, int, int)
  .text._Z18W5500_re_configurev
-                0x0801bdcc        0xc ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
-                0x0801bdcc                W5500_re_configure()
+                0x0801befc        0xc ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
+                0x0801befc                W5500_re_configure()
  .text._Z32W5500_re_configure_periodic_callP10W5500_chip
-                0x0801bdd8       0xac ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
-                0x0801bdd8                W5500_re_configure_periodic_call(W5500_chip*)
+                0x0801bf08       0xac ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
+                0x0801bf08                W5500_re_configure_periodic_call(W5500_chip*)
  .text._Z23W5500_initial_configureP10W5500_chip
-                0x0801be84      0x314 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
-                0x0801be84                W5500_initial_configure(W5500_chip*)
+                0x0801bfb4      0x314 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/W5500.o
+                0x0801bfb4                W5500_initial_configure(W5500_chip*)
  .text._Z16virt_EEPROM_readPh
-                0x0801c198       0x8c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
-                0x0801c198                virt_EEPROM_read(unsigned char*)
+                0x0801c2c8       0x8c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
+                0x0801c2c8                virt_EEPROM_read(unsigned char*)
  .text._Z17virt_EEPROM_writePhj
-                0x0801c224       0x90 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
-                0x0801c224                virt_EEPROM_write(unsigned char*, unsigned int)
+                0x0801c354       0x90 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
+                0x0801c354                virt_EEPROM_write(unsigned char*, unsigned int)
  .text._Z22virt_EEPROM_errase_allv
-                0x0801c2b4       0x30 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
-                0x0801c2b4                virt_EEPROM_errase_all()
+                0x0801c3e4       0x30 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
+                0x0801c3e4                virt_EEPROM_errase_all()
  .text._Z21NFPR_random_generatorPN4mbed8AnalogInE
-                0x0801c2e4       0x42 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
-                0x0801c2e4                NFPR_random_generator(mbed::AnalogIn*)
- *fill*         0x0801c326        0x2 
+                0x0801c414       0x42 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
+                0x0801c414                NFPR_random_generator(mbed::AnalogIn*)
+ *fill*         0x0801c456        0x2 
  .text._Z28apply_config_from_raw_stringPh
-                0x0801c328      0x178 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
-                0x0801c328                apply_config_from_raw_string(unsigned char*)
+                0x0801c458      0x1e0 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
+                0x0801c458                apply_config_from_raw_string(unsigned char*)
  .text._Z16NFPR_config_readPN4mbed8AnalogInE
-                0x0801c4a0      0x100 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
-                0x0801c4a0                NFPR_config_read(mbed::AnalogIn*)
+                0x0801c638      0x11c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
+                0x0801c638                NFPR_config_read(mbed::AnalogIn*)
  .text._Z26write_config_to_raw_stringPh
-                0x0801c5a0      0x110 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
-                0x0801c5a0                write_config_to_raw_string(unsigned char*)
+                0x0801c754      0x160 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
+                0x0801c754                write_config_to_raw_string(unsigned char*)
  .text._Z16NFPR_config_savev
-                0x0801c6b0       0x44 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
-                0x0801c6b0                NFPR_config_save()
+                0x0801c8b4       0x44 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
+                0x0801c8b4                NFPR_config_save()
  .text.startup._GLOBAL__sub_I_G_SI4463
-                0x0801c6f4       0x8c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x0801c8f8       0x8c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
  .text._ZN4mbed8AnalogInD2Ev
-                0x0801c780        0x2 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x0801c780                mbed::AnalogIn::~AnalogIn()
-                0x0801c780                mbed::AnalogIn::~AnalogIn()
+                0x0801c984        0x2 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x0801c984                mbed::AnalogIn::~AnalogIn()
+                0x0801c984                mbed::AnalogIn::~AnalogIn()
  .text._ZN4mbed8AnalogInD0Ev
-                0x0801c782        0xc ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x0801c782                mbed::AnalogIn::~AnalogIn()
+                0x0801c986        0xc ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x0801c986                mbed::AnalogIn::~AnalogIn()
  .text._ZN4mbed10DigitalOutC2E7PinName
-                0x0801c78e       0x1a ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x0801c78e                mbed::DigitalOut::DigitalOut(PinName)
-                0x0801c78e                mbed::DigitalOut::DigitalOut(PinName)
+                0x0801c992       0x1a ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x0801c992                mbed::DigitalOut::DigitalOut(PinName)
+                0x0801c992                mbed::DigitalOut::DigitalOut(PinName)
  .text.startup.main
-                0x0801c7a8      0x3f0 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x0801c7a8                main
+                0x0801c9ac      0x3f4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x0801c9ac                main
  .text._ZN4mbed8AnalogIn6unlockEv
-                0x0801cb98       0x14 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x0801cb98                mbed::AnalogIn::unlock()
+                0x0801cda0       0x14 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x0801cda0                mbed::AnalogIn::unlock()
  .text._ZN4mbed8AnalogIn4lockEv
-                0x0801cbac       0x18 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x0801cbac                mbed::AnalogIn::lock()
+                0x0801cdb4       0x18 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x0801cdb4                mbed::AnalogIn::lock()
  .text.startup._GLOBAL__sub_I_SI4463_SDN
-                0x0801cbc4      0x100 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x0801cdcc      0x100 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
  .text._Z25signaling_whois_interprethPhmmhts
-                0x0801ccc4       0xa4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
-                0x0801ccc4                signaling_whois_interpret(unsigned char, unsigned char*, unsigned long, unsigned long, unsigned char, unsigned short, short)
+                0x0801cecc       0xa4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x0801cecc                signaling_whois_interpret(unsigned char, unsigned char*, unsigned long, unsigned long, unsigned char, unsigned short, short)
  .text._Z26signaling_lookfor_IP_rangem
-                0x0801cd68       0xa4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
-                0x0801cd68                signaling_lookfor_IP_range(unsigned long)
+                0x0801cf70       0xa4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x0801cf70                signaling_lookfor_IP_range(unsigned long)
  .text._Z29signaling_connect_ACK_processPh
-                0x0801ce0c       0xe4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
-                0x0801ce0c                signaling_connect_ACK_process(unsigned char*)
+                0x0801d014       0xe4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x0801d014                signaling_connect_ACK_process(unsigned char*)
  .text._Z30signaling_connect_NACK_processh
-                0x0801cef0       0x20 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
-                0x0801cef0                signaling_connect_NACK_process(unsigned char)
+                0x0801d0f8       0x20 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x0801d0f8                signaling_connect_NACK_process(unsigned char)
  .text._Z32signaling_disconnect_ACK_processjPh
-                0x0801cf10       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
-                0x0801cf10                signaling_disconnect_ACK_process(unsigned int, unsigned char*)
+                0x0801d118       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x0801d118                signaling_disconnect_ACK_process(unsigned int, unsigned char*)
  .text._Z20signaling_frame_initv
-                0x0801cf2c       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
-                0x0801cf2c                signaling_frame_init()
+                0x0801d134       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x0801d134                signaling_frame_init()
  .text._Z20signaling_frame_pushv
-                0x0801cf68       0xd4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
-                0x0801cf68                signaling_frame_push()
+                0x0801d170       0xd4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x0801d170                signaling_frame_push()
  .text._Z22signaling_TX_add_entryPhi
-                0x0801d03c       0x44 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
-                0x0801d03c                signaling_TX_add_entry(unsigned char*, int)
+                0x0801d244       0x44 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x0801d244                signaling_TX_add_entry(unsigned char*, int)
  .text._Z25signaling_single_whois_TXhPcmmhts
-                0x0801d080       0x5c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
-                0x0801d080                signaling_single_whois_TX(unsigned char, char*, unsigned long, unsigned long, unsigned char, unsigned short, short)
+                0x0801d288       0x5c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x0801d288                signaling_single_whois_TX(unsigned char, char*, unsigned long, unsigned long, unsigned char, unsigned short, short)
  .text._Z18signaling_whois_TXv
-                0x0801d0dc       0xe4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
-                0x0801d0dc                signaling_whois_TX()
+                0x0801d2e4       0xe4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x0801d2e4                signaling_whois_TX()
  .text._Z29signaling_connect_req_processPhmhi
-                0x0801d1c0      0x1e8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
-                0x0801d1c0                signaling_connect_req_process(unsigned char*, unsigned long, unsigned char, int)
+                0x0801d3c8      0x1e8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x0801d3c8                signaling_connect_req_process(unsigned char*, unsigned long, unsigned char, int)
  .text._Z24signaling_connect_req_TXv
-                0x0801d3a8       0x48 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
-                0x0801d3a8                signaling_connect_req_TX()
+                0x0801d5b0       0x48 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x0801d5b0                signaling_connect_req_TX()
  .text._Z27signaling_disconnect_req_TXv
-                0x0801d3f0       0x38 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
-                0x0801d3f0                signaling_disconnect_req_TX()
+                0x0801d5f8       0x38 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x0801d5f8                signaling_disconnect_req_TX()
  .text._Z27signaling_disconnect_ACK_TXjPh
-                0x0801d428       0x28 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
-                0x0801d428                signaling_disconnect_ACK_TX(unsigned int, unsigned char*)
+                0x0801d630       0x28 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x0801d630                signaling_disconnect_ACK_TX(unsigned int, unsigned char*)
  .text._Z32signaling_disconnect_req_processjPh
-                0x0801d450       0x50 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
-                0x0801d450                signaling_disconnect_req_process(unsigned int, unsigned char*)
+                0x0801d658       0x50 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x0801d658                signaling_disconnect_req_process(unsigned int, unsigned char*)
  .text._Z28signaling_frame_exploitationPhii
-                0x0801d4a0      0x14c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
-                0x0801d4a0                signaling_frame_exploitation(unsigned char*, int, int)
+                0x0801d6a8      0x14c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x0801d6a8                signaling_frame_exploitation(unsigned char*, int, int)
  .text._Z23signaling_periodic_callv
-                0x0801d5ec      0x198 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
-                0x0801d5ec                signaling_periodic_call()
+                0x0801d7f4      0x198 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x0801d7f4                signaling_periodic_call()
  .text._calloc_r
-                0x0801d784       0x60 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-callocr.o)
-                0x0801d784                _calloc_r
- .text.__errno  0x0801d7e4        0xc c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-errno.o)
-                0x0801d7e4                __errno
+                0x0801d98c       0x60 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-callocr.o)
+                0x0801d98c                _calloc_r
+ .text.__errno  0x0801d9ec        0xc c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-errno.o)
+                0x0801d9ec                __errno
  .text._fclose_r
-                0x0801d7f0       0x84 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fclose.o)
-                0x0801d7f0                _fclose_r
- .text.fclose   0x0801d874       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fclose.o)
-                0x0801d874                fclose
+                0x0801d9f8       0x84 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fclose.o)
+                0x0801d9f8                _fclose_r
+ .text.fclose   0x0801da7c       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fclose.o)
+                0x0801da7c                fclose
  .text.__sflush_r
-                0x0801d884      0x148 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fflush.o)
-                0x0801d884                __sflush_r
+                0x0801da8c      0x148 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fflush.o)
+                0x0801da8c                __sflush_r
  .text._fflush_r
-                0x0801d9cc       0x2c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fflush.o)
-                0x0801d9cc                _fflush_r
- .text.fflush   0x0801d9f8       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fflush.o)
-                0x0801d9f8                fflush
+                0x0801dbd4       0x2c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fflush.o)
+                0x0801dbd4                _fflush_r
+ .text.fflush   0x0801dc00       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fflush.o)
+                0x0801dc00                fflush
  .text._cleanup_r
-                0x0801da1c        0xc c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-findfp.o)
-                0x0801da1c                _cleanup_r
+                0x0801dc24        0xc c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-findfp.o)
+                0x0801dc24                _cleanup_r
  .text.__sinit.part.1
-                0x0801da28       0xf0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-findfp.o)
+                0x0801dc30       0xf0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-findfp.o)
  .text.__sfmoreglue
-                0x0801db18       0x30 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-findfp.o)
-                0x0801db18                __sfmoreglue
- .text.__sfp    0x0801db48       0x88 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-findfp.o)
-                0x0801db48                __sfp
- .text.__sinit  0x0801dbd0        0xc c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-findfp.o)
-                0x0801dbd0                __sinit
+                0x0801dd20       0x30 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-findfp.o)
+                0x0801dd20                __sfmoreglue
+ .text.__sfp    0x0801dd50       0x88 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-findfp.o)
+                0x0801dd50                __sfp
+ .text.__sinit  0x0801ddd8        0xc c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-findfp.o)
+                0x0801ddd8                __sinit
  .text.__sfp_lock_acquire
-                0x0801dbdc        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-findfp.o)
-                0x0801dbdc                __sfp_lock_acquire
+                0x0801dde4        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-findfp.o)
+                0x0801dde4                __sfp_lock_acquire
  .text.__sfp_lock_release
-                0x0801dbe0        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-findfp.o)
-                0x0801dbe0                __sfp_lock_release
+                0x0801dde8        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-findfp.o)
+                0x0801dde8                __sfp_lock_release
  .text._fopen_r
-                0x0801dbe4       0x8c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fopen.o)
-                0x0801dbe4                _fopen_r
- .text.fopen    0x0801dc70       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fopen.o)
-                0x0801dc70                fopen
+                0x0801ddec       0x8c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fopen.o)
+                0x0801ddec                _fopen_r
+ .text.fopen    0x0801de78       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fopen.o)
+                0x0801de78                fopen
  .text._malloc_trim_r
-                0x0801dc80       0x9c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-freer.o)
-                0x0801dc80                _malloc_trim_r
- .text._free_r  0x0801dd1c      0x1d0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-freer.o)
-                0x0801dd1c                _free_r
+                0x0801de88       0x9c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-freer.o)
+                0x0801de88                _malloc_trim_r
+ .text._free_r  0x0801df24      0x1d0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-freer.o)
+                0x0801df24                _free_r
  .text._fseek_r
-                0x0801deec        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fseek.o)
-                0x0801deec                _fseek_r
+                0x0801e0f4        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fseek.o)
+                0x0801e0f4                _fseek_r
  .text._fseeko_r
-                0x0801def0      0x2c0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fseeko.o)
-                0x0801def0                _fseeko_r
+                0x0801e0f8      0x2c0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fseeko.o)
+                0x0801e0f8                _fseeko_r
  .text._fstat_r
-                0x0801e1b0       0x28 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fstatr.o)
-                0x0801e1b0                _fstat_r
+                0x0801e3b8       0x28 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fstatr.o)
+                0x0801e3b8                _fstat_r
  .text.__sfvwrite_r
-                0x0801e1d8      0x304 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fvwrite.o)
-                0x0801e1d8                __sfvwrite_r
- .text._fwalk   0x0801e4dc       0x4c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fwalk.o)
-                0x0801e4dc                _fwalk
+                0x0801e3e0      0x304 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fvwrite.o)
+                0x0801e3e0                __sfvwrite_r
+ .text._fwalk   0x0801e6e4       0x4c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fwalk.o)
+                0x0801e6e4                _fwalk
  .text._fwalk_reent
-                0x0801e528       0x54 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fwalk.o)
-                0x0801e528                _fwalk_reent
- .text.getc     0x0801e57c       0x3c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-getc.o)
-                0x0801e57c                getc
+                0x0801e730       0x54 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fwalk.o)
+                0x0801e730                _fwalk_reent
+ .text.getc     0x0801e784       0x3c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-getc.o)
+                0x0801e784                getc
  .text.__libc_init_array
-                0x0801e5b8       0x50 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-init.o)
-                0x0801e5b8                __libc_init_array
+                0x0801e7c0       0x50 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-init.o)
+                0x0801e7c0                __libc_init_array
  .text.__swhatbuf_r
-                0x0801e608       0x60 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-makebuf.o)
-                0x0801e608                __swhatbuf_r
+                0x0801e810       0x60 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-makebuf.o)
+                0x0801e810                __swhatbuf_r
  .text.__smakebuf_r
-                0x0801e668       0x88 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-makebuf.o)
-                0x0801e668                __smakebuf_r
- .text.malloc   0x0801e6f0       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-malloc.o)
-                0x0801e6f0                malloc
- .text.free     0x0801e700       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-malloc.o)
-                0x0801e700                free
+                0x0801e870       0x88 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-makebuf.o)
+                0x0801e870                __smakebuf_r
+ .text.malloc   0x0801e8f8       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-malloc.o)
+                0x0801e8f8                malloc
+ .text.free     0x0801e908       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-malloc.o)
+                0x0801e908                free
  .text._malloc_r
-                0x0801e710      0x570 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mallocr.o)
-                0x0801e710                _malloc_r
- .text          0x0801ec80       0xa0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-memchr.o)
-                0x0801ec80                memchr
- .text          0x0801ed20      0x134 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-memcpy.o)
-                0x0801ed20                memcpy
- .text.memmove  0x0801ee54       0xc8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-memmove.o)
-                0x0801ee54                memmove
- .text.memset   0x0801ef1c       0x9c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-memset.o)
-                0x0801ef1c                memset
- .text._open_r  0x0801efb8       0x2c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-openr.o)
-                0x0801efb8                _open_r
- .text.printf   0x0801efe4       0x28 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-printf.o)
-                0x0801efe4                printf
- .text.putc     0x0801f00c       0x4c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-putc.o)
-                0x0801f00c                putc
+                0x0801e918      0x570 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mallocr.o)
+                0x0801e918                _malloc_r
+ *fill*         0x0801ee88        0x8 
+ .text          0x0801ee90       0xa0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-memchr.o)
+                0x0801ee90                memchr
+ .text          0x0801ef30      0x134 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-memcpy.o)
+                0x0801ef30                memcpy
+ .text.memmove  0x0801f064       0xc8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-memmove.o)
+                0x0801f064                memmove
+ .text.memset   0x0801f12c       0x9c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-memset.o)
+                0x0801f12c                memset
+ .text._open_r  0x0801f1c8       0x2c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-openr.o)
+                0x0801f1c8                _open_r
+ .text.printf   0x0801f1f4       0x28 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-printf.o)
+                0x0801f1f4                printf
+ .text.putc     0x0801f21c       0x4c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-putc.o)
+                0x0801f21c                putc
  .text._realloc_r
-                0x0801f058      0x3e0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-reallocr.o)
-                0x0801f058                _realloc_r
- .text.lflush   0x0801f438       0x14 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-refill.o)
+                0x0801f268      0x3e0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-reallocr.o)
+                0x0801f268                _realloc_r
+ .text.lflush   0x0801f648       0x14 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-refill.o)
  .text.__srefill_r
-                0x0801f44c      0x114 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-refill.o)
-                0x0801f44c                __srefill_r
+                0x0801f65c      0x114 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-refill.o)
+                0x0801f65c                __srefill_r
  .text.__srget_r
-                0x0801f560       0x34 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-rget.o)
-                0x0801f560                __srget_r
- .text._sbrk_r  0x0801f594       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-sbrkr.o)
-                0x0801f594                _sbrk_r
- .text.setbuf   0x0801f5b8       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-setbuf.o)
-                0x0801f5b8                setbuf
- .text.setvbuf  0x0801f5c8      0x150 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-setvbuf.o)
-                0x0801f5c8                setvbuf
- .text.sprintf  0x0801f718       0x4c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-sprintf.o)
-                0x0801f718                sprintf
- .text.sscanf   0x0801f764       0x58 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-sscanf.o)
-                0x0801f764                sscanf
- .text.__sread  0x0801f7bc       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-stdio.o)
-                0x0801f7bc                __sread
+                0x0801f770       0x34 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-rget.o)
+                0x0801f770                __srget_r
+ .text._sbrk_r  0x0801f7a4       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-sbrkr.o)
+                0x0801f7a4                _sbrk_r
+ .text.setbuf   0x0801f7c8       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-setbuf.o)
+                0x0801f7c8                setbuf
+ .text.setvbuf  0x0801f7d8      0x150 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-setvbuf.o)
+                0x0801f7d8                setvbuf
+ .text.sprintf  0x0801f928       0x4c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-sprintf.o)
+                0x0801f928                sprintf
+ .text.sscanf   0x0801f974       0x58 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-sscanf.o)
+                0x0801f974                sscanf
+ .text.__sread  0x0801f9cc       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-stdio.o)
+                0x0801f9cc                __sread
  .text.__seofread
-                0x0801f7e0        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-stdio.o)
-                0x0801f7e0                __seofread
+                0x0801f9f0        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-stdio.o)
+                0x0801f9f0                __seofread
  .text.__swrite
-                0x0801f7e4       0x3c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-stdio.o)
-                0x0801f7e4                __swrite
- .text.__sseek  0x0801f820       0x20 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-stdio.o)
-                0x0801f820                __sseek
+                0x0801f9f4       0x3c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-stdio.o)
+                0x0801f9f4                __swrite
+ .text.__sseek  0x0801fa30       0x20 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-stdio.o)
+                0x0801fa30                __sseek
  .text.__sclose
-                0x0801f840        0x8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-stdio.o)
-                0x0801f840                __sclose
- .text.strcat   0x0801f848       0x40 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strcat.o)
-                0x0801f848                strcat
- *fill*         0x0801f888       0x18 
- .text          0x0801f8a0      0x2dc c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strcmp.o)
-                0x0801f8a8                strcmp
- .text.strcpy   0x0801fb7c       0xbc c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strcpy.o)
-                0x0801fb7c                strcpy
- *fill*         0x0801fc38        0x8 
- .text          0x0801fc40       0xdc c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strlen.o)
-                0x0801fc40                strlen
- .text.strncmp  0x0801fd1c       0xa0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strncmp.o)
-                0x0801fd1c                strncmp
- .text.strtok   0x0801fdbc       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtok.o)
-                0x0801fdbc                strtok
+                0x0801fa50        0x8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-stdio.o)
+                0x0801fa50                __sclose
+ .text.strcat   0x0801fa58       0x40 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strcat.o)
+                0x0801fa58                strcat
+ *fill*         0x0801fa98        0x8 
+ .text          0x0801faa0      0x2dc c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strcmp.o)
+                0x0801faa8                strcmp
+ .text.strcpy   0x0801fd7c       0xbc c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strcpy.o)
+                0x0801fd7c                strcpy
+ *fill*         0x0801fe38        0x8 
+ .text          0x0801fe40       0xdc c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strlen.o)
+                0x0801fe40                strlen
+ .text.strncmp  0x0801ff1c       0xa0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strncmp.o)
+                0x0801ff1c                strncmp
+ .text.strtok   0x0801ffbc       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtok.o)
+                0x0801ffbc                strtok
  .text.__strtok_r
-                0x0801fdcc       0x64 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtok_r.o)
-                0x0801fdcc                __strtok_r
+                0x0801ffcc       0x64 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtok_r.o)
+                0x0801ffcc                __strtok_r
  .text._svfprintf_r
-                0x0801fe30     0x16f4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfprintf.o)
-                0x0801fe30                _svfprintf_r
+                0x08020030     0x16f4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfprintf.o)
+                0x08020030                _svfprintf_r
  .text.__ssvfscanf_r
-                0x08021524      0xe80 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfscanf.o)
-                0x08021524                __ssvfscanf_r
- *fill*         0x080223a4        0x4 
+                0x08021724      0xe80 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfscanf.o)
+                0x08021724                __ssvfscanf_r
+ *fill*         0x080225a4        0x4 
  .text._vfprintf_r
-                0x080223a8     0x1738 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vfprintf.o)
-                0x080223a8                _vfprintf_r
+                0x080225a8     0x1738 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vfprintf.o)
+                0x080225a8                _vfprintf_r
  .text.vfprintf
-                0x08023ae0       0x18 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vfprintf.o)
-                0x08023ae0                vfprintf
+                0x08023ce0       0x18 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vfprintf.o)
+                0x08023ce0                vfprintf
  .text.__sbprintf
-                0x08023af8       0x6c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vfprintf.o)
+                0x08023cf8       0x6c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vfprintf.o)
  .text._vsnprintf_r
-                0x08023b64       0x74 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vsnprintf.o)
-                0x08023b64                _vsnprintf_r
+                0x08023d64       0x74 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vsnprintf.o)
+                0x08023d64                _vsnprintf_r
  .text.vsnprintf
-                0x08023bd8       0x20 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vsnprintf.o)
-                0x08023bd8                vsnprintf
+                0x08023dd8       0x20 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vsnprintf.o)
+                0x08023dd8                vsnprintf
  .text.__swbuf_r
-                0x08023bf8       0xac c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-wbuf.o)
-                0x08023bf8                __swbuf_r
+                0x08023df8       0xac c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-wbuf.o)
+                0x08023df8                __swbuf_r
  .text._write_r
-                0x08023ca4       0x2c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-writer.o)
-                0x08023ca4                _write_r
+                0x08023ea4       0x2c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-writer.o)
+                0x08023ea4                _write_r
  .text.__swsetup_r
-                0x08023cd0       0xc8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-wsetup.o)
-                0x08023cd0                __swsetup_r
+                0x08023ed0       0xc8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-wsetup.o)
+                0x08023ed0                __swsetup_r
  .text._close_r
-                0x08023d98       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-closer.o)
-                0x08023d98                _close_r
- .text.quorem   0x08023dbc      0x128 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-dtoa.o)
- *fill*         0x08023ee4        0x4 
- .text._dtoa_r  0x08023ee8      0xe2c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-dtoa.o)
-                0x08023ee8                _dtoa_r
+                0x08023f98       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-closer.o)
+                0x08023f98                _close_r
+ .text.quorem   0x08023fbc      0x128 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-dtoa.o)
+ *fill*         0x080240e4        0x4 
+ .text._dtoa_r  0x080240e8      0xe2c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-dtoa.o)
+                0x080240e8                _dtoa_r
  .text.__sflags
-                0x08024d14       0x74 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-flags.o)
-                0x08024d14                __sflags
+                0x08024f14       0x74 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-flags.o)
+                0x08024f14                __sflags
  .text._isatty_r
-                0x08024d88       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-isattyr.o)
-                0x08024d88                _isatty_r
+                0x08024f88       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-isattyr.o)
+                0x08024f88                _isatty_r
  .text.iswspace
-                0x08024dac       0x1c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-iswspace.o)
-                0x08024dac                iswspace
+                0x08024fac       0x1c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-iswspace.o)
+                0x08024fac                iswspace
  .text.__get_current_locale
-                0x08024dc8       0x18 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-locale.o)
+                0x08024fc8       0x18 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-locale.o)
  .text.__locale_mb_cur_max
-                0x08024de0       0x1c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-locale.o)
-                0x08024de0                __locale_mb_cur_max
+                0x08024fe0       0x1c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-locale.o)
+                0x08024fe0                __locale_mb_cur_max
  .text.__locale_ctype_ptr_l
-                0x08024dfc        0x8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-locale.o)
-                0x08024dfc                __locale_ctype_ptr_l
+                0x08024ffc        0x8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-locale.o)
+                0x08024ffc                __locale_ctype_ptr_l
  .text.__locale_ctype_ptr
-                0x08024e04       0x14 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-locale.o)
-                0x08024e04                __locale_ctype_ptr
+                0x08025004       0x14 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-locale.o)
+                0x08025004                __locale_ctype_ptr
  .text.__localeconv_l
-                0x08024e18        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-localeconv.o)
-                0x08024e18                __localeconv_l
+                0x08025018        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-localeconv.o)
+                0x08025018                __localeconv_l
  .text._localeconv_r
-                0x08024e1c       0x1c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-localeconv.o)
-                0x08024e1c                _localeconv_r
+                0x0802501c       0x1c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-localeconv.o)
+                0x0802501c                _localeconv_r
  .text._lseek_r
-                0x08024e38       0x2c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-lseekr.o)
-                0x08024e38                _lseek_r
+                0x08025038       0x2c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-lseekr.o)
+                0x08025038                _lseek_r
  .text._mbrtowc_r
-                0x08024e64       0x5c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mbrtowc.o)
-                0x08024e64                _mbrtowc_r
+                0x08025064       0x5c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mbrtowc.o)
+                0x08025064                _mbrtowc_r
  .text.__ascii_mbtowc
-                0x08024ec0       0x2c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mbtowc_r.o)
-                0x08024ec0                __ascii_mbtowc
- .text._Balloc  0x08024eec       0x4c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x08024eec                _Balloc
- .text._Bfree   0x08024f38       0x14 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x08024f38                _Bfree
+                0x080250c0       0x2c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mbtowc_r.o)
+                0x080250c0                __ascii_mbtowc
+ .text._Balloc  0x080250ec       0x4c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x080250ec                _Balloc
+ .text._Bfree   0x08025138       0x14 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x08025138                _Bfree
  .text.__multadd
-                0x08024f4c       0x80 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x08024f4c                __multadd
- .text.__s2b    0x08024fcc       0x98 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x08024fcc                __s2b
+                0x0802514c       0x80 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x0802514c                __multadd
+ .text.__s2b    0x080251cc       0x98 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x080251cc                __s2b
  .text.__hi0bits
-                0x08025064       0x40 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x08025064                __hi0bits
+                0x08025264       0x40 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x08025264                __hi0bits
  .text.__lo0bits
-                0x080250a4       0x5c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x080250a4                __lo0bits
- .text.__i2b    0x08025100       0x14 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x08025100                __i2b
+                0x080252a4       0x5c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x080252a4                __lo0bits
+ .text.__i2b    0x08025300       0x14 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x08025300                __i2b
  .text.__multiply
-                0x08025114      0x130 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x08025114                __multiply
+                0x08025314      0x130 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x08025314                __multiply
  .text.__pow5mult
-                0x08025244       0xa0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x08025244                __pow5mult
+                0x08025444       0xa0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x08025444                __pow5mult
  .text.__lshift
-                0x080252e4       0xb0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x080252e4                __lshift
- .text.__mcmp   0x08025394       0x44 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x08025394                __mcmp
- .text.__mdiff  0x080253d8      0x114 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x080253d8                __mdiff
- .text.__ulp    0x080254ec       0x44 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x080254ec                __ulp
- .text.__b2d    0x08025530       0xd4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x08025530                __b2d
- .text.__d2b    0x08025604       0xb8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x08025604                __d2b
- .text.__ratio  0x080256bc       0x54 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x080256bc                __ratio
+                0x080254e4       0xb0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x080254e4                __lshift
+ .text.__mcmp   0x08025594       0x44 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x08025594                __mcmp
+ .text.__mdiff  0x080255d8      0x114 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x080255d8                __mdiff
+ .text.__ulp    0x080256ec       0x44 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x080256ec                __ulp
+ .text.__b2d    0x08025730       0xd4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x08025730                __b2d
+ .text.__d2b    0x08025804       0xb8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x08025804                __d2b
+ .text.__ratio  0x080258bc       0x54 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x080258bc                __ratio
  .text.__copybits
-                0x08025710       0x48 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x08025710                __copybits
+                0x08025910       0x48 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x08025910                __copybits
  .text.__any_on
-                0x08025758       0x60 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x08025758                __any_on
- .text._read_r  0x080257b8       0x2c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-readr.o)
-                0x080257b8                _read_r
- .text.__sccl   0x080257e4       0x74 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-sccl.o)
-                0x080257e4                __sccl
- .text.nanf     0x08025858        0x8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-sf_nan.o)
-                0x08025858                nanf
+                0x08025958       0x60 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x08025958                __any_on
+ .text._read_r  0x080259b8       0x2c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-readr.o)
+                0x080259b8                _read_r
+ .text.__sccl   0x080259e4       0x74 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-sccl.o)
+                0x080259e4                __sccl
+ .text.nanf     0x08025a58        0x8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-sf_nan.o)
+                0x08025a58                nanf
  .text.unlikely.sulp
-                0x08025860       0x44 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtod.o)
- *fill*         0x080258a4        0x4 
+                0x08025a60       0x44 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtod.o)
+ *fill*         0x08025aa4        0x4 
  .text._strtod_l
-                0x080258a8      0xec4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtod.o)
-                0x080258a8                _strtod_l
+                0x08025aa8      0xec4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtod.o)
+                0x08025aa8                _strtod_l
  .text._strtod_r
-                0x0802676c       0x20 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtod.o)
-                0x0802676c                _strtod_r
+                0x0802696c       0x20 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtod.o)
+                0x0802696c                _strtod_r
  .text._strtol_l.isra.0
-                0x0802678c      0x138 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtol.o)
+                0x0802698c      0x138 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtol.o)
  .text._strtol_r
-                0x080268c4       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtol.o)
-                0x080268c4                _strtol_r
+                0x08026ac4       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtol.o)
+                0x08026ac4                _strtol_r
  .text._strtoll_l.isra.0
-                0x080268e8      0x1ac c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtoll.o)
+                0x08026ae8      0x1ac c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtoll.o)
  .text._strtoll_r
-                0x08026a94       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtoll.o)
-                0x08026a94                _strtoll_r
+                0x08026c94       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtoll.o)
+                0x08026c94                _strtoll_r
  .text._strtoul_l.isra.0
-                0x08026ab8      0x168 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtoul.o)
+                0x08026cb8      0x168 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtoul.o)
  .text._strtoul_r
-                0x08026c20       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtoul.o)
-                0x08026c20                _strtoul_r
+                0x08026e20       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtoul.o)
+                0x08026e20                _strtoul_r
  .text._strtoull_l.isra.0
-                0x08026c44      0x1ec c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtoull.o)
+                0x08026e44      0x1ec c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtoull.o)
  .text._strtoull_r
-                0x08026e30       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtoull.o)
-                0x08026e30                _strtoull_r
+                0x08027030       0x24 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtoull.o)
+                0x08027030                _strtoull_r
  .text.__ssprint_r
-                0x08026e54      0x100 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfiprintf.o)
-                0x08026e54                __ssprint_r
+                0x08027054      0x100 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfiprintf.o)
+                0x08027054                __ssprint_r
  .text._sungetc_r
-                0x08026f54       0x84 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfiscanf.o)
-                0x08026f54                _sungetc_r
+                0x08027154       0x84 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfiscanf.o)
+                0x08027154                _sungetc_r
  .text.__ssrefill_r
-                0x08026fd8       0x3c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfiscanf.o)
-                0x08026fd8                __ssrefill_r
+                0x080271d8       0x3c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfiscanf.o)
+                0x080271d8                __ssrefill_r
  .text._sfread_r
-                0x08027014       0x84 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfiscanf.o)
-                0x08027014                _sfread_r
+                0x08027214       0x84 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfiscanf.o)
+                0x08027214                _sfread_r
  .text.__submore
-                0x08027098       0x78 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-ungetc.o)
-                0x08027098                __submore
+                0x08027298       0x78 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-ungetc.o)
+                0x08027298                __submore
  .text.__sprint_r.part.0
-                0x08027110       0x78 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vfiprintf.o)
+                0x08027310       0x78 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vfiprintf.o)
  .text.__sprint_r
-                0x08027188       0x14 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vfiprintf.o)
-                0x08027188                __sprint_r
+                0x08027388       0x14 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vfiprintf.o)
+                0x08027388                __sprint_r
  .text.__ascii_wctomb
-                0x0802719c       0x1c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-wctomb_r.o)
-                0x0802719c                __ascii_wctomb
+                0x0802739c       0x1c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-wctomb_r.o)
+                0x0802739c                __ascii_wctomb
  .text.__fputwc
-                0x080271b8       0x98 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fputwc.o)
-                0x080271b8                __fputwc
+                0x080273b8       0x98 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fputwc.o)
+                0x080273b8                __fputwc
  .text._fputwc_r
-                0x08027250       0x28 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fputwc.o)
-                0x08027250                _fputwc_r
- .text.rshift   0x08027278       0xa8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-gdtoa-gethex.o)
+                0x08027450       0x28 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-fputwc.o)
+                0x08027450                _fputwc_r
+ .text.rshift   0x08027478       0xa8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-gdtoa-gethex.o)
  .text.__gethex
-                0x08027320      0x510 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-gdtoa-gethex.o)
-                0x08027320                __gethex
- .text.__match  0x08027830       0x30 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-gdtoa-hexnan.o)
-                0x08027830                __match
+                0x08027520      0x510 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-gdtoa-gethex.o)
+                0x08027520                __gethex
+ .text.__match  0x08027a30       0x30 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-gdtoa-hexnan.o)
+                0x08027a30                __match
  .text.__hexnan
-                0x08027860      0x180 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-gdtoa-hexnan.o)
-                0x08027860                __hexnan
+                0x08027a60      0x180 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-gdtoa-hexnan.o)
+                0x08027a60                __hexnan
  .text._wcrtomb_r
-                0x080279e0       0x54 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-wcrtomb.o)
-                0x080279e0                _wcrtomb_r
- .text          0x08027a34       0x18 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_ashldi3.o)
-                0x08027a34                __aeabi_llsl
-                0x08027a34                __ashldi3
- .text          0x08027a4c      0x370 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_arm_addsubdf3.o)
-                0x08027a4c                __aeabi_drsub
-                0x08027a54                __aeabi_dsub
-                0x08027a54                __subdf3
-                0x08027a58                __aeabi_dadd
-                0x08027a58                __adddf3
-                0x08027cd0                __floatunsidf
-                0x08027cd0                __aeabi_ui2d
-                0x08027cf0                __floatsidf
-                0x08027cf0                __aeabi_i2d
-                0x08027d14                __aeabi_f2d
-                0x08027d14                __extendsfdf2
-                0x08027d50                __floatundidf
-                0x08027d50                __aeabi_ul2d
-                0x08027d60                __floatdidf
-                0x08027d60                __aeabi_l2d
- .text          0x08027dbc      0x424 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_arm_muldivdf3.o)
-                0x08027dbc                __aeabi_dmul
-                0x08027dbc                __muldf3
-                0x08028010                __divdf3
-                0x08028010                __aeabi_ddiv
- .text          0x080281e0      0x110 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_arm_cmpdf2.o)
-                0x080281e0                __gtdf2
-                0x080281e0                __gedf2
-                0x080281e8                __ltdf2
-                0x080281e8                __ledf2
-                0x080281f0                __nedf2
-                0x080281f0                __eqdf2
-                0x080281f0                __cmpdf2
-                0x0802826c                __aeabi_cdrcmple
-                0x0802827c                __aeabi_cdcmpeq
-                0x0802827c                __aeabi_cdcmple
-                0x0802828c                __aeabi_dcmpeq
-                0x080282a0                __aeabi_dcmplt
-                0x080282b4                __aeabi_dcmple
-                0x080282c8                __aeabi_dcmpge
-                0x080282dc                __aeabi_dcmpgt
- .text          0x080282f0       0x2c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_arm_unorddf2.o)
-                0x080282f0                __unorddf2
-                0x080282f0                __aeabi_dcmpun
- .text          0x0802831c       0x50 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_arm_fixdfsi.o)
-                0x0802831c                __aeabi_d2iz
-                0x0802831c                __fixdfsi
- .text          0x0802836c       0x40 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_arm_fixunsdfsi.o)
-                0x0802836c                __aeabi_d2uiz
-                0x0802836c                __fixunsdfsi
- .text          0x080283ac       0xa0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_arm_truncdfsf2.o)
-                0x080283ac                __truncdfsf2
-                0x080283ac                __aeabi_d2f
- .text          0x0802844c       0x30 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_aeabi_uldivmod.o)
-                0x0802844c                __aeabi_uldivmod
- .text          0x0802847c      0x2e4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_udivmoddi4.o)
-                0x0802847c                __udivmoddi4
- .text          0x08028760        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_dvmd_tls.o)
-                0x08028760                __aeabi_idiv0
-                0x08028760                __aeabi_ldiv0
+                0x08027be0       0x54 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-wcrtomb.o)
+                0x08027be0                _wcrtomb_r
+ .text          0x08027c34       0x18 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_ashldi3.o)
+                0x08027c34                __aeabi_llsl
+                0x08027c34                __ashldi3
+ .text          0x08027c4c      0x370 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_arm_addsubdf3.o)
+                0x08027c4c                __aeabi_drsub
+                0x08027c54                __aeabi_dsub
+                0x08027c54                __subdf3
+                0x08027c58                __aeabi_dadd
+                0x08027c58                __adddf3
+                0x08027ed0                __floatunsidf
+                0x08027ed0                __aeabi_ui2d
+                0x08027ef0                __floatsidf
+                0x08027ef0                __aeabi_i2d
+                0x08027f14                __aeabi_f2d
+                0x08027f14                __extendsfdf2
+                0x08027f50                __floatundidf
+                0x08027f50                __aeabi_ul2d
+                0x08027f60                __floatdidf
+                0x08027f60                __aeabi_l2d
+ .text          0x08027fbc      0x424 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_arm_muldivdf3.o)
+                0x08027fbc                __aeabi_dmul
+                0x08027fbc                __muldf3
+                0x08028210                __divdf3
+                0x08028210                __aeabi_ddiv
+ .text          0x080283e0      0x110 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_arm_cmpdf2.o)
+                0x080283e0                __gtdf2
+                0x080283e0                __gedf2
+                0x080283e8                __ltdf2
+                0x080283e8                __ledf2
+                0x080283f0                __nedf2
+                0x080283f0                __eqdf2
+                0x080283f0                __cmpdf2
+                0x0802846c                __aeabi_cdrcmple
+                0x0802847c                __aeabi_cdcmpeq
+                0x0802847c                __aeabi_cdcmple
+                0x0802848c                __aeabi_dcmpeq
+                0x080284a0                __aeabi_dcmplt
+                0x080284b4                __aeabi_dcmple
+                0x080284c8                __aeabi_dcmpge
+                0x080284dc                __aeabi_dcmpgt
+ .text          0x080284f0       0x2c c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_arm_unorddf2.o)
+                0x080284f0                __unorddf2
+                0x080284f0                __aeabi_dcmpun
+ .text          0x0802851c       0x50 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_arm_fixdfsi.o)
+                0x0802851c                __aeabi_d2iz
+                0x0802851c                __fixdfsi
+ .text          0x0802856c       0x40 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_arm_fixunsdfsi.o)
+                0x0802856c                __aeabi_d2uiz
+                0x0802856c                __fixunsdfsi
+ .text          0x080285ac       0xa0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_arm_truncdfsf2.o)
+                0x080285ac                __truncdfsf2
+                0x080285ac                __aeabi_d2f
+ .text          0x0802864c       0x30 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_aeabi_uldivmod.o)
+                0x0802864c                __aeabi_uldivmod
+ .text          0x0802867c      0x2e4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_udivmoddi4.o)
+                0x0802867c                __udivmoddi4
+ .text          0x08028960        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_dvmd_tls.o)
+                0x08028960                __aeabi_idiv0
+                0x08028960                __aeabi_ldiv0
  *(.init)
- .init          0x08028764        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crti.o
-                0x08028764                _init
- .init          0x08028768        0x8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crtn.o
+ .init          0x08028964        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crti.o
+                0x08028964                _init
+ .init          0x08028968        0x8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crtn.o
  *(.fini)
- .fini          0x08028770        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crti.o
-                0x08028770                _fini
- .fini          0x08028774        0x8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crtn.o
+ .fini          0x08028970        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crti.o
+                0x08028970                _fini
+ .fini          0x08028974        0x8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crtn.o
  *crtbegin.o(.ctors)
  *crtbegin?.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o *crtend?.o) .ctors)
@@ -8558,285 +8568,283 @@ LOAD c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm
  *(.dtors)
  *(.rodata*)
  .rodata.str1.1
-                0x0802877c       0x36 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/FlashIAP.o
- *fill*         0x080287b2        0x2 
+                0x0802897c       0x36 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/FlashIAP.o
+ *fill*         0x080289b2        0x2 
  .rodata._ZTVN4mbed11InterruptInE
-                0x080287b4       0x10 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/InterruptIn.o
-                0x080287b4                vtable for mbed::InterruptIn
+                0x080289b4       0x10 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/InterruptIn.o
+                0x080289b4                vtable for mbed::InterruptIn
  .rodata.str1.1
-                0x080287c4       0x23 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/InterruptIn.o
- *fill*         0x080287e7        0x1 
+                0x080289c4       0x23 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/InterruptIn.o
+ *fill*         0x080289e7        0x1 
  .rodata._ZZN4mbed8CallbackIFvvEE8generateIPS1_EEvRKT_E3ops
-                0x080287e8        0xc ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/InterruptManager.o
-                0x080287e8                void mbed::Callback<void ()>::generate<void (*)()>(void (* const&)())::ops
+                0x080289e8        0xc ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/InterruptManager.o
+                0x080289e8                void mbed::Callback<void ()>::generate<void (*)()>(void (* const&)())::ops
  .rodata._ZTVN4mbed3SPIE
-                0x080287f4       0x24 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/SPI.o
-                0x080287f4                vtable for mbed::SPI
+                0x080289f4       0x24 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/SPI.o
+                0x080289f4                vtable for mbed::SPI
  .rodata._ZTVN4mbed6SerialE
-                0x08028818       0x8c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/Serial.o
-                0x08028818                vtable for mbed::Serial
+                0x08028a18       0x8c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/Serial.o
+                0x08028a18                vtable for mbed::Serial
  .rodata.str1.1
-                0x080288a4       0x23 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/SerialBase.o
+                0x08028aa4       0x23 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/SerialBase.o
  .rodata._ZTVN4mbed10SerialBaseE
-                0x080288a4       0x18 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/SerialBase.o
-                0x080288a4                vtable for mbed::SerialBase
+                0x08028aa4       0x18 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/SerialBase.o
+                0x08028aa4                vtable for mbed::SerialBase
  .rodata._ZTVN4mbed6TickerE
-                0x080288bc       0x14 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/Ticker.o
-                0x080288bc                vtable for mbed::Ticker
+                0x08028abc       0x14 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/Ticker.o
+                0x08028abc                vtable for mbed::Ticker
  .rodata.str1.1
-                0x080288d0       0x23 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/Timeout.o
+                0x08028ad0       0x23 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/Timeout.o
  .rodata._ZTVN4mbed7TimeoutE
-                0x080288d0       0x14 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/Timeout.o
-                0x080288d0                vtable for mbed::Timeout
+                0x08028ad0       0x14 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/Timeout.o
+                0x08028ad0                vtable for mbed::Timeout
  .rodata._ZTVN4mbed10TimerEventE
-                0x080288e4       0x14 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/TimerEvent.o
-                0x080288e4                vtable for mbed::TimerEvent
+                0x08028ae4       0x14 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/drivers/TimerEvent.o
+                0x08028ae4                vtable for mbed::TimerEvent
  .rodata.str1.1
-                0x080288f8       0x60 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/hal/mbed_pinmap_common.o
+                0x08028af8       0x60 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/hal/mbed_pinmap_common.o
  .rodata.str1.1
-                0x08028958       0x53 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/hal/mbed_sleep_manager.o
+                0x08028b58       0x53 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/hal/mbed_sleep_manager.o
  .rodata.str1.1
-                0x080289ab       0x22 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/hal/mbed_ticker_api.o
- *fill*         0x080289cd        0x3 
+                0x08028bab       0x22 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/hal/mbed_ticker_api.o
+ *fill*         0x08028bcd        0x3 
  .rodata.us_interface
-                0x080289d0       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/hal/mbed_us_ticker_api.o
+                0x08028bd0       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/hal/mbed_us_ticker_api.o
  .rodata.us_data
-                0x080289ec        0x8 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/hal/mbed_us_ticker_api.o
+                0x08028bec        0x8 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/hal/mbed_us_ticker_api.o
  .rodata._ZTVN4mbed8FileBaseE
-                0x080289f4       0x10 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/FileBase.o
-                0x080289f4                vtable for mbed::FileBase
+                0x08028bf4       0x10 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/FileBase.o
+                0x08028bf4                vtable for mbed::FileBase
  .rodata._ZTVN4mbed10FileHandleE
-                0x08028a04       0x4c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/FileHandle.o
-                0x08028a04                vtable for mbed::FileHandle
+                0x08028c04       0x4c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/FileHandle.o
+                0x08028c04                vtable for mbed::FileHandle
  .rodata._ZTVN4mbed8FileLikeE
-                0x08028a50       0x5c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/Stream.o
-                0x08028a50                vtable for mbed::FileLike
+                0x08028c50       0x5c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/Stream.o
+                0x08028c50                vtable for mbed::FileLike
  .rodata._ZTVN4mbed6StreamE
-                0x08028aac       0x6c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/Stream.o
-                0x08028aac                vtable for mbed::Stream
+                0x08028cac       0x6c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/Stream.o
+                0x08028cac                vtable for mbed::Stream
  .rodata.str1.1
-                0x08028b18       0x22 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/Stream.o
+                0x08028d18       0x22 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/Stream.o
  .rodata.str1.1
-                0x08028b3a       0x31 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/mbed_assert.o
+                0x08028d3a       0x31 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/mbed_assert.o
  .rodata.str1.1
-                0x08028b6b       0x5d ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/mbed_critical.o
+                0x08028d6b       0x5d ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/mbed_critical.o
  .rodata.__stdin_name
-                0x08028bc8        0x7 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/mbed_retarget.o
-                0x08028bc8                __stdin_name
+                0x08028dc8        0x7 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/mbed_retarget.o
+                0x08028dc8                __stdin_name
  .rodata.__stderr_name
-                0x08028bcf        0x8 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/mbed_retarget.o
-                0x08028bcf                __stderr_name
+                0x08028dcf        0x8 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/mbed_retarget.o
+                0x08028dcf                __stderr_name
  .rodata.__stdout_name
-                0x08028bd7        0x8 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/mbed_retarget.o
-                0x08028bd7                __stdout_name
- *fill*         0x08028bdf        0x1 
+                0x08028dd7        0x8 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/mbed_retarget.o
+                0x08028dd7                __stdout_name
+ *fill*         0x08028ddf        0x1 
  .rodata._ZZ18us_ticker_get_infoE4info
-                0x08028be0        0x8 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/mbed_retarget.o
+                0x08028de0        0x8 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/platform/mbed_retarget.o
  .rodata.str1.1
-                0x08028be8       0x36 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/Mutex.o
+                0x08028de8       0x36 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/Mutex.o
  .rodata.str1.1
-                0x08028c1e       0x4f ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/mbed_boot.o
+                0x08028e1e       0x4f ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/mbed_boot.o
  .rodata.str1.1
-                0x08028c6d      0x201 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/mbed_rtx_handlers.o
+                0x08028e6d      0x201 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/mbed_rtx_handlers.o
  .rodata.str1.1
-                0x08028e6e        0xb ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_kernel.o
- *fill*         0x08028e79        0x3 
- .rodata        0x08028e7c       0xa0 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.o
-                0x08028e7c                os_cb_sections
-                0x08028eb4                osRtxConfig
+                0x0802906e        0xb ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_kernel.o
+ *fill*         0x08029079        0x3 
+ .rodata        0x0802907c       0xa0 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.o
+                0x0802907c                os_cb_sections
+                0x080290b4                osRtxConfig
  .rodata.os_idle_thread_attr
-                0x08028f1c       0x24 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.o
+                0x0802911c       0x24 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.o
  .rodata.osRtxUserSVC
-                0x08028f40        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.o
-                0x08028f40                osRtxUserSVC
+                0x08029140        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.o
+                0x08029140                osRtxUserSVC
  .rodata.os_timer_thread_attr
-                0x08028f44       0x24 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.o
+                0x08029144       0x24 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.o
  .rodata.os_timer_mq_attr
-                0x08028f68       0x18 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.o
+                0x08029168       0x18 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.o
  .rodata.PinMap_SPI_MISO
-                0x08028f80       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/TARGET_NUCLEO_L432KC/PeripheralPins.o
-                0x08028f80                PinMap_SPI_MISO
+                0x08029180       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/TARGET_NUCLEO_L432KC/PeripheralPins.o
+                0x08029180                PinMap_SPI_MISO
  .rodata.PinMap_SPI_SCLK
-                0x08028fbc       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/TARGET_NUCLEO_L432KC/PeripheralPins.o
-                0x08028fbc                PinMap_SPI_SCLK
+                0x080291bc       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/TARGET_NUCLEO_L432KC/PeripheralPins.o
+                0x080291bc                PinMap_SPI_SCLK
  .rodata.PinMap_UART_RX
-                0x08028ff8       0x48 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/TARGET_NUCLEO_L432KC/PeripheralPins.o
-                0x08028ff8                PinMap_UART_RX
+                0x080291f8       0x48 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/TARGET_NUCLEO_L432KC/PeripheralPins.o
+                0x080291f8                PinMap_UART_RX
  .rodata.PinMap_ADC_Internal
-                0x08029040       0x30 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/TARGET_NUCLEO_L432KC/PeripheralPins.o
-                0x08029040                PinMap_ADC_Internal
+                0x08029240       0x30 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/TARGET_NUCLEO_L432KC/PeripheralPins.o
+                0x08029240                PinMap_ADC_Internal
  .rodata.PinMap_SPI_MOSI
-                0x08029070       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/TARGET_NUCLEO_L432KC/PeripheralPins.o
-                0x08029070                PinMap_SPI_MOSI
+                0x08029270       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/TARGET_NUCLEO_L432KC/PeripheralPins.o
+                0x08029270                PinMap_SPI_MOSI
  .rodata.PinMap_UART_TX
-                0x080290ac       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/TARGET_NUCLEO_L432KC/PeripheralPins.o
-                0x080290ac                PinMap_UART_TX
+                0x080292ac       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/TARGET_NUCLEO_L432KC/PeripheralPins.o
+                0x080292ac                PinMap_UART_TX
  .rodata.PinMap_ADC
-                0x080290e8       0x6c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/TARGET_NUCLEO_L432KC/PeripheralPins.o
-                0x080290e8                PinMap_ADC
+                0x080292e8       0x6c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/TARGET_NUCLEO_L432KC/PeripheralPins.o
+                0x080292e8                PinMap_ADC
  .rodata.PinMap_SPI_SSEL
-                0x08029154       0x30 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/TARGET_NUCLEO_L432KC/PeripheralPins.o
-                0x08029154                PinMap_SPI_SSEL
+                0x08029354       0x30 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/TARGET_NUCLEO_L432KC/PeripheralPins.o
+                0x08029354                PinMap_SPI_SSEL
  .rodata.str1.1
-                0x08029184       0x95 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/analogin_api.o
+                0x08029384       0x95 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/analogin_api.o
  .rodata.CSWTCH.50
-                0x08029219        0xd ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_hal_uart.o
+                0x08029419        0xd ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_hal_uart.o
  .rodata.CSWTCH.49
-                0x08029226        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_hal_uart.o
+                0x08029426        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_hal_uart.o
  .rodata.AHBPrescTable
-                0x0802922a       0x10 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/system_stm32l4xx.o
-                0x0802922a                AHBPrescTable
+                0x0802942a       0x10 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/system_stm32l4xx.o
+                0x0802942a                AHBPrescTable
  .rodata.APBPrescTable
-                0x0802923a        0x8 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/system_stm32l4xx.o
-                0x0802923a                APBPrescTable
- *fill*         0x08029242        0x2 
+                0x0802943a        0x8 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/system_stm32l4xx.o
+                0x0802943a                APBPrescTable
+ *fill*         0x08029442        0x2 
  .rodata.MSIRangeTable
-                0x08029244       0x30 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/system_stm32l4xx.o
-                0x08029244                MSIRangeTable
+                0x08029444       0x30 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/system_stm32l4xx.o
+                0x08029444                MSIRangeTable
  .rodata.pin_lines_desc
-                0x08029274       0xc0 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/gpio_irq_device.o
-                0x08029274                pin_lines_desc
+                0x08029474       0xc0 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/gpio_irq_device.o
+                0x08029474                pin_lines_desc
  .rodata.str1.1
-                0x08029334       0x8a ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/serial_device.o
+                0x08029534       0x8a ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/serial_device.o
  .rodata.str1.1
-                0x080293be       0x1a ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/spi_api.o
+                0x080295be       0x1a ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/spi_api.o
  .rodata.str1.1
-                0x080293d8       0x5c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/gpio_api.o
+                0x080295d8       0x5c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/gpio_api.o
  .rodata.str1.1
-                0x08029434       0x51 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/gpio_irq_api.o
+                0x08029634       0x51 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/gpio_irq_api.o
  .rodata.str1.1
-                0x08029485       0x26 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/pinmap.o
+                0x08029685       0x26 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/pinmap.o
                                  0x3b (size before relaxing)
- *fill*         0x080294ab        0x1 
+ *fill*         0x080296ab        0x1 
  .rodata.ll_pin_defines
-                0x080294ac       0x40 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/pinmap.o
-                0x080294ac                ll_pin_defines
+                0x080296ac       0x40 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/pinmap.o
+                0x080296ac                ll_pin_defines
  .rodata.str1.1
-                0x080294ec       0x5d ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/serial_api.o
- *fill*         0x08029549        0x1 
+                0x080296ec       0x5d ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/serial_api.o
+ *fill*         0x08029749        0x1 
  .rodata.baudrate_prescaler_table
-                0x0802954a       0x10 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/stm_spi_api.o
+                0x0802974a       0x10 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/stm_spi_api.o
  .rodata.str1.1
-                0x0802955a       0x5c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/stm_spi_api.o
+                0x0802975a       0x5c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/stm_spi_api.o
  .rodata.str1.1
-                0x080295b6       0x3b ./BUILD/NUCLEO_L432KC/GCC_ARM/source/DHCP_ARP.o
+                0x080297b6       0x3b ./BUILD/NUCLEO_L432KC/GCC_ARM/source/DHCP_ARP.o
                                  0x45 (size before relaxing)
- *fill*         0x080295f1        0x3 
- .rodata        0x080295f4        0xc ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
  .rodata.str1.1
-                0x08029600      0xa0d ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
-                                0xa39 (size before relaxing)
+                0x080297f1      0xa70 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/HMI_telnet.o
+                                0xa9c (size before relaxing)
  .rodata.str1.1
-                0x0802a00d       0x63 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/L1L2_radio.o
+                0x0802a261       0x63 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/L1L2_radio.o
  .rodata.str1.1
-                0x0802a070       0x6a ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
+                0x0802a2c4       0x6a ./BUILD/NUCLEO_L432KC/GCC_ARM/source/SI4463.o
                                  0x8c (size before relaxing)
  .rodata._ZZ29TDMA_slave_alloc_exploitationPhiE15LUT_multif_mask
-                0x0802a0da        0x8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
+                0x0802a32e        0x8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/TDMA.o
  .rodata.str1.1
-                0x0802a0e2       0x40 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
- *fill*         0x0802a122        0x2 
+                0x0802a336       0x40 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/config_flash.o
+ *fill*         0x0802a376        0x2 
  .rodata._ZTVN4mbed8AnalogInE
-                0x0802a124       0x18 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x0802a124                vtable for mbed::AnalogIn
+                0x0802a378       0x18 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x0802a378                vtable for mbed::AnalogIn
  .rodata.str1.1
-                0x0802a13c       0x65 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                                 0xaf (size before relaxing)
- *fill*         0x0802a1a1        0x3 
+                0x0802a390       0x5d ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                                 0xb2 (size before relaxing)
+ *fill*         0x0802a3ed        0x3 
  .rodata._global_impure_ptr
-                0x0802a1a4        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-impure.o)
-                0x0802a1a4                _global_impure_ptr
+                0x0802a3f0        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-impure.o)
+                0x0802a3f0                _global_impure_ptr
  .rodata.zeroes.7258
-                0x0802a1a8       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfprintf.o)
+                0x0802a3f4       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfprintf.o)
  .rodata.str1.4
-                0x0802a1b8       0x42 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfprintf.o)
- *fill*         0x0802a1fa        0x2 
+                0x0802a404       0x42 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfprintf.o)
+ *fill*         0x0802a446        0x2 
  .rodata.blanks.7257
-                0x0802a1fc       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfprintf.o)
+                0x0802a448       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfprintf.o)
  .rodata.basefix.7328
-                0x0802a20c       0x22 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfscanf.o)
- *fill*         0x0802a22e        0x2 
+                0x0802a458       0x22 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfscanf.o)
+ *fill*         0x0802a47a        0x2 
  .rodata.str1.4
-                0x0802a230        0x5 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfscanf.o)
- *fill*         0x0802a235        0x3 
+                0x0802a47c        0x5 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-svfscanf.o)
+ *fill*         0x0802a481        0x3 
  .rodata.zeroes.7273
-                0x0802a238       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vfprintf.o)
+                0x0802a484       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vfprintf.o)
  .rodata.str1.4
-                0x0802a248       0x42 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vfprintf.o)
+                0x0802a494       0x42 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vfprintf.o)
  .rodata.blanks.7272
-                0x0802a248       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vfprintf.o)
+                0x0802a494       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-vfprintf.o)
  .rodata.str1.4
-                0x0802a258       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-dtoa.o)
+                0x0802a4a4       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-dtoa.o)
                                  0x12 (size before relaxing)
  .rodata.str1.4
-                0x0802a268        0xe c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-locale.o)
+                0x0802a4b4        0xe c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-locale.o)
                                  0x12 (size before relaxing)
  .rodata.str1.4
-                0x0802a276        0x1 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mbrtowc.o)
- *fill*         0x0802a276        0x2 
+                0x0802a4c2        0x1 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mbrtowc.o)
+ *fill*         0x0802a4c2        0x6 
  .rodata.__mprec_tens
-                0x0802a278       0xc8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x0802a278                __mprec_tens
+                0x0802a4c8       0xc8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x0802a4c8                __mprec_tens
  .rodata.__mprec_bigtens
-                0x0802a340       0x28 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
-                0x0802a340                __mprec_bigtens
+                0x0802a590       0x28 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x0802a590                __mprec_bigtens
  .rodata.p05.6087
-                0x0802a368        0xc c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
+                0x0802a5b8        0xc c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mprec.o)
  .rodata.fpi.6173
-                0x0802a374       0x14 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtod.o)
+                0x0802a5c4       0x14 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtod.o)
  .rodata.str1.4
-                0x0802a388       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtod.o)
+                0x0802a5d8       0x10 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtod.o)
                                   0xf (size before relaxing)
  .rodata.fpinan.6209
-                0x0802a398       0x14 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtod.o)
- *fill*         0x0802a3ac        0x4 
+                0x0802a5e8       0x14 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtod.o)
+ *fill*         0x0802a5fc        0x4 
  .rodata.tinytens
-                0x0802a3b0       0x28 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtod.o)
+                0x0802a600       0x28 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-strtod.o)
  .rodata._ctype_
-                0x0802a3d8      0x101 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-ctype_.o)
-                0x0802a3d8                _ctype_
- *fill*         0x0802a4d9        0x3 
+                0x0802a628      0x101 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-ctype_.o)
+                0x0802a628                _ctype_
+ *fill*         0x0802a729        0x3 
  .rodata.__hexdig
-                0x0802a4dc      0x100 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-gdtoa-gethex.o)
-                0x0802a4dc                __hexdig
+                0x0802a72c      0x100 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-gdtoa-gethex.o)
+                0x0802a72c                __hexdig
  *(.eh_frame*)
- .eh_frame      0x0802a5dc        0x0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crtbegin.o
- .eh_frame      0x0802a5dc        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crtend.o
+ .eh_frame      0x0802a82c        0x0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crtbegin.o
+ .eh_frame      0x0802a82c        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crtend.o
 
-.glue_7         0x0802a5e0        0x0
- .glue_7        0x0802a5e0        0x0 linker stubs
+.glue_7         0x0802a830        0x0
+ .glue_7        0x0802a830        0x0 linker stubs
 
-.glue_7t        0x0802a5e0        0x0
- .glue_7t       0x0802a5e0        0x0 linker stubs
+.glue_7t        0x0802a830        0x0
+ .glue_7t       0x0802a830        0x0 linker stubs
 
-.vfp11_veneer   0x0802a5e0        0x0
- .vfp11_veneer  0x0802a5e0        0x0 linker stubs
+.vfp11_veneer   0x0802a830        0x0
+ .vfp11_veneer  0x0802a830        0x0 linker stubs
 
-.v4_bx          0x0802a5e0        0x0
- .v4_bx         0x0802a5e0        0x0 linker stubs
+.v4_bx          0x0802a830        0x0
+ .v4_bx         0x0802a830        0x0 linker stubs
 
-.iplt           0x0802a5e0        0x0
- .iplt          0x0802a5e0        0x0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crtbegin.o
+.iplt           0x0802a830        0x0
+ .iplt          0x0802a830        0x0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crtbegin.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0802a5e0                __exidx_start = .
+                0x0802a830                __exidx_start = .
 
-.ARM.exidx      0x0802a5e0        0x8
+.ARM.exidx      0x0802a830        0x8
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
- .ARM.exidx     0x0802a5e0        0x8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp/crt0.o
- .ARM.exidx     0x0802a5e8        0x0 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/rtx5/TARGET_RTOS_M4_M7/TOOLCHAIN_GCC/irq_cm4f.o
+ .ARM.exidx     0x0802a830        0x8 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp/crt0.o
+ .ARM.exidx     0x0802a838        0x0 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/rtx5/TARGET_RTOS_M4_M7/TOOLCHAIN_GCC/irq_cm4f.o
                                  0x18 (size before relaxing)
- .ARM.exidx     0x0802a5e8        0x0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_udivmoddi4.o)
+ .ARM.exidx     0x0802a838        0x0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp\libgcc.a(_udivmoddi4.o)
                                   0x8 (size before relaxing)
-                0x0802a5e8                __exidx_end = .
-                0x0802a5e8                __etext = .
-                0x0802a5e8                _sidata = .
+                0x0802a838                __exidx_end = .
+                0x0802a838                __etext = .
+                0x0802a838                _sidata = .
 
-.rel.dyn        0x0802a5e8        0x0
- .rel.iplt      0x0802a5e8        0x0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crtbegin.o
+.rel.dyn        0x0802a838        0x0
+ .rel.iplt      0x0802a838        0x0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crtbegin.o
 
-.data           0x20000188      0xd24 load address 0x0802a5e8
+.data           0x20000188      0xd24 load address 0x0802a838
                 0x20000188                __data_start__ = .
                 0x20000188                _sdata = .
  *(vtable)
@@ -8997,10 +9005,10 @@ LOAD c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm
                 0x20000eac                __data_end__ = .
                 0x20000eac                _edata = .
 
-.igot.plt       0x20000eac        0x0 load address 0x0802b30c
+.igot.plt       0x20000eac        0x0 load address 0x0802b55c
  .igot.plt      0x20000eac        0x0 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7e-m/softfp/crtbegin.o
 
-.bss            0x20000eb0     0xccf4 load address 0x0802b310
+.bss            0x20000eb0     0xcd44 load address 0x0802b560
                 0x20000eb0                . = ALIGN (0x4)
                 0x20000eb0                __bss_start__ = .
                 0x20000eb0                _sbss = .
@@ -9228,18 +9236,19 @@ LOAD c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm
  .bss.G_temperature_SI4463
                 0x20005e08        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
                 0x20005e08                G_temperature_SI4463
- .bss.RX_Eth_IPv4_counter
-                0x20005e0c        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x20005e0c                RX_Eth_IPv4_counter
+ .bss.is_telnet_routed
+                0x20005e0c        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x20005e0c                is_telnet_routed
  .bss.TX_signaling_TDMA_frame
-                0x20005e10      0x12c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x20005e10                TX_signaling_TDMA_frame
+                0x20005e0d      0x12c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x20005e0d                TX_signaling_TDMA_frame
+ *fill*         0x20005f39        0x3 
  .bss.LAN_conf_saved
                 0x20005f3c       0x20 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
                 0x20005f3c                LAN_conf_saved
- .bss.is_telnet_routed
+ .bss.CONF_transmission_method
                 0x20005f5c        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x20005f5c                is_telnet_routed
+                0x20005f5c                CONF_transmission_method
  *fill*         0x20005f5d        0x3 
  .bss.RX_FIFO_last_received
                 0x20005f60        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
@@ -9250,241 +9259,275 @@ LOAD c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm
  .bss.is_TDMA_master
                 0x20005fd4        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
                 0x20005fd4                is_TDMA_master
- *fill*         0x20005fd5        0x3 
- .bss.W5500_p1  0x20005fd8        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x20005fd8                W5500_p1
- .bss.TX_radio_IPv4_counter
-                0x20005fdc        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x20005fdc                TX_radio_IPv4_counter
- .bss.CONF_radio_addr_table_status
-                0x20005fe0        0x7 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x20005fe0                CONF_radio_addr_table_status
  .bss.HMI_out_str
-                0x20005fe7       0x64 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x20005fe7                HMI_out_str
- *fill*         0x2000604b        0x1 
- .bss.slave_new_burst_tx_pending
-                0x2000604c        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000604c                slave_new_burst_tx_pending
- .bss.CONF_radio_default_state_ON_OFF
-                0x20006050        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x20006050                CONF_radio_default_state_ON_OFF
- .bss.CONF_radio_state_ON_OFF
-                0x20006051        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x20006051                CONF_radio_state_ON_OFF
- .bss.CONF_preamble_TX_long
-                0x20006052        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x20006052                CONF_preamble_TX_long
- *fill*         0x20006053        0x1 
- .bss.LAN_conf_applied
-                0x20006054       0x20 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x20006054                LAN_conf_applied
- .bss.TDMA_table_TA
-                0x20006074       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x20006074                TDMA_table_TA
- .bss.CONF_radio_IP_size_requested
-                0x20006090        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x20006090                CONF_radio_IP_size_requested
- .bss.G_radio_addr_table_BER
-                0x20006094        0xe ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x20006094                G_radio_addr_table_BER
- *fill*         0x200060a2        0x2 
- .bss.super_debug
-                0x200060a4        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x200060a4                super_debug
- .bss.CONF_radio_addr_table_IP_begin
-                0x200060a8       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x200060a8                CONF_radio_addr_table_IP_begin
- .bss.CONF_radio_IP_start
-                0x200060c4        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x200060c4                CONF_radio_IP_start
- .bss.last_rframe_seen
-                0x200060c8        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x200060c8                last_rframe_seen
- .bss.RX_FIFO_data
-                0x200060cc     0x2000 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x200060cc                RX_FIFO_data
- .bss.G_need_temperature_check
-                0x200080cc        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x200080cc                G_need_temperature_check
- .bss.CONF_radio_network_ID
-                0x200080d0        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x200080d0                CONF_radio_network_ID
- .bss.CONF_radio_my_callsign
-                0x200080d1       0x10 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x200080d1                CONF_radio_my_callsign
- .bss.G_connect_rejection_reason
-                0x200080e1        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x200080e1                G_connect_rejection_reason
- .bss.CONF_radio_master_callsign
-                0x200080e2       0x10 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x200080e2                CONF_radio_master_callsign
- *fill*         0x200080f2        0x2 
- .bss.G_SI4463  0x200080f4        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x200080f4                G_SI4463
+                0x20005fd5       0x78 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x20005fd5                HMI_out_str
+ *fill*         0x2000604d        0x3 
  .bss.RX_FIFO_RD_point
-                0x200080f8        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x200080f8                RX_FIFO_RD_point
- .bss.pc        0x200080fc       0x94 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x200080fc                pc
+                0x20006050        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x20006050                RX_FIFO_RD_point
+ .bss.TX_radio_IPv4_counter
+                0x20006054        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x20006054                TX_radio_IPv4_counter
+ .bss.CONF_radio_addr_table_status
+                0x20006058        0x7 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x20006058                CONF_radio_addr_table_status
+ *fill*         0x2000605f        0x1 
+ .bss.CONF_frequency_HD
+                0x20006060        0x2 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x20006060                CONF_frequency_HD
+ *fill*         0x20006062        0x2 
+ .bss.slave_new_burst_tx_pending
+                0x20006064        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x20006064                slave_new_burst_tx_pending
+ .bss.CONF_radio_default_state_ON_OFF
+                0x20006068        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x20006068                CONF_radio_default_state_ON_OFF
+ .bss.CONF_radio_state_ON_OFF
+                0x20006069        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x20006069                CONF_radio_state_ON_OFF
+ .bss.CONF_preamble_TX_long
+                0x2000606a        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000606a                CONF_preamble_TX_long
+ *fill*         0x2000606b        0x1 
+ .bss.LAN_conf_applied
+                0x2000606c       0x20 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000606c                LAN_conf_applied
+ .bss.TDMA_table_TA
+                0x2000608c       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000608c                TDMA_table_TA
+ .bss.CONF_radio_IP_size_requested
+                0x200060a8        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x200060a8                CONF_radio_IP_size_requested
+ .bss.W5500_p1  0x200060ac        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x200060ac                W5500_p1
+ .bss.G_radio_addr_table_BER
+                0x200060b0        0xe ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x200060b0                G_radio_addr_table_BER
+ *fill*         0x200060be        0x2 
+ .bss.super_debug
+                0x200060c0        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x200060c0                super_debug
+ .bss.CONF_radio_addr_table_IP_begin
+                0x200060c4       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x200060c4                CONF_radio_addr_table_IP_begin
+ .bss.CONF_radio_IP_start
+                0x200060e0        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x200060e0                CONF_radio_IP_start
+ .bss.last_rframe_seen
+                0x200060e4        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x200060e4                last_rframe_seen
+ .bss.RX_Eth_IPv4_counter
+                0x200060e8        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x200060e8                RX_Eth_IPv4_counter
+ .bss.RX_FIFO_data
+                0x200060ec     0x2000 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x200060ec                RX_FIFO_data
+ .bss.G_need_temperature_check
+                0x200080ec        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x200080ec                G_need_temperature_check
+ .bss.CONF_radio_network_ID
+                0x200080f0        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x200080f0                CONF_radio_network_ID
+ .bss.CONF_radio_my_callsign
+                0x200080f1       0x10 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x200080f1                CONF_radio_my_callsign
+ .bss.G_connect_rejection_reason
+                0x20008101        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x20008101                G_connect_rejection_reason
+ .bss.CONF_channel_TX
+                0x20008102        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x20008102                CONF_channel_TX
+ .bss.CONF_radio_master_callsign
+                0x20008103       0x10 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x20008103                CONF_radio_master_callsign
+ *fill*         0x20008113        0x1 
+ .bss.G_SI4463  0x20008114        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x20008114                G_SI4463
+ .bss.CONF_master_FDD
+                0x20008118        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x20008118                CONF_master_FDD
+ *fill*         0x20008119        0x3 
+ .bss.pc        0x2000811c       0x94 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000811c                pc
  .bss.G_downlink_bandwidth_temp
-                0x20008190        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x20008190                G_downlink_bandwidth_temp
- *fill*         0x20008194        0x4 
+                0x200081b0        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x200081b0                G_downlink_bandwidth_temp
+ *fill*         0x200081b4        0x4 
  .bss.GLOBAL_timer
-                0x20008198       0x20 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x20008198                GLOBAL_timer
+                0x200081b8       0x20 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x200081b8                GLOBAL_timer
  .bss._ZL14TXPS_FIFO_data
-                0x200081b8     0x4000 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x200081d8     0x4000 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
  .bss.RX_radio_IPv4_counter
-                0x2000c1b8        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000c1b8                RX_radio_IPv4_counter
+                0x2000c1d8        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c1d8                RX_radio_IPv4_counter
+ .bss.CONF_freq_shift
+                0x2000c1dc        0x2 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c1dc                CONF_freq_shift
+ .bss.CONF_channel_RX
+                0x2000c1de        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c1de                CONF_channel_RX
+ *fill*         0x2000c1df        0x1 
  .bss.CONF_radio_IP_size
-                0x2000c1bc        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000c1bc                CONF_radio_IP_size
+                0x2000c1e0        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c1e0                CONF_radio_IP_size
  .bss.G_downlink_BER
-                0x2000c1c0        0x2 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000c1c0                G_downlink_BER
+                0x2000c1e4        0x2 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c1e4                G_downlink_BER
  .bss.CONF_modem_MAC
-                0x2000c1c2        0x6 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000c1c2                CONF_modem_MAC
+                0x2000c1e6        0x6 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c1e6                CONF_modem_MAC
+ *fill*         0x2000c1ec        0x4 
  .bss.SI4463_prepa_TX_1_call
-                0x2000c1c8       0x40 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000c1c8                SI4463_prepa_TX_1_call
+                0x2000c1f0       0x40 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c1f0                SI4463_prepa_TX_1_call
  .bss.G_radio_addr_table_RSSI
-                0x2000c208        0xe ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000c208                G_radio_addr_table_RSSI
+                0x2000c230        0xe ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c230                G_radio_addr_table_RSSI
  .bss.G_downlink_RSSI
-                0x2000c216        0x2 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000c216                G_downlink_RSSI
+                0x2000c23e        0x2 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c23e                G_downlink_RSSI
  .bss.time_next_TX_slave
-                0x2000c218        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000c218                time_next_TX_slave
+                0x2000c240        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c240                time_next_TX_slave
+ .bss.CONF_SI4463_freq_conf_RX
+                0x2000c244        0xf ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c244                CONF_SI4463_freq_conf_RX
+ *fill*         0x2000c253        0x1 
+ .bss.CONF_master_down_IP
+                0x2000c254        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c254                CONF_master_down_IP
+ .bss.CONF_SI4463_freq_conf_TX
+                0x2000c258        0xf ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c258                CONF_SI4463_freq_conf_TX
+ *fill*         0x2000c267        0x1 
  .bss.my_client_radio_connexion_state
-                0x2000c21c        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000c21c                my_client_radio_connexion_state
+                0x2000c268        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c268                my_client_radio_connexion_state
  .bss.RSSI_stat_pkt_nb
-                0x2000c220        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000c220                RSSI_stat_pkt_nb
+                0x2000c26c        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c26c                RSSI_stat_pkt_nb
  .bss.CONF_frequency_band
-                0x2000c224        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000c224                CONF_frequency_band
+                0x2000c270        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c270                CONF_frequency_band
  .bss.CONF_radio_frequency
-                0x2000c225        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000c225                CONF_radio_frequency
- *fill*         0x2000c226        0x2 
+                0x2000c271        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c271                CONF_radio_frequency
+ *fill*         0x2000c272        0x2 
  .bss.CONF_radio_addr_table_IP_size
-                0x2000c228       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000c228                CONF_radio_addr_table_IP_size
+                0x2000c274       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c274                CONF_radio_addr_table_IP_size
  .bss.CONF_radio_modulation
-                0x2000c244        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000c244                CONF_radio_modulation
+                0x2000c290        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c290                CONF_radio_modulation
  .bss.CONF_radio_static_IP_requested
-                0x2000c245        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000c245                CONF_radio_static_IP_requested
- *fill*         0x2000c246        0x2 
+                0x2000c291        0x1 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c291                CONF_radio_static_IP_requested
+ *fill*         0x2000c292        0x2 
  .bss.G_uplink_bandwidth_temp
-                0x2000c248        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000c248                G_uplink_bandwidth_temp
+                0x2000c294        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c294                G_uplink_bandwidth_temp
  .bss.RSSI_total_stat
-                0x2000c24c        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
-                0x2000c24c                RSSI_total_stat
+                0x2000c298        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/global_variables.o
+                0x2000c298                RSSI_total_stat
  .bss._ZZ4mainE8SI4463_1
-                0x2000c250       0x18 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x2000c29c       0x18 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
  .bss.SI4463_SDN
-                0x2000c268       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x2000c268                SI4463_SDN
- .bss.CS3       0x2000c284       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x2000c284                CS3
+                0x2000c2b4       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x2000c2b4                SI4463_SDN
+ .bss.CS3       0x2000c2d0       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x2000c2d0                CS3
  .bss.LED_connected
-                0x2000c2a0       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x2000c2a0                LED_connected
+                0x2000c2ec       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x2000c2ec                LED_connected
  .bss.Random_pin
-                0x2000c2bc       0x70 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x2000c2bc                Random_pin
+                0x2000c308       0x70 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x2000c308                Random_pin
  .bss.Int_SI4463
-                0x2000c32c       0x50 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x2000c32c                Int_SI4463
- .bss.spi_1     0x2000c37c       0xe8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x2000c37c                spi_1
- .bss.spi_2     0x2000c464       0xe8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x2000c464                spi_2
- .bss.CS1       0x2000c54c       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x2000c54c                CS1
- .bss.CS2       0x2000c568       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x2000c568                CS2
+                0x2000c378       0x50 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x2000c378                Int_SI4463
+ .bss.spi_1     0x2000c3c8       0xe8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x2000c3c8                spi_1
+ .bss.spi_2     0x2000c4b0       0xe8 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x2000c4b0                spi_2
+ .bss.CS1       0x2000c598       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x2000c598                CS1
+ .bss.CS2       0x2000c5b4       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x2000c5b4                CS2
  .bss.Int_W5500
-                0x2000c584       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x2000c584                Int_W5500
+                0x2000c5d0       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x2000c5d0                Int_W5500
  .bss._ZZ4mainE10LAN_conf_p
-                0x2000c5a0        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x2000c5ec        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
  .bss.LED_RX_loc
-                0x2000c5a4       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
-                0x2000c5a4                LED_RX_loc
+                0x2000c5f0       0x1c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x2000c5f0                LED_RX_loc
  .bss._ZZ4mainE7W5500_1
-                0x2000c5c0       0x10 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
+                0x2000c60c       0x10 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/main.o
  .bss._ZL21TX_signal_frame_point
-                0x2000c5d0        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x2000c61c        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
  .bss._ZL8loc_data
-                0x2000c5d4       0x28 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x2000c620       0x28 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
  .bss._ZL19TX_signal_frame_raw
-                0x2000c5fc      0x104 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x2000c648      0x104 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
  .bss._ZZ29signaling_connect_req_processPhmhiE10raw_answer
-                0x2000c700       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x2000c74c       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
  .bss._ZL29connect_state_machine_counter
-                0x2000c73c        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x2000c788        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
  .bss._ZL21time_counter_last_ack
-                0x2000c740        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
+                0x2000c78c        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/source/signaling.o
  .bss.__malloc_max_total_mem
-                0x2000c744        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mallocr.o)
-                0x2000c744                __malloc_max_total_mem
+                0x2000c790        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mallocr.o)
+                0x2000c790                __malloc_max_total_mem
  .bss.__malloc_max_sbrked_mem
-                0x2000c748        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mallocr.o)
-                0x2000c748                __malloc_max_sbrked_mem
+                0x2000c794        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mallocr.o)
+                0x2000c794                __malloc_max_sbrked_mem
  .bss.__malloc_top_pad
-                0x2000c74c        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mallocr.o)
-                0x2000c74c                __malloc_top_pad
+                0x2000c798        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mallocr.o)
+                0x2000c798                __malloc_top_pad
  .bss.__malloc_current_mallinfo
-                0x2000c750       0x28 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mallocr.o)
-                0x2000c750                __malloc_current_mallinfo
+                0x2000c79c       0x28 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-mallocr.o)
+                0x2000c79c                __malloc_current_mallinfo
  *(COMMON)
- COMMON         0x2000c778     0x1100 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/mbed_boot.o
-                0x2000c778                env_mutex_id
-                0x2000c780                _main_stack
-                0x2000d780                malloc_mutex_id
-                0x2000d784                singleton_mutex_attr
-                0x2000d794                env_mutex_obj
-                0x2000d7b0                malloc_mutex_attr
-                0x2000d7c0                _main_obj
-                0x2000d808                malloc_mutex_obj
-                0x2000d824                _main_thread_attr
-                0x2000d848                singleton_mutex_id
-                0x2000d84c                singleton_mutex_obj
-                0x2000d868                env_mutex_attr
- COMMON         0x2000d878        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/rtx5/rt_OsEventObserver.o
-                0x2000d878                osEventObs
- COMMON         0x2000d87c        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_hal.o
-                0x2000d87c                uwTick
- COMMON         0x2000d880       0x20 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_hal_flash.o
-                0x2000d880                pFlash
- COMMON         0x2000d8a0      0x2c4 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/serial_device.o
-                0x2000d8a0                uart_handlers
-                0x2000db40                stdio_uart
- COMMON         0x2000db64       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/us_ticker_32b.o
-                0x2000db64                TimMasterHandle
- COMMON         0x2000dba0        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-reent.o)
-                0x2000dba0                errno
-                0x2000dba4                . = ALIGN (0x4)
-                0x2000dba4                __bss_end__ = .
-                0x2000dba4                _ebss = .
+ *fill*         0x2000c7c4        0x4 
+ COMMON         0x2000c7c8     0x1100 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/mbed_boot.o
+                0x2000c7c8                env_mutex_id
+                0x2000c7d0                _main_stack
+                0x2000d7d0                malloc_mutex_id
+                0x2000d7d4                singleton_mutex_attr
+                0x2000d7e4                env_mutex_obj
+                0x2000d800                malloc_mutex_attr
+                0x2000d810                _main_obj
+                0x2000d858                malloc_mutex_obj
+                0x2000d874                _main_thread_attr
+                0x2000d898                singleton_mutex_id
+                0x2000d89c                singleton_mutex_obj
+                0x2000d8b8                env_mutex_attr
+ COMMON         0x2000d8c8        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/rtos/TARGET_CORTEX/rtx5/rt_OsEventObserver.o
+                0x2000d8c8                osEventObs
+ COMMON         0x2000d8cc        0x4 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_hal.o
+                0x2000d8cc                uwTick
+ COMMON         0x2000d8d0       0x20 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_hal_flash.o
+                0x2000d8d0                pFlash
+ COMMON         0x2000d8f0      0x2c4 ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/TARGET_STM32L4/serial_device.o
+                0x2000d8f0                uart_handlers
+                0x2000db90                stdio_uart
+ COMMON         0x2000dbb4       0x3c ./BUILD/NUCLEO_L432KC/GCC_ARM/mbed-os/targets/TARGET_STM/us_ticker_32b.o
+                0x2000dbb4                TimMasterHandle
+ COMMON         0x2000dbf0        0x4 c:/program files (x86)/gnu tools arm embedded/5.4 2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7e-m/softfp\libc.a(lib_a-reent.o)
+                0x2000dbf0                errno
+                0x2000dbf4                . = ALIGN (0x4)
+                0x2000dbf4                __bss_end__ = .
+                0x2000dbf4                _ebss = .
 
-.heap           0x2000dba4        0x0
-                0x2000dba4                __end__ = .
-                0x2000dba4                end = __end__
+.heap           0x2000dbf4        0x0
+                0x2000dbf4                __end__ = .
+                0x2000dbf4                end = __end__
  *(.heap*)
-                0x2000dba4                __HeapLimit = .
+                0x2000dbf4                __HeapLimit = .
 
-.stack_dummy    0x2000dba4        0x0
+.stack_dummy    0x2000dbf4        0x0
  *(.stack*)
                 0x20010000                __StackTop = (ORIGIN (SRAM1) + LENGTH (SRAM1))
                 0x20010000                _estack = __StackTop

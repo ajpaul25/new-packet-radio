@@ -21,7 +21,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	int i = 0;
 	int j;
 	int current_command_length;
-	sprintf(filename_out, "SI4463_config_%i.h", which_modulation);
+	sprintf(filename_out, "SI4463_config_%i%s.h", which_modulation, which_band);
 	fid_out = fopen(filename_out, "w+");
 	fprintf(fid_out,"#define RADIO_CONFIGURATION_DATA_ARRAY_%i { \\\n", which_modulation);
 	current_command_length = radio_config_data[i];

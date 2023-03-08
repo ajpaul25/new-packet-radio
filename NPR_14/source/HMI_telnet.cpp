@@ -73,7 +73,7 @@ int telnet_loop (W5500_chip* W5500) {
 		TX_data[8] = 0x03; //Suppr GA 
 		TX_data[9] = 0;
 		strcat((char*)TX_data, "NPR modem\r\nready> ");
-		W5500_write_TX_buffer (W5500, 1, TX_data, 27, 0); 
+		W5500_write_TX_buffer (W5500, 1, TX_data, 27, 0); //27
 		//HMI_printf("ready>");
 		is_telnet_opened = 1;
 		current_rx_line_count = 0;
@@ -318,6 +318,10 @@ void HMI_line_parse (char* RX_text, int RX_text_count) {
 			HMI_printf("Done. Now rebooting...\r\n");
 			NVIC_SystemReset();
 		}
+		if (strcmp(loc_command_str, "version") == 0) {
+			command_understood = 1;
+			HMI_printf("firmware: %s\r\nfreq band: %s\r\nready> ", FW_VERSION, FREQ_BAND);
+		}
 		if (strcmp(loc_command_str, "exit") == 0) {
 			command_understood = 1;
 			HMI_exit();
@@ -431,7 +435,9 @@ void HMI_display_config(void) {
 	//HMI_printf("CONFIG:\r\n  callsign: '%s'\r\n  is_master: %s\r\n  MAC: %02X:%02X:%02X:%02X:%02X:%02X\r\n", CONF_radio_my_callsign+2, HMI_yes_no[is_TDMA_master],LAN_config.modem_MAC[0],LAN_config.modem_MAC[1],LAN_config.modem_MAC[2],LAN_config.modem_MAC[3],LAN_config.modem_MAC[4],LAN_config.modem_MAC[5]);
 	HMI_printf("CONFIG:\r\n  callsign: '%s'\r\n  is_master: %s\r\n  MAC: %02X:%02X:%02X:%02X:%02X:%02X\r\n", CONF_radio_my_callsign+2, HMI_yes_no[is_TDMA_master],CONF_modem_MAC[0],CONF_modem_MAC[1],CONF_modem_MAC[2],CONF_modem_MAC[3],CONF_modem_MAC[4],CONF_modem_MAC[5]);
 	
-	HMI_printf("  frequency: %.3fMHz\r\n  RF_power: %i\r\n  modulation: %i\r\n", (CONF_radio_frequency*0.04)+430 + frequency_offset[CONF_frequency_band], CONF_radio_PA_PWR, CONF_radio_modulation); 
+	//HMI_printf("  frequency: %.3fMHz\r\n  freq_shift: %.3fMHz\r\n  RF_power: %i\r\n  modulation: %i\r\n", (CONF_radio_frequency*0.04)+430 + frequency_offset[CONF_frequency_band], (float)CONF_freq_shift/1000, CONF_radio_PA_PWR, CONF_radio_modulation); 
+	HMI_printf("  frequency: %.3fMHz\r\n  freq_shift: %.3fMHz\r\n  RF_power: %i\r\n  modulation: %i\r\n", ((float)CONF_frequency_HD/1000)+FREQ_RANGE_MIN, (float)CONF_freq_shift/1000, CONF_radio_PA_PWR, CONF_radio_modulation); 
+
 	HMI_printf("  radio_netw_ID: %i\r\n  radio_on_at_start: %s\r\n", CONF_radio_network_ID, HMI_yes_no[CONF_radio_default_state_ON_OFF]);
 	if ( (is_TDMA_master) && (LAN_conf_saved.DHCP_server_active == 1) ) {
 		strcpy (DHCP_warning, " (warning, DHCP inhibited in master mode)"); 
@@ -621,27 +627,57 @@ void HMI_set_command(char* loc_param1, char* loc_param2) {
 				HMI_printf("wrong value\r\nready> ");
 			}
 		}
+		// else if (strcmp(loc_param1, "frequency") == 0) {
+			// temp = sscanf (loc_param2, "%f", &frequency);
+			// if ( (temp == 1) && (frequency<=450) && (frequency>=420) ) {
+				// RADIO_off_if_necessary(0);
+				// previous_freq_band = CONF_frequency_band;
+				// if (frequency < 430) {
+					// frequency = frequency + 10;
+					// CONF_frequency_band = 0x01;
+				// } 
+				// else if (frequency >= 440) {
+					// frequency = frequency -10;
+					// CONF_frequency_band = 0x02;
+				// } 
+				// else {CONF_frequency_band = 0x00;}
+				// frequency = (frequency - 430 + 0.02)*25;
+				// CONF_radio_frequency = (unsigned char)frequency;
+				// if (CONF_frequency_band == previous_freq_band) {
+					// RADIO_restart_if_necessary(0, 0, 1);
+				// }else {
+					// RADIO_restart_if_necessary(0, 1, 1);
+				// }
+				// HMI_printf("OK\r\nready> ");
+			// } else {
+				// HMI_printf("wrong freq value\r\nready> ");
+			// }
+		// }
 		else if (strcmp(loc_param1, "frequency") == 0) {
 			temp = sscanf (loc_param2, "%f", &frequency);
-			if ( (temp == 1) && (frequency<=450) && (frequency>=420) ) {
+			if ( (temp == 1) && (frequency<=FREQ_RANGE_MAX) && (frequency>FREQ_RANGE_MIN) ) {
 				RADIO_off_if_necessary(0);
-				previous_freq_band = CONF_frequency_band;
-				if (frequency < 430) {
-					frequency = frequency + 10;
-					CONF_frequency_band = 0x01;
-				} 
-				else if (frequency >= 440) {
-					frequency = frequency -10;
-					CONF_frequency_band = 0x02;
-				} 
-				else {CONF_frequency_band = 0x00;}
-				frequency = (frequency - 430 + 0.02)*25;
-				CONF_radio_frequency = (unsigned char)frequency;
-				if (CONF_frequency_band == previous_freq_band) {
-					RADIO_restart_if_necessary(0, 0, 1);
-				}else {
-					RADIO_restart_if_necessary(0, 1, 1);
-				}
+				frequency = (frequency - FREQ_RANGE_MIN)*1000 + 0.3; 
+				CONF_frequency_HD = (short int)frequency;
+				//RADIO_compute_freq_params();//REMOVE TEST
+				RADIO_restart_if_necessary(0, 1, 1);
+				HMI_printf("OK\r\nready> ");
+			} else {
+				HMI_printf("wrong freq value\r\nready> ");
+			}
+		}
+		else if (strcmp(loc_param1, "freq_shift") == 0) {
+			temp = sscanf (loc_param2, "%f", &frequency);
+			if ( (temp == 1) && (frequency<=10) && (frequency>=-10) ) {
+				RADIO_off_if_necessary(0);
+				frequency = (frequency*1000);
+				CONF_freq_shift = (short int)frequency;
+				//RADIO_compute_freq_params();//REMOVE TEST
+				//if (CONF_frequency_band == previous_freq_band) {
+				//	RADIO_restart_if_necessary(0, 0, 1);
+				//}else {
+				RADIO_restart_if_necessary(0, 1, 1);
+				//}
 				HMI_printf("OK\r\nready> ");
 			} else {
 				HMI_printf("wrong freq value\r\nready> ");
@@ -814,7 +850,7 @@ void HMI_print_status(void) {
 	HMI_printf("   RX_Eth_IPv4 %i ;TX_radio_IPv4 %i ; RX_radio_IPv4 %i\r\n", RX_Eth_IPv4_counter, TX_radio_IPv4_counter, RX_radio_IPv4_counter);
 	if ( (is_TDMA_master == 0) && (RSSI_stat_pkt_nb > 0) ) {
 		//HMI_printf("RSSI: %i\r\nCTRL+c to exit...\r\n", (RSSI_total_stat / RSSI_stat_pkt_nb) );
-		HMI_printf("   DOWNLINK - bandwidth:%.1f RSSI:%i ERR:%.2f%%    \r\n", loc_downlink_bw, G_downlink_RSSI/256, ((float)G_downlink_BER)/500); // /500
+		HMI_printf("   DOWNLINK - bandwidth:%.1f RSSI:%.1f ERR:%.2f%%    \r\n", loc_downlink_bw, ((float)G_downlink_RSSI/256/2-136), ((float)G_downlink_BER)/500); // /500
 		RSSI_total_stat = 0;
 		RSSI_stat_pkt_nb = 0;
 	} else {
@@ -822,7 +858,7 @@ void HMI_print_status(void) {
 		
 	}
 	if ( (is_TDMA_master == 0) && (my_client_radio_connexion_state == 2) ) {
-		HMI_printf("   UPLINK -   bandwidth:%.1f RSSI:%i ERR:%.2f%%    \r\nCTRL+c to exit...\r\n", loc_uplink_bw, G_radio_addr_table_RSSI[my_radio_client_ID], ((float)G_radio_addr_table_BER[my_radio_client_ID])/500);
+		HMI_printf("   UPLINK -   bandwidth:%.1f RSSI:%.1f ERR:%.2f%%    \r\nCTRL+c to exit...\r\n", loc_uplink_bw, ((float)G_radio_addr_table_RSSI[my_radio_client_ID]/2-136), ((float)G_radio_addr_table_BER[my_radio_client_ID])/500);
 	} else {
 		HMI_printf("   UPLINK -   bandwidth:%.1f RSSI:     ERR:      \r\nCTRL+c to exit...\r\n", loc_uplink_bw);
 	}

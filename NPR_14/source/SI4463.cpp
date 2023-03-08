@@ -16,24 +16,42 @@
 // along with "NPR70 modem firmware".  If not, see <http://www.gnu.org/licenses/>
 
 #include "SI4463.h"
-//#include "SI4463_config_10.h"
-#include "SI4463_config_20.h"
-#include "SI4463_config_11.h"
-#include "SI4463_config_21.h"
-#include "SI4463_config_12.h"
 
-#include "SI4463_config_22.h"
-#include "SI4463_config_13.h"
-//#include "radio_config_Si4463_13.h"
-#include "SI4463_config_23.h"
-#include "SI4463_config_14.h"
-#include "SI4463_config_24.h"
 #include "mbed.h"
 #include "global_variables.h"
 #include "TDMA.h"
 #include "HMI_telnet.h"
 #include "L1L2_radio.h"
  
+#ifdef FREQ_BAND_2M
+	#include "SI4463_config_20_2m.h"
+	#include "SI4463_config_11_2m.h"
+	#include "SI4463_config_21_2m.h"
+	#include "SI4463_config_12_2m.h"
+	#include "SI4463_config_22_2m.h"
+	#include "SI4463_config_13_2m.h"
+	#include "SI4463_config_23_2m.h"
+	#include "SI4463_config_14_2m.h"
+	#include "SI4463_config_24_2m.h"
+#else 
+	//#include "SI4463_config_10.h"
+	#include "SI4463_config_20.h"
+	//#include "radio_config_Si4463_20.h"
+	#include "SI4463_config_11.h"
+	//#include "radio_config_Si4463_11.h"
+	#include "SI4463_config_21.h"
+	//#include "radio_config_Si4463_21.h"
+	#include "SI4463_config_12.h"
+	#include "SI4463_config_22.h"
+	//#include "radio_config_Si4463_22.h"
+	#include "SI4463_config_13.h"
+	//#include "radio_config_Si4463_13.h"
+	#include "SI4463_config_23.h"
+	//#include "radio_config_Si4463_23.h"
+	#include "SI4463_config_14.h"
+	#include "SI4463_config_24.h"
+	//#include "radio_config_Si4463_24.h"
+#endif 
 
 //Timeout SI4463_prepa_TX_1_call;
 Timeout SI4463_prepa_TX_2_call;
@@ -109,16 +127,17 @@ int SI4463_CTS_read_answer(SI4463_Chip* SI4463, unsigned char* data, int size, i
 
 int SI4463_configure_from_20(SI4463_Chip* SI4463) {
 	unsigned char radio_config_data_20[1400] = RADIO_CONFIGURATION_DATA_ARRAY_20;//22
-	CONF_TDMA_frame_duration = 505000;
-	CONF_TDMA_slot_duration = 28400;
-	CONF_reduced_TDMA_slot_duration = 12000; 
+	//unsigned char radio_config_data_20[1400] = RADIO_CONFIGURATION_DATA_ARRAY;
+	CONF_TDMA_frame_duration = 560000;
+	CONF_TDMA_slot_duration = 31600;
+	CONF_reduced_TDMA_slot_duration = 12700; 
 	CONF_TDMA_slot_margin = 300;
 	CONF_TR_margain = 1300; 
 	CONF_TA_margain = 2000;
-	CONF_preamble_duration_for_decide = 2800; //1090
-	CONF_long_preamble_duration_for_TA = 3649;//1420
-	CONF_byte_duration = 72;
-	CONF_preamble_TX_long = 22;
+	CONF_preamble_duration_for_decide = 2670; //1090
+	CONF_long_preamble_duration_for_TA = 3751;//1420
+	CONF_byte_duration = 80;
+	CONF_preamble_TX_long = 20;
 	CONF_preamble_TX_short = 16;
 	CONF_Tx_rframe_timeout = 120;//8sec
 	CONF_radio_timeout_small = 20000000;//20sec
@@ -128,16 +147,17 @@ int SI4463_configure_from_20(SI4463_Chip* SI4463) {
 
 int SI4463_configure_from_11(SI4463_Chip* SI4463) {
 	unsigned char radio_config_data_11[1400] = RADIO_CONFIGURATION_DATA_ARRAY_11;//22
-	CONF_TDMA_frame_duration = 453000;
-	CONF_TDMA_slot_duration = 25450;
-	CONF_reduced_TDMA_slot_duration = 10100; 
+	//unsigned char radio_config_data_11[1400] = RADIO_CONFIGURATION_DATA_ARRAY;//22
+	CONF_TDMA_frame_duration = 537000;
+	CONF_TDMA_slot_duration = 30250;
+	CONF_reduced_TDMA_slot_duration = 11700; 
 	CONF_TDMA_slot_margin = 300;
 	CONF_TR_margain = 1300; 
 	CONF_TA_margain = 2000;
-	CONF_preamble_duration_for_decide = 1470; //1090
-	CONF_long_preamble_duration_for_TA = 2220;//1420
-	CONF_byte_duration = 67;
-	CONF_preamble_TX_long = 27;
+	CONF_preamble_duration_for_decide = 1650; //1090
+	CONF_long_preamble_duration_for_TA = 2473;//2292
+	CONF_byte_duration = 80;
+	CONF_preamble_TX_long = 25;
 	CONF_preamble_TX_short = 16;
 	CONF_Tx_rframe_timeout = 120;//8sec
 	CONF_radio_timeout_small = 20000000;//20sec
@@ -147,16 +167,17 @@ int SI4463_configure_from_11(SI4463_Chip* SI4463) {
 
 int SI4463_configure_from_21(SI4463_Chip* SI4463) {
 	unsigned char radio_config_data_21[1400] = RADIO_CONFIGURATION_DATA_ARRAY_21;//22
-	CONF_TDMA_frame_duration = 251000;
-	CONF_TDMA_slot_duration = 13800;
-	CONF_reduced_TDMA_slot_duration = 6200; 
+	//unsigned char radio_config_data_21[1400] = RADIO_CONFIGURATION_DATA_ARRAY;//22
+	CONF_TDMA_frame_duration = 294500;
+	CONF_TDMA_slot_duration = 16300;
+	CONF_reduced_TDMA_slot_duration = 7050; 
 	CONF_TDMA_slot_margin = 300;
 	CONF_TR_margain = 1300; 
 	CONF_TA_margain = 2000;
-	CONF_preamble_duration_for_decide = 1370; //1090
-	CONF_long_preamble_duration_for_TA = 2467;//1420
-	CONF_byte_duration = 27;
-	CONF_preamble_TX_long = 32;
+	CONF_preamble_duration_for_decide = 1550; //1090
+	CONF_long_preamble_duration_for_TA = 2370;//1420
+	CONF_byte_duration = 30;
+	CONF_preamble_TX_long = 25;
 	CONF_preamble_TX_short = 16;
 	CONF_Tx_rframe_timeout = 90;//6 sec
 	CONF_radio_timeout_small = 15000000;//20sec
@@ -185,6 +206,7 @@ int SI4463_configure_from_12(SI4463_Chip* SI4463) {
 
 int SI4463_configure_from_22(SI4463_Chip* SI4463) {
 	unsigned char radio_config_data_22[1400] = RADIO_CONFIGURATION_DATA_ARRAY_22;//22
+	//unsigned char radio_config_data_22[1400] = RADIO_CONFIGURATION_DATA_ARRAY;
 	CONF_TDMA_frame_duration = 176000;
 	CONF_TDMA_slot_duration = 9480;
 	CONF_reduced_TDMA_slot_duration = 4330; 
@@ -192,7 +214,7 @@ int SI4463_configure_from_22(SI4463_Chip* SI4463) {
 	CONF_TR_margain = 1300; 
 	CONF_TA_margain = 2000;
 	CONF_preamble_duration_for_decide = 890; //1090
-	CONF_long_preamble_duration_for_TA = 1703;//1420
+	CONF_long_preamble_duration_for_TA = 1708;//1420
 	CONF_byte_duration = 23;
 	CONF_preamble_TX_long = 32;
 	CONF_preamble_TX_short = 16;
@@ -223,6 +245,7 @@ int SI4463_configure_from_13(SI4463_Chip* SI4463) {
 
 int SI4463_configure_from_23(SI4463_Chip* SI4463) {
 	unsigned char radio_config_data_23[1500] = RADIO_CONFIGURATION_DATA_ARRAY_23;//23
+	//unsigned char radio_config_data_23[1500] = RADIO_CONFIGURATION_DATA_ARRAY;
 	CONF_TDMA_frame_duration = 117000;
 	CONF_TDMA_slot_duration = 6090;
 	CONF_reduced_TDMA_slot_duration = 3000; 
@@ -261,6 +284,7 @@ int SI4463_configure_from_14(SI4463_Chip* SI4463) {
 
 int SI4463_configure_from_24(SI4463_Chip* SI4463) {
 	unsigned char radio_config_data_24[1500] = RADIO_CONFIGURATION_DATA_ARRAY_24;//24
+	//unsigned char radio_config_data_24[1500] = RADIO_CONFIGURATION_DATA_ARRAY;//24
 	CONF_TDMA_frame_duration = 81300;//81300
 	CONF_TDMA_slot_duration = 4060;
 	CONF_reduced_TDMA_slot_duration = 2210; 
@@ -343,23 +367,23 @@ int SI4463_configure_from_h(SI4463_Chip* SI4463, unsigned char* radio_config_dat
 	if (answer_loc == 0) {answer = 0;}
 	wait_ms(5);//5
 	
-	unsigned char radio_config_seven[10] = {0x11, 0x40, 0x04, 0x00, 0x38, 0x0A, 0xAA, 0xAA}; //band 430MHz default
-	if (CONF_frequency_band == 1) {//Band >420MHz
-		radio_config_seven[4] = 0x37;
-		radio_config_seven[5] = 0x08;
-		radio_config_seven[6] = 0x00;
-		radio_config_seven[7] = 0x00;
-	}
-	if (CONF_frequency_band == 2) {//Band >440MHz
-		radio_config_seven[4] = 0x39; 
-		radio_config_seven[5] = 0x0D;
-		radio_config_seven[6] = 0x55; 
-		radio_config_seven[7] = 0x55; 
-	}
-	SI4463_send_command(SI4463, radio_config_seven, 8);
-	answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 200);
-	if (answer_loc == 0) {answer = 0;}
-	wait_ms(5);//5
+	// unsigned char radio_config_seven[10] = {0x11, 0x40, 0x04, 0x00, 0x38, 0x0A, 0xAA, 0xAA}; //band 430MHz default
+	// if (CONF_frequency_band == 1) {//Band >420MHz
+		// radio_config_seven[4] = 0x37;
+		// radio_config_seven[5] = 0x08;
+		// radio_config_seven[6] = 0x00;
+		// radio_config_seven[7] = 0x00;
+	// }
+	// if (CONF_frequency_band == 2) {//Band >440MHz
+		// radio_config_seven[4] = 0x39; 
+		// radio_config_seven[5] = 0x0D;
+		// radio_config_seven[6] = 0x55; 
+		// radio_config_seven[7] = 0x55; 
+	// }
+	// SI4463_send_command(SI4463, radio_config_seven, 8);
+	// answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 200);
+	// if (answer_loc == 0) {answer = 0;}
+	// wait_ms(5);//5
 	
 	return answer;
 }
@@ -449,13 +473,13 @@ void SI4463_start_RX (SI4463_Chip* SI4463, unsigned char channel) {
 	static unsigned char command[12] = {0x32, 0, 0, 0, 0, 0x08, 0x08, 0x08};
 	command[1] = channel;
 	SI4463_send_command(SI4463, command, 8);
-	SI4463_CTS_read_answer (SI4463, command, 0, 5);
+	SI4463_CTS_read_answer (SI4463, command, 0, 55);//TEST !!! previously 5
 }
 
 void SI4463_start_TX (SI4463_Chip* SI4463, unsigned char channel, unsigned int size) {
 	static unsigned char command[12] = {0x31, 0, 0x50, 0, 0, 0, 0};
 	
-	command[1] = channel;
+	command[1] = channel; 
 	command[3] = (size & 0x1F00) >> 8;
 	command[4] = size & 0xFF;
 	SI4463_send_command(SI4463, command, 8);
@@ -525,7 +549,8 @@ int SI4463_read_temperature(SI4463_Chip* SI4463) {
 	unsigned char answer_loc [10];
 	unsigned char command_temp_read[10] = {0x14, 0x10, 0xA0};
 	SI4463_send_command(SI4463, command_temp_read, 3);
-	wait_ms(2);
+	//wait_ms(2);
+	wait_us(20);
 	if (SI4463_CTS_read_answer(SI4463, answer_loc, 6, 2000) ) {
 		temperature = answer_loc[4] * 256 + answer_loc[5];
 		temperature = temperature * 0.2195 - 293;
@@ -589,7 +614,8 @@ void SI4463_periodic_temperature_check_2(void) {
 				if (i == 0) {//fail to recalibrate
 					NVIC_SystemReset();
 				}
-				SI4463_start_RX(G_SI4463, CONF_radio_frequency);
+				//SI4463_start_RX(G_SI4463, CONF_radio_frequency);
+				SI4463_start_RX(G_SI4463, CONF_channel_RX);
 				SI4463_clear_IT (G_SI4463, 0, 0);
 				SI4463_CTS_read_answer (G_SI4463, trash, 2, 5);// ADDED 2018 08 25
 				RX_size_remaining = 0;
@@ -648,6 +674,24 @@ void SI4463_FIFO_TX_transfer(unsigned int size) {
 		printf("ERR FIFO last_ready:%08X RD_point:%08X\r\n", TXPS_FIFO->last_ready, TXPS_FIFO->RD_point);
 	}
 	G_SI4463->cs->write(1);
+}
+
+void SI4463_RX_HOP(void) {
+	//G_SI4463->RX_LED->write(1);
+	SI4463_send_command(G_SI4463, CONF_SI4463_freq_conf_RX, 7);
+	wait_us(20);
+	SI4463_CTS_read_answer (G_SI4463, SI_trash, 0, 50);
+	wait_us(20);
+	//G_SI4463->RX_LED->write(0);
+}
+
+void SI4463_TX_HOP(void) {
+	//G_SI4463->RX_LED->write(1);
+	SI4463_send_command(G_SI4463, CONF_SI4463_freq_conf_TX, 9);
+	wait_us(20);
+	SI4463_CTS_read_answer (G_SI4463, SI_trash, 0, 50);
+	wait_us(20);
+	//G_SI4463->RX_LED->write(0);
 }
 
 // High level functions
@@ -752,7 +796,7 @@ void SI4463_RX_IT() {
 				}
 				if (Synth_pckt_RX) { // force to read all remaining if full packet received
 					size_to_read = RX_size_remaining;
-					G_SI4463->RX_LED->write(0);
+					G_SI4463->RX_LED->write(0); 
 				}
 				if (RX_size_remaining > 0) { //avoid useless FIFO reading
 					TX_small[0] = 0x77;
@@ -796,7 +840,7 @@ static int radio_lock_TX_pending = 0;
 
 void SI4463_prepa_TX_1(void) {
 	unsigned long int timer_snapshot;
-	G_SI4463->RX_LED->write(0);
+	G_SI4463->RX_LED->write(0); 
 	timer_snapshot = GLOBAL_timer.read_us() + 50000;
 	//if ( (CONF_radio_state_ON_OFF) && (radio_lock_TX_pending == 0) ) {
 	if ( (CONF_radio_state_ON_OFF) ) {
@@ -824,23 +868,24 @@ void SI4463_prepa_TX_2(void) {
 	if (CONF_radio_state_ON_OFF) {
 		loc_time = GLOBAL_timer.read_us();
 		if (is_TDMA_master) {
-			loc_time_offset = 530; //
+			loc_time_offset = 530; // 530
 		} else {
 			// //loc_time_offset = (time_next_TX_slave-loc_time) & 0xFFFFFF;
-			loc_time_offset = 530; // 300
+			loc_time_offset = 530; // 530
 		}
 		time_STOP_TX_burst = (loc_time + loc_time_offset + time_max_TX_burst);// & 0xFFFFFF; 
 		SI4463_1st_TX_call.attach_us(&SI4463_decide_new_TX_or_not, loc_time_offset); 
 		
-		SI4463_change_state(G_SI4463, 0x05); //switch to TX_TUNE
+		SI4463_change_state(G_SI4463, 0x05); //switch to TX_TUNE (with CTS)
 		RX_FIFO_WR_point = RX_FIFO_last_received; // rewind WR_pointer to last complete packet
-		SI4463_FIFO_status(G_SI4463, &toto, &toto, 1); //reset FIFO
+		SI4463_FIFO_status(G_SI4463, &toto, &toto, 1); //reset FIFO (including CTS)
 		TX_slot_frame_counter = 0;
-		SI4463_clear_IT (G_SI4463, 0, 0);
+		//SI4463_TX_HOP();
+		SI4463_clear_IT (G_SI4463, 0, 0);//without CTS
 		G_SI4463->RX_TX_state = 2; // activate TX HW IRQ
 		wait_us(20); 
 		SI4463_CTS_read_answer(G_SI4463, trash, 0, 20);
-		SI4463_set_TX_preamble_length(G_SI4463, CONF_preamble_TX_long);
+		SI4463_set_TX_preamble_length(G_SI4463, CONF_preamble_TX_long); 
 	}
 	
 }
@@ -856,7 +901,9 @@ void SI4463_TX_to_RX_transition(void) {
 		SI4463_periodic_temperature_check(G_SI4463);//added 2019_05_31
 		G_need_temperature_check = 0;
 	}
-	SI4463_start_RX(G_SI4463, CONF_radio_frequency);
+	//SI4463_start_RX(G_SI4463, CONF_radio_frequency);
+	SI4463_start_RX(G_SI4463, CONF_channel_RX); // with CTS
+	SI4463_RX_HOP();// with CTS
 	SI4463_clear_IT (G_SI4463, 0, 0);
 	SI4463_CTS_read_answer (G_SI4463, trash, 2, 5);// ADDED 2018 08 25
 	RX_size_remaining = 0;
@@ -1010,18 +1057,20 @@ void SI4463_TX_new_frame(unsigned char synchro) {
 	TX_size_remaining = TX_size_remaining - 30;
 	
 	//start TX order
-	SI4463_start_TX (G_SI4463, CONF_radio_frequency, full_packet_size);
-
+	//SI4463_start_TX (G_SI4463, CONF_radio_frequency, full_packet_size);
+	SI4463_start_TX (G_SI4463, CONF_channel_TX, full_packet_size);
+	//wait_us(400);//TEST
 	//FIFO transfer
-	if (TX_size_remaining < 95) { //sent in 1 pass //97
+	if (TX_size_remaining < 95) { //sent in 1 pass //95 
 		size_to_send = TX_size_remaining;
 	} else {
-		size_to_send = 95; //97
+		size_to_send = 95; //95 
 	}
 	SI4463_FIFO_TX_transfer(size_to_send);
 	
 	//CTS
-	SI4463_CTS_read_answer (G_SI4463, trash, 0, 5);
+	SI4463_CTS_read_answer (G_SI4463, trash, 0, 55);//TEST previously 5
+	//SI4463_TX_HOP();
 	TX_size_remaining = TX_size_remaining - size_to_send;
 }
 
@@ -1137,6 +1186,7 @@ int SI4463_configure_all(void) {
 		if (CONF_radio_modulation == 24) {
 			answer_loc = SI4463_configure_from_24(G_SI4463);
 		}
+		RADIO_compute_freq_params();
 	}
 	return answer_loc;
 }
@@ -1194,7 +1244,7 @@ void RADIO_off(int need_disconnect) {
 	wait_ms(100);//400
 	SI4463_FIFO_status(G_SI4463, &toto, &toto, 1);//tentative 
 	G_SI4463->RX_TX_state = 0;//tentative 
-	G_SI4463->RX_LED->write(0);
+	G_SI4463->RX_LED->write(0); 
 	wait_us(10);
 	SI4463_change_state(G_SI4463, 0x03);//change state to ready
 	wait_us(10);
@@ -1242,4 +1292,137 @@ void SI4432_TX_test(unsigned int req_duration) { //duration in ms
 		real_duration = (timer_snapshot - timer_begin);
 	} while (real_duration < (req_duration) ) ;
 	
+}
+
+
+void SI4463_set_frequency(float freq_base, float freq_step) {
+	unsigned char radio_config[15] = {0x11, 0x40, 0x06, 0x00};
+	unsigned int step_size_temp, FC_int, FC_frac_int, i;
+	float FC_int_float, FC_frac_float;
+	
+	//FC_int_float = freq_base / 7.5;
+	FC_int_float = freq_base * SI4463_NOUTDIV / 60;
+	FC_int = (unsigned int)FC_int_float - 1;
+	FC_frac_float = (FC_int_float - (float)FC_int) * 524288;
+	FC_frac_int = (unsigned int)(FC_frac_float);
+	
+	//printf ("\r\nfreq_base %f \r\nfreq step %f\r\n", freq_base, freq_step);
+	//printf ("\r\nFC_int_float %f\r\nFC_int %i\r\nFC_frac_float %f\r\nFC_frac_int%i\r\n", FC_int_float, FC_int, FC_frac_float, FC_frac_int);
+	step_size_temp = (unsigned int)(524288*freq_step/7.5);
+	
+	radio_config [4] = FC_int & 0xFF; 					//FREQ_CONTROL_INTE
+	radio_config [5] = (FC_frac_int & 0xFF0000) >> 16;	//FREQ_CONTROL_FRAC MSB
+	radio_config [6] = (FC_frac_int & 0x00FF00) >> 8; 	// ...
+	radio_config [7] = (FC_frac_int & 0x0000FF);		//FREQ_CONTROL_FRAC LSB
+	radio_config [8] = (step_size_temp & 0xFF00) >> 8;	//FREQ_CONTROL_STEP_SIZE MSB
+	radio_config [9] = step_size_temp & 0x00FF;			//FREQ_CONTROL_STEP_SIZE LSB
+	//for (i=0; i<10; i++) {
+	//	printf("i%i : %02X\r\n", i, radio_config[i]);
+	//}
+	SI4463_send_command(G_SI4463, radio_config, 10);
+	wait_ms(100);// 100us
+	SI4463_CTS_read_answer(G_SI4463, SI_trash, 0, 200);
+	wait_ms(100);// 100us
+}
+/*
+void RADIO_compute_freq_params() {
+	float freq_local;
+	float freq_shift_loc;
+	float freq_base_loc;
+	float freq_step_loc;
+	int step_nb_loc;
+	freq_local = 420 + ((float)CONF_frequency_HD)/1000;//unit MHz
+	freq_shift_loc = ((float)CONF_freq_shift)/1000;//unit MHz
+	if (freq_shift_loc > 0) {
+		freq_base_loc = freq_local;//lower freq = downlink
+		freq_step_loc = freq_shift_loc;//upper freq = uplink
+		step_nb_loc = (freq_step_loc + 1)*2;
+		//printf ("\r\nstep nb : %i\r\n", step_nb_loc);
+		freq_step_loc = freq_step_loc / ((float) step_nb_loc);
+		if (is_TDMA_master == 1) {
+			CONF_channel_TX = 0;//downlink
+			CONF_channel_RX = step_nb_loc;//uplink
+		} else {//client 
+			CONF_channel_TX = step_nb_loc;//uplink
+			CONF_channel_RX = 0;//downlink
+		}
+	} else if ((freq_shift_loc < 0)) {
+		freq_base_loc = freq_local + freq_shift_loc;//lower freq = uplink
+		freq_step_loc = -freq_shift_loc;//positive
+		step_nb_loc = (freq_step_loc + 1)*2;
+		//printf ("\r\nstep nb : %i\r\n", step_nb_loc);
+		freq_step_loc = freq_step_loc / ((float) step_nb_loc);
+		if (is_TDMA_master == 1) {
+			CONF_channel_TX = step_nb_loc;//downlink
+			CONF_channel_RX = 0;//uplink
+		} else {//client
+			CONF_channel_TX = 0;//uplink
+			CONF_channel_RX = step_nb_loc;//downlink
+		}
+	} else {// shift = 0
+		freq_base_loc = freq_local;
+		freq_step_loc = 0;
+		CONF_channel_TX = 0;
+		CONF_channel_RX = 0;
+	}
+	//CONF_channel_TX = 0;
+	//CONF_channel_RX = 0;
+	SI4463_set_frequency(freq_base_loc, freq_step_loc);
+} */
+void RADIO_compute_freq_params() {
+	float freq_local, freq_shift_loc;
+	float loc_freq_float_RX;
+	float loc_freq_float_TX;
+	freq_local = FREQ_RANGE_MIN + ((float)CONF_frequency_HD)/1000;//unit MHz
+	freq_shift_loc = ((float)CONF_freq_shift)/1000;//unit MHz
+	if (is_TDMA_master == 1) {
+		loc_freq_float_RX = freq_local + freq_shift_loc;
+		loc_freq_float_TX = freq_local;//downlink
+	} else {
+		loc_freq_float_RX = freq_local;//downlink
+		loc_freq_float_TX = freq_local + freq_shift_loc;//uplink
+	}
+	unsigned int FC_int, FC_frac_int, VCO_CNT_int;
+	float FC_int_float, FC_frac_float, VCO_CNT_float;
+	
+	//TX frequency
+	//FC_int_float = loc_freq_float_TX / 7.5;
+	FC_int_float = loc_freq_float_TX * SI4463_NOUTDIV / 60;
+	FC_int = (unsigned int)FC_int_float - 1;
+	FC_frac_float = (FC_int_float - (float)FC_int) * 524288;
+	FC_frac_int = (unsigned int)(FC_frac_float);
+	//VCO_CNT_float = loc_freq_float_TX * 256/60 + 0.5;
+	VCO_CNT_float = (loc_freq_float_TX*32/60) * SI4463_NOUTDIV;
+	VCO_CNT_int = (unsigned int)(VCO_CNT_float);
+	CONF_SI4463_freq_conf_TX[0] = 0x37;
+	CONF_SI4463_freq_conf_TX[1] = FC_int & 0xFF; 			//FREQ_CONTROL_INTE
+	CONF_SI4463_freq_conf_TX[2] = (FC_frac_int & 0xFF0000) >> 16;//FREQ_CONTROL_FRAC MSB
+	CONF_SI4463_freq_conf_TX[3] = (FC_frac_int & 0x00FF00) >> 8; 	// ...
+	CONF_SI4463_freq_conf_TX[4] = (FC_frac_int & 0x0000FF);	//FREQ_CONTROL_FRAC LSB
+	CONF_SI4463_freq_conf_TX[5] = (VCO_CNT_int & 0xFF00) >> 8;// VCO CNT MSB
+	CONF_SI4463_freq_conf_TX[6] = (VCO_CNT_int & 0x00FF); 		// VCO CNT LSB
+	CONF_SI4463_freq_conf_TX[7] = 0x00;// PLL settle time MSB
+	CONF_SI4463_freq_conf_TX[8] = 0x64;// PLL settle time LSB (us)
+	
+	//RX frequency
+	//FC_int_float = loc_freq_float_RX / 7.5;
+	FC_int_float = loc_freq_float_RX * SI4463_NOUTDIV / 60;
+	FC_int = (unsigned int)FC_int_float - 1;
+	FC_frac_float = (FC_int_float - (float)FC_int) * 524288;
+	FC_frac_int = (unsigned int)(FC_frac_float);
+	//VCO_CNT_float = loc_freq_float_RX * 256/60 -2 + 0.5;
+	VCO_CNT_float = (loc_freq_float_RX*32/60 - 32/128) * SI4463_NOUTDIV;
+	VCO_CNT_int = (unsigned int)(VCO_CNT_float);
+	CONF_SI4463_freq_conf_RX[0] = 0x36;
+	CONF_SI4463_freq_conf_RX[1] = FC_int & 0xFF; 			//FREQ_CONTROL_INTE
+	CONF_SI4463_freq_conf_RX[2] = (FC_frac_int & 0xFF0000) >> 16;//FREQ_CONTROL_FRAC MSB
+	CONF_SI4463_freq_conf_RX[3] = (FC_frac_int & 0x00FF00) >> 8; 	// ...
+	CONF_SI4463_freq_conf_RX[4] = (FC_frac_int & 0x0000FF);	//FREQ_CONTROL_FRAC LSB
+	CONF_SI4463_freq_conf_RX[5] = (VCO_CNT_int & 0xFF00) >> 8;// VCO CNT MSB
+	CONF_SI4463_freq_conf_RX[6] = (VCO_CNT_int & 0x00FF); 		// VCO CNT LSB
+	
+	CONF_channel_TX = 0;
+	CONF_channel_RX = 0;
+	
+	SI4463_set_frequency(loc_freq_float_TX, 10);
 }

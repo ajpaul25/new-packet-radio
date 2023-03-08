@@ -3,8 +3,8 @@
         "module": "[fill]", 
         "size": {
             ".data": 21, 
-            ".bss": 55, 
-            ".text": 182
+            ".bss": 73, 
+            ".text": 167
         }
     }, 
     {
@@ -724,7 +724,7 @@
         "size": {
             ".data": 108, 
             ".bss": 125, 
-            ".text": 8433
+            ".text": 8636
         }
     }, 
     {
@@ -740,7 +740,7 @@
         "size": {
             ".data": 32, 
             ".bss": 401, 
-            ".text": 67266
+            ".text": 67462
         }
     }, 
     {
@@ -764,14 +764,14 @@
         "size": {
             ".data": 0, 
             ".bss": 264, 
-            ".text": 1434
+            ".text": 1646
         }
     }, 
     {
         "module": "source\\global_variables.o", 
         "size": {
             ".data": 515, 
-            ".bss": 25685, 
+            ".bss": 25747, 
             ".text": 140
         }
     }, 
@@ -780,7 +780,7 @@
         "size": {
             ".data": 4, 
             ".bss": 896, 
-            ".text": 1473
+            ".text": 1469
         }
     }, 
     {
@@ -793,8 +793,8 @@
     }, 
     {
         "summary": {
-            "static_ram": 55832, 
-            "total_flash": 177037
+            "static_ram": 55912, 
+            "total_flash": 177629
         }
     }
 ]
