@@ -156,8 +156,8 @@ BUILD\NUCLEO_L432KC\GCC_ARM\source\SI4463.o: source\SI4463.cpp \
  mbed-os/platform/DeepSleepLock.h mbed-os/platform/Callback.h \
  mbed-os/platform/FunctionPointer.h source\global_variables.h \
  source\W5500.h source\ext_SRAM2.h source\TDMA.h source\HMI_telnet.h \
- source\L1L2_radio.h source/SI4463/SI4463_config_20.h \
- source/SI4463/SI4463_config_11.h source/SI4463/SI4463_config_21.h \
- source/SI4463/SI4463_config_12.h source/SI4463/SI4463_config_22.h \
- source/SI4463/SI4463_config_13.h source/SI4463/SI4463_config_23.h \
- source/SI4463/SI4463_config_14.h source/SI4463/SI4463_config_24.h
+ source\L1L2_radio.h source/SI4463/SI4463_config_20_2m.h \
+ source/SI4463/SI4463_config_11_2m.h source/SI4463/SI4463_config_21_2m.h \
+ source/SI4463/SI4463_config_12_2m.h source/SI4463/SI4463_config_22_2m.h \
+ source/SI4463/SI4463_config_13_2m.h source/SI4463/SI4463_config_23_2m.h \
+ source/SI4463/SI4463_config_14_2m.h source/SI4463/SI4463_config_24_2m.h
