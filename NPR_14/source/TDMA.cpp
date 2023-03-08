@@ -1,6 +1,6 @@
 // This file is part of "NPR70 modem firmware" software
 // (A GMSK data modem for ham radio 430-440MHz, at several hundreds of kbps) 
-// Copyright (c) 2017-2018 Guillaume F. F4HDK (amateur radio callsign)
+// Copyright (c) 2017-2020 Guillaume F. F4HDK (amateur radio callsign)
 // 
 // "NPR70 modem firmware" is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -58,9 +58,10 @@ unsigned char TDMA_byte_elaboration(unsigned char synchro) {
 	} else { // TDMA client
 		TDMA_byte = 0x00; //uplink/downlink bit
 		// uplink buffer size
-		uplink_buffer_size_temp = (TXPS_FIFO->last_ready - TXPS_FIFO->RD_point); 
-		uplink_buffer_size = uplink_buffer_size_temp / 300; //number of frames
-		if ( (uplink_buffer_size_temp % 300) > 0) {uplink_buffer_size++;}
+		//uplink_buffer_size_temp = (TXPS_FIFO->last_ready - TXPS_FIFO->RD_point); 
+		//uplink_buffer_size = uplink_buffer_size_temp / 300; //number of frames
+		uplink_buffer_size = compute_TX_buff_size_global();
+		//if ( (uplink_buffer_size_temp % 300) > 0) {uplink_buffer_size++;}
 		if (uplink_buffer_size > 30) {uplink_buffer_size = 30;}
 		TDMA_byte = TDMA_byte + (uplink_buffer_size & 0x1F);
 	}
@@ -210,14 +211,16 @@ void TDMA_master_allocation () {
 			TDMA_table_uplink_usage[i]--; 
 		}
 	}
-	if ((TDMA_frame_nb & 0x7) == 0) { // once every 8 frames
+	//if ((TDMA_frame_nb & 0x7) == 0) { // once every 8 frames 
+	if ((TDMA_frame_nb & 0x3) == 0) { // once every 4 frames 
 		TDMA_master_allocation_slow();
 	}
 	// ** TDMA allocation algorithm for fast slots **	
 	// 1) Master computes its own downlink buffer size
-	downlink_buffer_size_temp = (TXPS_FIFO->last_ready - TXPS_FIFO->RD_point); 
-	downlink_buffer_size = downlink_buffer_size_temp / 300; //number of frames
-	if ((downlink_buffer_size_temp % 300) > 0) {downlink_buffer_size++;}
+	//downlink_buffer_size_temp = (TXPS_FIFO->last_ready - TXPS_FIFO->RD_point); 
+	//downlink_buffer_size = downlink_buffer_size_temp / 300; //number of frames
+	//if ((downlink_buffer_size_temp % 300) > 0) {downlink_buffer_size++;}
+	downlink_buffer_size = compute_TX_buff_size_global();
 	if (downlink_buffer_size > 30) {downlink_buffer_size = 30;}
 	// 2) if no TDMA uplink received from client, lower its need
 	for (i=0; i<radio_addr_table_size; i++) {
@@ -246,21 +249,21 @@ void TDMA_master_allocation () {
 	}
 	// 4) 1st allocation pass, round robin
 	remaining_needs = 1;
-	while ( (allocated_slots < 16) && (remaining_needs > 0) ) {
+	while ( (allocated_slots < 15) && (remaining_needs > 0) ) {
 		// master
-		if ( (loc_master_needs > 0) && (allocated_slots < 16) ) {
+		if ( (loc_master_needs > 0) && (allocated_slots < 15) ) {
 			master_allocated_slots++;
 			loc_master_needs--;
 			allocated_slots++;
 		}
-		if ( (loc_master_needs > 0) && (allocated_slots < 16) && (nb_fast_clients > 1) ) {// master counts 2 times if more than 1 client
+		if ( (loc_master_needs > 0) && (allocated_slots < 15) && (nb_fast_clients > 1) ) {// master counts 2 times if more than 1 client
 			master_allocated_slots++;
 			loc_master_needs--;
 			allocated_slots++;
 		}
 		remaining_needs = loc_master_needs;
 		for (i=0; i<radio_addr_table_size; i++) {
-			if ( (CONF_radio_addr_table_status[i]) && (TDMA_table_is_fast[i]) && (loc_client_needs[i]>0) && (allocated_slots < 16) ) {
+			if ( (CONF_radio_addr_table_status[i]) && (TDMA_table_is_fast[i]) && (loc_client_needs[i]>0) && (allocated_slots < 15) ) {
 				TDMA_table_slots[i]++;
 				loc_client_needs[i]--;
 				allocated_slots++;
@@ -269,11 +272,11 @@ void TDMA_master_allocation () {
 		}
 	}
 	// 5) 2nd allocation pass, round robin of remaining, even without needs
-	while (allocated_slots < 16) {
+	while (allocated_slots < 15) {
 		master_allocated_slots++;
 		allocated_slots++;
 		for (i=0; i<radio_addr_table_size; i++) {
-			if ( (CONF_radio_addr_table_status[i]) && (TDMA_table_is_fast[i]) && (allocated_slots < 16) ) {
+			if ( (CONF_radio_addr_table_status[i]) && (TDMA_table_is_fast[i]) && (allocated_slots < 15) ) {
 				TDMA_table_slots[i]++;
 				allocated_slots++;
 			}
@@ -296,8 +299,21 @@ void TDMA_master_allocation () {
 		}
 	}
 	//printf("\r\n");
+	//multi frame x4
 	TDMA_offset_multi_frame = loc_time_offset / 10;
-	for (i=0; i<radio_addr_table_size; i++) {
+	for (i=0; i<4; i++) {
+		if ( (CONF_radio_addr_table_status[i]) && (TDMA_table_is_fast[i]==0) ) {
+			local_TA = TDMA_table_TA[i];
+			if ( (local_TA > -2000) && (local_TA < 20000) ) {
+				TDMA_table_offset[i] = TDMA_offset_multi_frame - (local_TA/100); 
+			} else {
+				TDMA_table_offset[i] = TDMA_offset_multi_frame; 
+			}
+		}
+	}
+	loc_time_offset = loc_time_offset + CONF_TDMA_slot_duration + CONF_TDMA_slot_margin;
+	TDMA_offset_multi_frame = loc_time_offset / 10;
+	for (i=4; i<radio_addr_table_size; i++) {
 		if ( (CONF_radio_addr_table_status[i]) && (TDMA_table_is_fast[i]==0) ) {
 			local_TA = TDMA_table_TA[i];
 			if ( (local_TA > -2000) && (local_TA < 20000) ) {
@@ -335,7 +351,8 @@ void TDMA_master_allocation () {
 				size_wo_FEC++;
 				TDMA_alloc_frame_raw[size_wo_FEC] = 1; // TDMA slot length (4xLSb) and power (MSb)
 				size_wo_FEC++;
-				TDMA_alloc_frame_raw[size_wo_FEC] = 0x30 + (i & 0x0F); //multi frame period (4xMSb) ID multi frame (4xLSb)
+				//TDMA_alloc_frame_raw[size_wo_FEC] = 0x30 + (i & 0x0F); //multi frame period (4xMSb) ID multi frame (4xLSb)
+				TDMA_alloc_frame_raw[size_wo_FEC] = 0x20 + (i & 0x03); //multi frame period (4xMSb) ID multi frame (4xLSb)
 				size_wo_FEC++;
 			}
 		}
@@ -349,7 +366,8 @@ void TDMA_master_allocation () {
 	size_wo_FEC++;
 	TDMA_alloc_frame_raw[size_wo_FEC] = 1; // TDMA slot length (4xLSb) and power (MSb)
 	size_wo_FEC++;
-	TDMA_alloc_frame_raw[size_wo_FEC] = 0x37; //multi frame period=3 (4xMSb); ID multi frame=7 (4xLSb)
+	//TDMA_alloc_frame_raw[size_wo_FEC] = 0x37; //multi frame period=3 (4xMSb); ID multi frame=7 (4xLSb)
+	TDMA_alloc_frame_raw[size_wo_FEC] = 0x23; //multi frame period=2 (4xMSb); ID multi frame=7 (4xLSb)
 	size_wo_FEC++;
 	//END
 	TDMA_alloc_frame_raw[size_wo_FEC] = 0xFF; // used to detect end of TDMA frame
@@ -359,12 +377,11 @@ void TDMA_master_allocation () {
 	}
 	size_w_FEC = size_w_FEC_compute (size_wo_FEC);
 	rframe_length = size_w_FEC + 1 - SI4463_offset_size;
-	TX_signaling_TDMA->data[0] = 0; // timer, date for later use
-	TX_signaling_TDMA->data[1] = rframe_length; // length
-	//TX_signalisation->data[2] = 0; // TDMA byte 
-	TX_signaling_TDMA->WR_point = 3; 
-	size_w_FEC = FEC_encode(TDMA_alloc_frame_raw, TX_signaling_TDMA, size_wo_FEC);
-	TX_signaling_TDMA->last_ready = TX_signaling_TDMA->WR_point;
+
+	TX_TDMA_intern_data[0] = 0;//timer coarse, useless
+	TX_TDMA_intern_data[1] = rframe_length;
+	
+	size_w_FEC = FEC_encode2(TDMA_alloc_frame_raw, TX_TDMA_intern_data+3, size_wo_FEC);
 }
 
 void TDMA_master_allocation_slow () {
@@ -381,8 +398,9 @@ void TDMA_master_allocation_slow () {
 	}	
 }
 
+
 void TDMA_NULL_frame_init(int size) {
-	unsigned char null_frame[80];
+	unsigned char null_frame[260];
 	int size_wo_FEC, size_w_FEC; 
 	unsigned char rframe_length;
 	null_frame[0] = my_radio_client_ID + parity_bit_elab[my_radio_client_ID]; // address = client
@@ -391,12 +409,17 @@ void TDMA_NULL_frame_init(int size) {
 	size_wo_FEC = size;
 	size_w_FEC = size_w_FEC_compute (size_wo_FEC);
 	rframe_length = size_w_FEC + 1 - SI4463_offset_size;
-	TX_signaling_TDMA->data[0] = 0; // timer, date for later use
-	TX_signaling_TDMA->data[1] = rframe_length; // length
-	TX_signaling_TDMA->WR_point = 3; 
-	size_w_FEC = FEC_encode(null_frame, TX_signaling_TDMA, size_wo_FEC);
-	TX_signaling_TDMA->last_ready = TX_signaling_TDMA->WR_point;
+	//TX_signaling_TDMA->data[0] = 0; // timer, date for later use
+	TX_TDMA_intern_data[0] = 0;
+	//TX_signaling_TDMA->data[1] = rframe_length; // length
+	//TX_signaling_TDMA->WR_point = 3; 
+	TX_TDMA_intern_data[1] = rframe_length;
+	//size_w_FEC = FEC_encode(null_frame, TX_signaling_TDMA, size_wo_FEC);
+	size_w_FEC = FEC_encode2(null_frame, TX_TDMA_intern_data+3, size_wo_FEC);//+3: timer, size, tdma
+	//TX_signaling_TDMA->last_ready = TX_signaling_TDMA->WR_point;
 }
+
+
 
 void TDMA_slave_alloc_exploitation(unsigned char* unFECdata, int unFECsize) {
 	static unsigned char LUT_multif_mask[8] = {0,1,3,7,15,31};

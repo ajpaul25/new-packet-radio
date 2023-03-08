@@ -1,6 +1,6 @@
 // This file is part of "NPR70 modem firmware" software
 // (A GMSK data modem for ham radio 430-440MHz, at several hundreds of kbps) 
-// Copyright (c) 2017-2018 Guillaume F. F4HDK (amateur radio callsign)
+// Copyright (c) 2017-2020 Guillaume F. F4HDK (amateur radio callsign)
 // 
 // "NPR70 modem firmware" is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by

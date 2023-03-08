@@ -1,6 +1,6 @@
 // This file is part of "NPR70 modem firmware" software
 // (A GMSK data modem for ham radio 430-440MHz, at several hundreds of kbps) 
-// Copyright (c) 2017-2018 Guillaume F. F4HDK (amateur radio callsign)
+// Copyright (c) 2017-2020 Guillaume F. F4HDK (amateur radio callsign)
 // 
 // "NPR70 modem firmware" is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -272,6 +272,7 @@ void DHCP_server(LAN_conf_T* LAN_config, W5500_chip* W5500 ) {
 	
 	RX_size = W5500_read_received_size(W5500, 3); 
 	if (RX_size>0) {
+		
 		size_UDP = W5500_read_UDP_pckt(W5500, 3, RX_data);
 		if (RX_data[8]==1) { // Valid DHCP request
 			
@@ -290,7 +291,6 @@ void DHCP_server(LAN_conf_T* LAN_config, W5500_chip* W5500 ) {
 				requested_IP[i] = RX_data[i+20];
 			}
 			//printf("\r\n");
-			
 			//printf("\r\nDHCP from client RXs:%d UDPs:%d\r\n", RX_size, size_UDP);
 			// DHCP option read
 			int option_pos;
@@ -382,8 +382,16 @@ void DHCP_server(LAN_conf_T* LAN_config, W5500_chip* W5500 ) {
 				DHCP_answer[index_opt_answer]=54; // DHCP server IP
 				DHCP_answer[index_opt_answer+1]=4;
 				IP_int2char (LAN_config->LAN_modem_IP, (DHCP_answer + index_opt_answer + 2) );
-				
 				index_opt_answer = index_opt_answer + 6;
+				//DHCP_answer[index_opt_answer]=26; // Interface MTU
+				//DHCP_answer[index_opt_answer+1]=2;
+				//DHCP_answer[index_opt_answer+2]=0x03;//02
+				//DHCP_answer[index_opt_answer+3]=0xE8;//40
+				//index_opt_answer = index_opt_answer + 4;
+				//DHCP_answer[index_opt_answer]=27; // subnets local
+				//DHCP_answer[index_opt_answer+1]=1;
+				//DHCP_answer[index_opt_answer+2]=0x01;
+				//index_opt_answer = index_opt_answer + 3;
 				DHCP_answer[index_opt_answer]=255;// end
 				index_opt_answer = index_opt_answer + 1;
 				W5500_write_TX_buffer(W5500, 3, DHCP_answer, index_opt_answer, 1);
@@ -428,6 +436,15 @@ void DHCP_server(LAN_conf_T* LAN_config, W5500_chip* W5500 ) {
 				DHCP_answer[index_opt_answer+1]=4;
 				IP_int2char (LAN_config->LAN_modem_IP, (DHCP_answer + index_opt_answer + 2) );
 				index_opt_answer = index_opt_answer + 6;
+				//DHCP_answer[index_opt_answer]=26; // Interface MTU
+				//DHCP_answer[index_opt_answer+1]=2;
+				//DHCP_answer[index_opt_answer+2]=0x03;//02
+				//DHCP_answer[index_opt_answer+3]=0xE8;//40
+				//index_opt_answer = index_opt_answer + 4;
+				//DHCP_answer[index_opt_answer]=27; // subnets local
+				//DHCP_answer[index_opt_answer+1]=1;
+				//DHCP_answer[index_opt_answer+2]=0x01;
+				//index_opt_answer = index_opt_answer + 3;
 				DHCP_answer[index_opt_answer]=255;// end
 				index_opt_answer = index_opt_answer + 1;
 				W5500_write_TX_buffer(W5500, 3, DHCP_answer, index_opt_answer, 1);
@@ -638,7 +655,7 @@ void ARP_RX_packet_treatment (unsigned char* ARP_RX_packet, int size) {
 			ARP_proxy(ARP_RX_packet, size);
 		}
 		else {
-			//printf ("gratuitous!!!\r\n");
+			//printf ("gratuitous!\r\n");
 		}
 	}
 	if ( (ARP_protocol_type == 0x0800) && (ARP_opcode == 0x0002) ) { // reply

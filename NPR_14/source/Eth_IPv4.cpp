@@ -1,6 +1,6 @@
 // This file is part of "NPR70 modem firmware" software
 // (A GMSK data modem for ham radio 430-440MHz, at several hundreds of kbps) 
-// Copyright (c) 2017-2018 Guillaume F. F4HDK (amateur radio callsign)
+// Copyright (c) 2017-2020 Guillaume F. F4HDK (amateur radio callsign)
 // 
 // "NPR70 modem firmware" is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -64,11 +64,15 @@ int Eth_RX_dequeue (W5500_chip* W5500) {
 	//int match_RTP = 1;
 	unsigned int ethertype;
 	if (*(W5500->interrupt)==0) {
-		W5500_write_byte(W5500, 0x0002, 1, 0xFF);
+		W5500_write_byte(W5500, 0x0002, 1, 0xFF);//ack interrupt
 		more_to_read=1;
 	}
 	if ((more_to_read == 1))  { 
 		RX_size = W5500_read_received_size(W5500, 0); 
+		//if (RX_size > DEBUG_max_rx_size_w5500) {//!!!
+		//	DEBUG_max_rx_size_w5500 = RX_size;//!!!
+		//	printf("max buffer:%i\r\n", DEBUG_max_rx_size_w5500);//!!!
+		//}//!!!
 		if (RX_size > 0) {
 			answer=1;
 
@@ -96,7 +100,7 @@ int Eth_RX_dequeue (W5500_chip* W5500) {
 			ethertype = RX_data[14]*0x100 + RX_data[15];
 			
 			if (ethertype == 0x0806) { //ARP packet received
-				//printf("ARP packet received!!!\r\n");
+				//printf("ARP packet received!\r\n");
 				if ((is_TDMA_master == 0)||(CONF_master_FDD<2)) {
 					ARP_RX_packet_treatment (RX_data+2, mac_size-2);
 				}
@@ -116,7 +120,9 @@ int Eth_RX_dequeue (W5500_chip* W5500) {
 					//printf("RX_from_Eth\r\n");
 					FDDdown_RX_pckt_treat(RX_data+44, mac_size-44);
 				} else {
+					//printf("RXeth %i\r\n", mac_size-2);
 					IPv4_to_radio (RX_data+2, mac_size-2);
+					//Eth_pause_frame_TX(10);//!!!
 				}
 			}
 			
@@ -124,6 +130,19 @@ int Eth_RX_dequeue (W5500_chip* W5500) {
 		}
 	}
 	return answer;
+}
+
+void Eth_pause_frame_TX(unsigned int time) {
+	int i;
+	unsigned char pause_frame[70] = {
+		0x01, 0x80, 0xC2, 0x00, 0x00, 0x01,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x88, 0x08, 0x00, 0x01, 0x4E, 0x70,/* 0x17, 0x70 */
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+	for (i=0; i<6; i++) {
+		pause_frame[i+6] = CONF_modem_MAC[i];
+	}
+	W5500_write_TX_buffer(W5500_p1, 0, pause_frame, 60, 0); 
 }
 
 void IPv4_to_radio (unsigned char* RX_Eth_frame, int size) {
@@ -175,7 +194,7 @@ void IPv4_to_radio (unsigned char* RX_Eth_frame, int size) {
 
 		if ( (radio_tx_need) && (my_client_radio_connexion_state == 2) ) {
 			segment_and_push(RX_Eth_frame + 14, size - 14, loc_client_ID, 0x02); //0x02 is IPv4 access protocol
-				
+			//printf("seg&push %i\r\n", size - 14);
 		}
 	}
 }

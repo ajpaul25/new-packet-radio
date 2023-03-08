@@ -1,6 +1,6 @@
 // This file is part of "NPR70 modem firmware" software
 // (A GMSK data modem for ham radio 430-440MHz, at several hundreds of kbps) 
-// Copyright (c) 2017-2018 Guillaume F. F4HDK (amateur radio callsign)
+// Copyright (c) 2017-2020 Guillaume F. F4HDK (amateur radio callsign)
 // 
 // "NPR70 modem firmware" is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -163,7 +163,6 @@ void apply_config_from_raw_string(unsigned char* data_r) {
 	CONF_radio_my_callsign[15] = 0;
 	is_telnet_active = data_r[21];
 	modul_temp = (data_r[22] & 0x3F);
-	//if ((modul_temp==13)||(modul_temp==14)||(modul_temp==22)||(modul_temp==23)||(modul_temp==24)) {
 	if ( ((modul_temp>=11)&&(modul_temp<=14)) || ((modul_temp>=20)&&(modul_temp<=24)) ) {
 		CONF_radio_modulation = modul_temp;
 	} else {
@@ -196,17 +195,11 @@ void apply_config_from_raw_string(unsigned char* data_r) {
 	LAN_conf_applied.LAN_def_route = IP_char2int(data_r+49);
 	CONF_radio_IP_start = IP_char2int(data_r+53);
 	is_telnet_routed = data_r[57];
-	//LAN_config.modem_MAC[0] = 0x4E;//N
 	CONF_modem_MAC[0] = 0x4E;//N
-	//LAN_config.modem_MAC[1] = 0x46;//F
 	CONF_modem_MAC[1] = 0x46;//F
-	//LAN_config.modem_MAC[2] = 0x50;//P
 	CONF_modem_MAC[2] = 0x50;//P
-	//LAN_config.modem_MAC[3] = 0x52;//R
 	CONF_modem_MAC[3] = 0x52;//R
-	//LAN_config.modem_MAC[4] = data_r[58];
 	CONF_modem_MAC[4] = data_r[58];
-	//LAN_config.modem_MAC[5] = data_r[59];
 	CONF_modem_MAC[5] = data_r[59];
 	CONF_radio_default_state_ON_OFF = data_r[60];
 	CONF_radio_PA_PWR = data_r[61];
@@ -241,7 +234,6 @@ void write_config_to_raw_string (unsigned char* data_r) {
 	}
 	data_r[21] = is_telnet_active;
 	data_r[22] = ( (CONF_frequency_band << 6) & 0xC0) + (CONF_radio_modulation & 0x3F);
-	//printf("data 22:%X\r\n", data_r[22]);
 	data_r[23] = CONF_radio_frequency;
 	data_r[24] = CONF_radio_network_ID;
 	
@@ -260,9 +252,7 @@ void write_config_to_raw_string (unsigned char* data_r) {
 	IP_int2char(LAN_conf_saved.LAN_def_route, data_r+49);
 	IP_int2char(CONF_radio_IP_start, data_r+53);
 	data_r[57] = is_telnet_routed;
-	//data_r[58] = LAN_config.modem_MAC[4];
 	data_r[58] = CONF_modem_MAC[4];
-	//data_r[59] = LAN_config.modem_MAC[5];
 	data_r[59] = CONF_modem_MAC[5];
 	data_r[60] = CONF_radio_default_state_ON_OFF;
 	data_r[61] = CONF_radio_PA_PWR;

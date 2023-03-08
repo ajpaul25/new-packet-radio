@@ -1,6 +1,6 @@
 // This file is part of "NPR70 modem firmware" software
 // (A GMSK data modem for ham radio 430-440MHz, at several hundreds of kbps) 
-// Copyright (c) 2017-2018 Guillaume F. F4HDK (amateur radio callsign)
+// Copyright (c) 2017-2020 Guillaume F. F4HDK (amateur radio callsign)
 // 
 // "NPR70 modem firmware" is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -431,38 +431,21 @@ static char HMI_master_FDD[3][5]={'n','o',0,0,0,'d','o','w','n',0,'u','p',0,0,0}
 
 void HMI_display_config(void) {
 	unsigned char IP_loc[8];
-	//char DHCP_warning[50];
-	//float frequency_offset[3] = {0, -10, 10};
-	//printf("callsign: %s\r\nready> ", "toto", );
-	//HMI_printf("CONFIG:\r\n  callsign: '%s'\r\n  is_master: %s\r\n  MAC: %02X:%02X:%02X:%02X:%02X:%02X\r\n", CONF_radio_my_callsign+2, HMI_yes_no[is_TDMA_master],LAN_config.modem_MAC[0],LAN_config.modem_MAC[1],LAN_config.modem_MAC[2],LAN_config.modem_MAC[3],LAN_config.modem_MAC[4],LAN_config.modem_MAC[5]);
+
 	HMI_printf("CONFIG:\r\n  callsign: '%s'\r\n  is_master: %s\r\n  MAC: %02X:%02X:%02X:%02X:%02X:%02X\r\n", CONF_radio_my_callsign+2, HMI_yes_no[is_TDMA_master],CONF_modem_MAC[0],CONF_modem_MAC[1],CONF_modem_MAC[2],CONF_modem_MAC[3],CONF_modem_MAC[4],CONF_modem_MAC[5]);
-	
-	//HMI_printf("  frequency: %.3fMHz\r\n  freq_shift: %.3fMHz\r\n  RF_power: %i\r\n  modulation: %i\r\n", (CONF_radio_frequency*0.04)+430 + frequency_offset[CONF_frequency_band], (float)CONF_freq_shift/1000, CONF_radio_PA_PWR, CONF_radio_modulation); 
+	HMI_printf("  ext_SRAM: %s\r\n", HMI_yes_no[is_SRAM_ext]);
 	HMI_printf("  frequency: %.3fMHz\r\n  freq_shift: %.3fMHz\r\n  RF_power: %i\r\n  modulation: %i\r\n", ((float)CONF_frequency_HD/1000)+FREQ_RANGE_MIN, (float)CONF_freq_shift/1000, CONF_radio_PA_PWR, CONF_radio_modulation); 
 
 	HMI_printf("  radio_netw_ID: %i\r\n  radio_on_at_start: %s\r\n", CONF_radio_network_ID, HMI_yes_no[CONF_radio_default_state_ON_OFF]);
-	//if ( (is_TDMA_master) && (LAN_conf_saved.DHCP_server_active == 1) ) {
-	//	strcpy (DHCP_warning, " (warning, DHCP inhibited in master mode)"); 
-	//} else {
-	//	strcpy (DHCP_warning, ""); 
-	//}
-	//HMI_printf("  DHCP_active: %s%s\r\n", HMI_yes_no[LAN_conf_saved.DHCP_server_active], DHCP_warning);
-	//HMI_printf("  client_req_size: %ld\r\n  client_static_IP: %s\r\n", CONF_radio_IP_size_requested, HMI_yes_no[CONF_radio_static_IP_requested]);
 	HMI_printf("  telnet active: %s\r\n  telnet routed: %s\r\n", HMI_yes_no[is_telnet_active], HMI_yes_no[is_telnet_routed]);
 	IP_int2char (LAN_conf_saved.LAN_modem_IP, IP_loc);
 	IP_int2char (LAN_conf_saved.LAN_subnet_mask, IP_loc+4);
 	HMI_printf("  modem_IP: %i.%i.%i.%i\r\n  netmask: %i.%i.%i.%i\r\n", IP_loc[0], IP_loc[1],IP_loc[2],IP_loc[3],IP_loc[4],IP_loc[5],IP_loc[6],IP_loc[7]);
-	//IP_int2char (CONF_radio_IP_start, IP_loc);
-	//IP_int2char (CONF_radio_IP_start+CONF_radio_IP_size-1, IP_loc+4);
-	//HMI_printf("  IP_begin: %i.%i.%i.%i\r\n  master_IP_size: %ld (Last IP: %i.%i.%i.%i)\r\n", IP_loc[0], IP_loc[1],IP_loc[2],IP_loc[3],CONF_radio_IP_size, IP_loc[4],IP_loc[5],IP_loc[6],IP_loc[7]);
 	
 	if (is_TDMA_master == 1) {
 		HMI_printf("  master_FDD: %s\r\n", HMI_master_FDD[CONF_master_FDD]);
 	}
 	
-	//if ( (is_TDMA_master == 1) && ( CONF_master_FDD < 2 ) ) {
-	//	HMI_printf("  trans_method: %s\r\n", HMI_trans_modes[CONF_transmission_method]);
-	//}
 	
 	if ( (is_TDMA_master == 1) && ( CONF_master_FDD < 2 ) && (CONF_transmission_method==0) ) {//Master FDD down (or no FDD)	
 		IP_int2char (CONF_radio_IP_start, IP_loc);
@@ -697,32 +680,7 @@ void HMI_set_command(char* loc_param1, char* loc_param2) {
 				HMI_printf("wrong value\r\nready> ");
 			}
 		}
-		// else if (strcmp(loc_param1, "frequency") == 0) {
-			// temp = sscanf (loc_param2, "%f", &frequency);
-			// if ( (temp == 1) && (frequency<=450) && (frequency>=420) ) {
-				// RADIO_off_if_necessary(0);
-				// previous_freq_band = CONF_frequency_band;
-				// if (frequency < 430) {
-					// frequency = frequency + 10;
-					// CONF_frequency_band = 0x01;
-				// } 
-				// else if (frequency >= 440) {
-					// frequency = frequency -10;
-					// CONF_frequency_band = 0x02;
-				// } 
-				// else {CONF_frequency_band = 0x00;}
-				// frequency = (frequency - 430 + 0.02)*25;
-				// CONF_radio_frequency = (unsigned char)frequency;
-				// if (CONF_frequency_band == previous_freq_band) {
-					// RADIO_restart_if_necessary(0, 0, 1);
-				// }else {
-					// RADIO_restart_if_necessary(0, 1, 1);
-				// }
-				// HMI_printf("OK\r\nready> ");
-			// } else {
-				// HMI_printf("wrong freq value\r\nready> ");
-			// }
-		// }
+
 		else if (strcmp(loc_param1, "frequency") == 0) {
 			temp = sscanf (loc_param2, "%f", &frequency);
 			if ( (temp == 1) && (frequency<=FREQ_RANGE_MAX) && (frequency>FREQ_RANGE_MIN) ) {
@@ -879,7 +837,7 @@ void HMI_print_status(void) {
 		"IP requested",
 		"clients",
 	};
-	char temp_string[18];
+	char temp_string[22];
 	float loc_downlink_bw;
 	float loc_uplink_bw;
 	int TA_loc; 
@@ -899,6 +857,10 @@ void HMI_print_status(void) {
 	temp_string[13]=0x5B;
 	temp_string[14]=0x41;
 	temp_string[15]=0x00;
+	//temp_string[15]=0x1B;
+	//temp_string[16]=0x5B;
+	//temp_string[17]=0x41;
+	//temp_string[18]=0x00;
 	if (slow_counter == 0) { temp_string[0] = 0; }
 	if (is_TDMA_master) {
 		loc_downlink_bw = G_uplink_bandwidth_temp * 0.004;
@@ -917,10 +879,12 @@ void HMI_print_status(void) {
 	} else {
 		HMI_printf("%s   %i status: %s TA:%.1fkm Temp:%idegC   \r\n", temp_string, slow_counter, text_radio_status[my_client_radio_connexion_state-1], 0.15*(float)TA_loc, G_temperature_SI4463);
 	}
+	//HMI_printf("   TX buff filling %i\r\n", (TX_buff_ext_WR_pointer - TX_buff_ext_RD_pointer)*128);//!!!test
 	if ( (is_TDMA_master == 1) && (CONF_master_FDD == 2) ) {
 		HMI_printf("   RX tops from master FDD down %i\r\n", RX_top_FDD_up_counter);
 	} else {
-		HMI_printf("   RX_Eth_IPv4 %i ;TX_radio_IPv4 %i ; RX_radio_IPv4 %i\r\n", RX_Eth_IPv4_counter, TX_radio_IPv4_counter, RX_radio_IPv4_counter);
+		HMI_printf("   RX_Eth_IPv4 %i ;TX_radio_IPv4 %i ; RX_radio_IPv4 %i   \r\n", RX_Eth_IPv4_counter, TX_radio_IPv4_counter, RX_radio_IPv4_counter);
+		//HMI_printf("   RX_Eth_IPv4 %i ;TX_radio_IPv4 %i ; RX_radio_IPv4 %i   \r\n", RX_Eth_IPv4_counter, TX_radio_IPv4_counter, (TX_buff_ext_WR_pointer - TX_buff_ext_RD_pointer)*128);//!!!! debug FIFO filling
 	}
 	if ( (is_TDMA_master == 0) && (RSSI_stat_pkt_nb > 0) ) {
 		//HMI_printf("RSSI: %i\r\nCTRL+c to exit...\r\n", (RSSI_total_stat / RSSI_stat_pkt_nb) );

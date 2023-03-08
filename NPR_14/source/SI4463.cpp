@@ -1,6 +1,6 @@
 // This file is part of "NPR70 modem firmware" software
 // (A GMSK data modem for ham radio 430-440MHz, at several hundreds of kbps) 
-// Copyright (c) 2017-2018 Guillaume F. F4HDK (amateur radio callsign)
+// Copyright (c) 2017-2020 Guillaume F. F4HDK (amateur radio callsign)
 // 
 // "NPR70 modem firmware" is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -59,9 +59,14 @@ Timeout SI4463_1st_TX_call;
 Timeout SI4463_RX_timeout_call; //2019_04_05
 //Ticker SI4463_temp_check2_call;
 
-TX_buffer_struct* TX_buff; //data structure currently used to TX
+//TX_buffer_struct* TX_buff; //data structure currently used to TX
 
 static unsigned char SI_trash[150];
+static unsigned char TX_temp_rframe[384];
+static unsigned char* TX_frame_to_send;
+static unsigned char TX_in_progress = 0;
+static unsigned char TX_test_inprogress = 0;
+//int TX_frame_pointer;
 
 // Low level functions & drivers
 void SI4463_send_command(SI4463_Chip* SI4463, unsigned char* data, int size) {
@@ -126,7 +131,7 @@ int SI4463_CTS_read_answer(SI4463_Chip* SI4463, unsigned char* data, int size, i
 //}
 
 int SI4463_configure_from_20(SI4463_Chip* SI4463) {
-	unsigned char radio_config_data_20[1400] = RADIO_CONFIGURATION_DATA_ARRAY_20;//22
+	unsigned char radio_config_data_20[1250] = RADIO_CONFIGURATION_DATA_ARRAY_20;//22
 	//unsigned char radio_config_data_20[1400] = RADIO_CONFIGURATION_DATA_ARRAY;
 	CONF_TDMA_frame_duration = 560000;
 	CONF_TDMA_slot_duration = 31600;
@@ -140,13 +145,14 @@ int SI4463_configure_from_20(SI4463_Chip* SI4463) {
 	CONF_preamble_TX_long = 20;
 	CONF_preamble_TX_short = 16;
 	CONF_Tx_rframe_timeout = 120;//8sec
-	CONF_radio_timeout_small = 20000000;//20sec
-	CONF_signaling_period = 3;//6 sec
+	CONF_radio_timeout = 60000000;
+	CONF_radio_timeout_small = 10000000;//10sec previously 20
+	CONF_signaling_period = 2;//4 sec
 	return SI4463_configure_from_h (SI4463, radio_config_data_20);
 }
 
 int SI4463_configure_from_11(SI4463_Chip* SI4463) {
-	unsigned char radio_config_data_11[1400] = RADIO_CONFIGURATION_DATA_ARRAY_11;//22
+	unsigned char radio_config_data_11[1250] = RADIO_CONFIGURATION_DATA_ARRAY_11;//22
 	//unsigned char radio_config_data_11[1400] = RADIO_CONFIGURATION_DATA_ARRAY;//22
 	CONF_TDMA_frame_duration = 537000;
 	CONF_TDMA_slot_duration = 30250;
@@ -160,13 +166,14 @@ int SI4463_configure_from_11(SI4463_Chip* SI4463) {
 	CONF_preamble_TX_long = 25;
 	CONF_preamble_TX_short = 16;
 	CONF_Tx_rframe_timeout = 120;//8sec
-	CONF_radio_timeout_small = 20000000;//20sec
-	CONF_signaling_period = 3;//6sec
+	CONF_radio_timeout = 60000000;
+	CONF_radio_timeout_small = 10000000;//10sec previously 20
+	CONF_signaling_period = 2;//4sec
 	return SI4463_configure_from_h (SI4463, radio_config_data_11);
 }
 
 int SI4463_configure_from_21(SI4463_Chip* SI4463) {
-	unsigned char radio_config_data_21[1400] = RADIO_CONFIGURATION_DATA_ARRAY_21;//22
+	unsigned char radio_config_data_21[1250] = RADIO_CONFIGURATION_DATA_ARRAY_21;//22
 	//unsigned char radio_config_data_21[1400] = RADIO_CONFIGURATION_DATA_ARRAY;//22
 	CONF_TDMA_frame_duration = 294500;
 	CONF_TDMA_slot_duration = 16300;
@@ -180,13 +187,14 @@ int SI4463_configure_from_21(SI4463_Chip* SI4463) {
 	CONF_preamble_TX_long = 25;
 	CONF_preamble_TX_short = 16;
 	CONF_Tx_rframe_timeout = 90;//6 sec
-	CONF_radio_timeout_small = 15000000;//20sec
-	CONF_signaling_period = 2;//4sec
+	CONF_radio_timeout = 60000000;
+	CONF_radio_timeout_small = 5000000;//5sec previously 10sec
+	CONF_signaling_period = 1;//2sec
 	return SI4463_configure_from_h (SI4463, radio_config_data_21);
 }
 
 int SI4463_configure_from_12(SI4463_Chip* SI4463) {
-	unsigned char radio_config_data_12[1400] = RADIO_CONFIGURATION_DATA_ARRAY_12;//22
+	unsigned char radio_config_data_12[1250] = RADIO_CONFIGURATION_DATA_ARRAY_12;//22
 	CONF_TDMA_frame_duration = 312000;
 	CONF_TDMA_slot_duration = 17300;
 	CONF_reduced_TDMA_slot_duration = 7150; 
@@ -199,13 +207,14 @@ int SI4463_configure_from_12(SI4463_Chip* SI4463) {
 	CONF_preamble_TX_long = 32;
 	CONF_preamble_TX_short = 16;
 	CONF_Tx_rframe_timeout = 100;//6sec
-	CONF_radio_timeout_small = 15000000;//20sec
-	CONF_signaling_period = 2;//4sec
+	CONF_radio_timeout = 60000000;
+	CONF_radio_timeout_small = 5000000;//5sec previously 10sec
+	CONF_signaling_period = 1;//2sec
 	return SI4463_configure_from_h (SI4463, radio_config_data_12);
 }
 
 int SI4463_configure_from_22(SI4463_Chip* SI4463) {
-	unsigned char radio_config_data_22[1400] = RADIO_CONFIGURATION_DATA_ARRAY_22;//22
+	unsigned char radio_config_data_22[1250] = RADIO_CONFIGURATION_DATA_ARRAY_22;//22
 	//unsigned char radio_config_data_22[1400] = RADIO_CONFIGURATION_DATA_ARRAY;
 	CONF_TDMA_frame_duration = 176000;
 	CONF_TDMA_slot_duration = 9480;
@@ -219,13 +228,14 @@ int SI4463_configure_from_22(SI4463_Chip* SI4463) {
 	CONF_preamble_TX_long = 32;
 	CONF_preamble_TX_short = 16;
 	CONF_Tx_rframe_timeout = 60;//4 sec
-	CONF_radio_timeout_small = 10000000;//10sec
+	CONF_radio_timeout = 40000000;
+	CONF_radio_timeout_small = 5000000;//5sec previously 10sec
 	CONF_signaling_period = 1;
 	return SI4463_configure_from_h (SI4463, radio_config_data_22);
 }
 
 int SI4463_configure_from_13(SI4463_Chip* SI4463) {
-	unsigned char radio_config_data_13[1500] = RADIO_CONFIGURATION_DATA_ARRAY_13;
+	unsigned char radio_config_data_13[1250] = RADIO_CONFIGURATION_DATA_ARRAY_13;
 	CONF_TDMA_frame_duration = 197000;
 	CONF_TDMA_slot_duration = 10720;
 	CONF_reduced_TDMA_slot_duration = 4540; 
@@ -238,13 +248,14 @@ int SI4463_configure_from_13(SI4463_Chip* SI4463) {
 	CONF_preamble_TX_long = 42;
 	CONF_preamble_TX_short = 16;
 	CONF_Tx_rframe_timeout = 60;//4 sec
-	CONF_radio_timeout_small = 10000000;//10sec
+	CONF_radio_timeout = 40000000;
+	CONF_radio_timeout_small = 5000000;//5sec previously 10sec
 	CONF_signaling_period = 1;
 	return SI4463_configure_from_h (SI4463, radio_config_data_13);
 }
 
 int SI4463_configure_from_23(SI4463_Chip* SI4463) {
-	unsigned char radio_config_data_23[1500] = RADIO_CONFIGURATION_DATA_ARRAY_23;//23
+	unsigned char radio_config_data_23[1250] = RADIO_CONFIGURATION_DATA_ARRAY_23;//23
 	//unsigned char radio_config_data_23[1500] = RADIO_CONFIGURATION_DATA_ARRAY;
 	CONF_TDMA_frame_duration = 117000;
 	CONF_TDMA_slot_duration = 6090;
@@ -257,14 +268,15 @@ int SI4463_configure_from_23(SI4463_Chip* SI4463) {
 	CONF_byte_duration = 14;//13.3
 	CONF_preamble_TX_long = 42;
 	CONF_preamble_TX_short = 16;
-	CONF_Tx_rframe_timeout = 30;
-	CONF_radio_timeout_small = 10000000;//10sec
+	CONF_Tx_rframe_timeout = 30;//30!!!
+	CONF_radio_timeout = 30000000;
+	CONF_radio_timeout_small = 5000000;//5sec previously 10sec
 	CONF_signaling_period = 1;
 	return SI4463_configure_from_h (SI4463, radio_config_data_23);
 }
 
 int SI4463_configure_from_14(SI4463_Chip* SI4463) {
-	unsigned char radio_config_data_14[1500] = RADIO_CONFIGURATION_DATA_ARRAY_14;//14
+	unsigned char radio_config_data_14[1250] = RADIO_CONFIGURATION_DATA_ARRAY_14;//14
 	CONF_TDMA_frame_duration = 130000;
 	CONF_TDMA_slot_duration = 6840;
 	CONF_reduced_TDMA_slot_duration = 3130; 
@@ -277,13 +289,14 @@ int SI4463_configure_from_14(SI4463_Chip* SI4463) {
 	CONF_preamble_TX_long = 60;
 	CONF_preamble_TX_short = 16;
 	CONF_Tx_rframe_timeout = 30;
-	CONF_radio_timeout_small = 10000000;//10sec
+	CONF_radio_timeout = 30000000;
+	CONF_radio_timeout_small = 5000000;//5sec previously 10sec
 	CONF_signaling_period = 1;
 	return SI4463_configure_from_h (SI4463, radio_config_data_14);
 }
 
 int SI4463_configure_from_24(SI4463_Chip* SI4463) {
-	unsigned char radio_config_data_24[1500] = RADIO_CONFIGURATION_DATA_ARRAY_24;//24
+	unsigned char radio_config_data_24[1250] = RADIO_CONFIGURATION_DATA_ARRAY_24;//24
 	//unsigned char radio_config_data_24[1500] = RADIO_CONFIGURATION_DATA_ARRAY;//24
 	CONF_TDMA_frame_duration = 81300;//81300
 	CONF_TDMA_slot_duration = 4060;
@@ -297,7 +310,8 @@ int SI4463_configure_from_24(SI4463_Chip* SI4463) {
 	CONF_preamble_TX_long = 60; 
 	CONF_preamble_TX_short = 16;
 	CONF_Tx_rframe_timeout = 30;
-	CONF_radio_timeout_small = 10000000;//10sec
+	CONF_radio_timeout = 30000000;
+	CONF_radio_timeout_small = 5000000;//5sec previously 10sec
 	CONF_signaling_period = 1;
 	return SI4463_configure_from_h (SI4463, radio_config_data_24);
 }
@@ -314,7 +328,7 @@ int SI4463_configure_from_h(SI4463_Chip* SI4463, unsigned char* radio_config_dat
 		i++;
 		if (current_command_length>0) {
 			SI4463_send_command(SI4463, radio_config_data+i, current_command_length);
-			answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 15000);//10000
+			answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 30000);//15000 30000
 			if (answer_loc == 0) {answer = 0;}
 		}
 		
@@ -327,7 +341,7 @@ int SI4463_configure_from_h(SI4463_Chip* SI4463, unsigned char* radio_config_dat
 	// specific GLOBAL_CONFIG : SEQUENCER_MODE=GUARANTEED and FIFO_MODE=FIFO_129
 	unsigned char radio_config_bis[10] = {0x11, 0x00, 0x01, 0x03, 0x10}; 
 	SI4463_send_command(SI4463, radio_config_bis, 5);
-	answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 200);//200
+	answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 800);//200
 	if (answer_loc == 0) {answer = 0;}
 	wait_ms(5);//50
 	
@@ -336,7 +350,7 @@ int SI4463_configure_from_h(SI4463_Chip* SI4463, unsigned char* radio_config_dat
 	radio_config_ter[4] = (SI4463_CONF_max_field2_size & 0x1F00 )/ 0x100 ;
 	radio_config_ter[5] = SI4463_CONF_max_field2_size & 0x00FF;
 	SI4463_send_command(SI4463, radio_config_ter, 6);
-	answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 200);
+	answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 800);
 	if (answer_loc == 0) {answer = 0;}
 	wait_ms(5);//50
 	
@@ -345,7 +359,7 @@ int SI4463_configure_from_h(SI4463_Chip* SI4463, unsigned char* radio_config_dat
 	radio_config_quart[4] = SI4463_CONF_TX_FIFO_threshold & 0x7F;// ajout 30 mai
 	radio_config_quart[5] = SI4463_CONF_RX_FIFO_threshold & 0x7F;
 	SI4463_send_command(SI4463, radio_config_quart, 6);
-	answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 200);
+	answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 800);
 	if (answer_loc == 0) {answer = 0;}
 	wait_ms(5);//50
 	
@@ -354,7 +368,7 @@ int SI4463_configure_from_h(SI4463_Chip* SI4463, unsigned char* radio_config_dat
 	unsigned char radio_config_quint[12] = {0x11, 0x11, 0x01, 0x03, 0xCC}; 
 	radio_config_quint[4] = hash_netID[CONF_radio_network_ID];
 	SI4463_send_command(SI4463, radio_config_quint, 5);//10
-	answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 200);
+	answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 800);
 	answer_loc = 1;
 	if (answer_loc == 0) {answer = 0;}
 	wait_ms(5);//5
@@ -363,27 +377,9 @@ int SI4463_configure_from_h(SI4463_Chip* SI4463, unsigned char* radio_config_dat
 	unsigned char radio_config_sixt[10] = {0x11, 0x22, 0x01, 0x01, 0x7F}; 
 	radio_config_sixt[4] = CONF_radio_PA_PWR & 0x7F;
 	SI4463_send_command(SI4463, radio_config_sixt, 5);
-	answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 200);
+	answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 800);
 	if (answer_loc == 0) {answer = 0;}
 	wait_ms(5);//5
-	
-	// unsigned char radio_config_seven[10] = {0x11, 0x40, 0x04, 0x00, 0x38, 0x0A, 0xAA, 0xAA}; //band 430MHz default
-	// if (CONF_frequency_band == 1) {//Band >420MHz
-		// radio_config_seven[4] = 0x37;
-		// radio_config_seven[5] = 0x08;
-		// radio_config_seven[6] = 0x00;
-		// radio_config_seven[7] = 0x00;
-	// }
-	// if (CONF_frequency_band == 2) {//Band >440MHz
-		// radio_config_seven[4] = 0x39; 
-		// radio_config_seven[5] = 0x0D;
-		// radio_config_seven[6] = 0x55; 
-		// radio_config_seven[7] = 0x55; 
-	// }
-	// SI4463_send_command(SI4463, radio_config_seven, 8);
-	// answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 200);
-	// if (answer_loc == 0) {answer = 0;}
-	// wait_ms(5);//5
 	
 	return answer;
 }
@@ -473,7 +469,7 @@ void SI4463_start_RX (SI4463_Chip* SI4463, unsigned char channel) {
 	static unsigned char command[12] = {0x32, 0, 0, 0, 0, 0x08, 0x08, 0x08};
 	command[1] = channel;
 	SI4463_send_command(SI4463, command, 8);
-	SI4463_CTS_read_answer (SI4463, command, 0, 55);//TEST !!! previously 5
+	SI4463_CTS_read_answer (SI4463, command, 0, 55);
 }
 
 void SI4463_start_TX (SI4463_Chip* SI4463, unsigned char channel, unsigned int size) {
@@ -484,16 +480,6 @@ void SI4463_start_TX (SI4463_Chip* SI4463, unsigned char channel, unsigned int s
 	command[4] = size & 0xFF;
 	SI4463_send_command(SI4463, command, 8);
 }
-
-/*void SI4463_start_TX_repeat (SI4463_Chip* SI4463, unsigned char channel, unsigned int size) {
-	static unsigned char command[12] = {0x31, 0, 0x70, 0, 0, 0, 0};
-	
-	command[1] = channel;
-	command[3] = (size & 0x1F00) >> 8;
-	command[4] = size & 0xFF;
-	SI4463_send_command(SI4463, command, 8);
-}
-*/
 
 void SI4463_read_FRR(SI4463_Chip* SI4463, unsigned char* data) {
 	unsigned char command[8];
@@ -514,7 +500,7 @@ int SI4463_get_state(SI4463_Chip* SI4463) {
 	unsigned char loc_answer[8];
 	command[0] = 0x33;
 	SI4463_send_command(SI4463, command, 1);
-	SI4463_CTS_read_answer (SI4463, loc_answer, 2, 5);
+	SI4463_CTS_read_answer (SI4463, loc_answer, 2, 55);//!!! previous 5 / 2020_02_22
 	return loc_answer[0];
 }
 
@@ -539,9 +525,9 @@ void SI4463_set_TX_preamble_length (SI4463_Chip* SI4463, unsigned char preamble_
 	unsigned char command_preamble_length[10] = {0x11, 0x10, 0x01, 0x00, 0x20};
 
 	command_preamble_length [4] = preamble_length_val;
-	SI4463_send_command(G_SI4463, command_preamble_length, 5); // !!!
+	SI4463_send_command(G_SI4463, command_preamble_length, 5); 
 	wait_us(20); // !!!
-	SI4463_CTS_read_answer(G_SI4463, trash, 0, 20); // !!!
+	SI4463_CTS_read_answer(G_SI4463, trash, 0, 20); 
 }
 
 int SI4463_read_temperature(SI4463_Chip* SI4463) {
@@ -660,22 +646,8 @@ void SI4463_FIFO_TX_transfer(unsigned int size) {
 	G_SI4463->cs->write(0);
 	command[0] = 0x66;
 	G_SI4463->spi->transfer_2 (command, 1, SI_trash, 1);
-	
-	if ( ( (TX_buff->RD_point & TX_buff->mask) +  (int)size) > TX_buff->mask) { // to big for 1 step
-		size_to_write = (TX_buff->mask + 1 - (TX_buff->RD_point & TX_buff->mask) );
-		G_SI4463->spi->transfer_2 (TX_buff->data + (TX_buff->RD_point & TX_buff->mask), size_to_write, SI_trash, size_to_write);
-		TX_buff->RD_point = TX_buff->RD_point + size_to_write; // should become ZERO
-		//second step
-		size_to_write = size - size_to_write; 
-		G_SI4463->spi->transfer_2 (TX_buff->data + (TX_buff->RD_point & TX_buff->mask), size_to_write, SI_trash, size_to_write);
-		TX_buff->RD_point = TX_buff->RD_point + size_to_write; 
-	} else { //1 step is enough
-		G_SI4463->spi->transfer_2 (TX_buff->data + (TX_buff->RD_point & TX_buff->mask), size, SI_trash, size);
-		TX_buff->RD_point = TX_buff->RD_point + size; 
-	}
-	if ( (TX_buff->RD_point > TX_buff->last_ready) && (super_debug) ) {
-		printf("ERR FIFO last_ready:%08X RD_point:%08X\r\n", TXPS_FIFO->last_ready, TXPS_FIFO->RD_point);
-	}
+	G_SI4463->spi->transfer_2 (TX_frame_to_send, size, SI_trash, size);
+	TX_frame_to_send = TX_frame_to_send + size;
 	G_SI4463->cs->write(1);
 }
 
@@ -841,12 +813,13 @@ void SI4463_RX_IT() {
 
 //static int already_inside_IT = 0;
 
-static int TX_slot_frame_counter=0;// A supprimer!!!
+static int TX_slot_frame_counter=0;
 static int radio_lock_TX_pending = 0;
 
 void SI4463_prepa_TX_1(void) {
 	unsigned long int timer_snapshot;
 	G_SI4463->RX_LED->write(0); 
+	G_PTT_PA_pin->write(1);
 	timer_snapshot = GLOBAL_timer.read_us() + 50000;
 	//if ( (CONF_radio_state_ON_OFF) && (radio_lock_TX_pending == 0) ) {
 	if ( (CONF_radio_state_ON_OFF) ) {
@@ -886,7 +859,6 @@ void SI4463_prepa_TX_2(void) {
 		RX_FIFO_WR_point = RX_FIFO_last_received; // rewind WR_pointer to last complete packet
 		SI4463_FIFO_status(G_SI4463, &toto, &toto, 1); //reset FIFO (including CTS)
 		TX_slot_frame_counter = 0;
-		//SI4463_TX_HOP();
 		SI4463_clear_IT (G_SI4463, 0, 0);//without CTS
 		G_SI4463->RX_TX_state = 2; // activate TX HW IRQ
 		wait_us(20); 
@@ -899,6 +871,7 @@ void SI4463_prepa_TX_2(void) {
 void SI4463_TX_to_RX_transition(void) {
 	int toto;
 	unsigned char trash[10];
+	
 	SI4463_FIFO_status(G_SI4463, &toto, &toto, 1); //reset FIFO
 	G_SI4463->RX_TX_state = 0; // temporarly inhibit IRQ
 	radio_lock_TX_pending = 0;
@@ -907,16 +880,17 @@ void SI4463_TX_to_RX_transition(void) {
 		SI4463_periodic_temperature_check(G_SI4463);//added 2019_05_31
 		G_need_temperature_check = 0;
 	}
-	//SI4463_start_RX(G_SI4463, CONF_radio_frequency);
 	SI4463_start_RX(G_SI4463, CONF_channel_RX); // with CTS
 	SI4463_RX_HOP();// with CTS
 	SI4463_clear_IT (G_SI4463, 0, 0);
 	SI4463_CTS_read_answer (G_SI4463, trash, 2, 5);// ADDED 2018 08 25
 	RX_size_remaining = 0;
+	G_PTT_PA_pin->write(0);
 	G_SI4463->RX_TX_state = 1; // activate RX HW IRQ
 	if ( (is_TDMA_master == 0) && (CONF_radio_modulation == 24) ) {
 		SI4463_RX_timeout_call.attach_us(&SI4463_RX_timeout, 10*CONF_TDMA_frame_duration);
 	}
+	TX_in_progress = 0;
 }
 
 void SI4463_RX_timeout (void) {
@@ -928,7 +902,7 @@ void SI4463_RX_timeout (void) {
 	}
 }
 
-void Radio_purge_old_frames (TX_buffer_struct* loc_FIFO) { 
+void Radio_purge_old_frames (void) { 
 	int force_loop_exit = 0;
 	unsigned int loc_size;
 	unsigned char RX_frame_datation;
@@ -937,13 +911,22 @@ void Radio_purge_old_frames (TX_buffer_struct* loc_FIFO) {
 	loc_time_int = GLOBAL_timer.read_us();
 	loc_time_char = (loc_time_int >> 16) & 0xFF; 
 	while (force_loop_exit == 0) {
-		if (loc_FIFO->RD_point < loc_FIFO->last_ready) {//data available in FIFO
-			RX_frame_datation = loc_FIFO->data [loc_FIFO->RD_point & loc_FIFO->mask]; 
+		if (TX_buff_intern_RD_pointer < TX_buff_intern_last_ready) {//data available in FIFO
+			RX_frame_datation = TX_buff_intern_FIFOdata[TX_buff_intern_RD_pointer % 128][0];
 
-			if ( (loc_time_char - RX_frame_datation) > CONF_Tx_rframe_timeout) {//packet too old
-				loc_size = loc_FIFO->data [(loc_FIFO->RD_point+1) & loc_FIFO->mask] + 2 + SI4463_offset_size;
+			if ( (loc_time_char - RX_frame_datation) > CONF_Tx_rframe_timeout) {//CONF_Tx_rframe_timeout
+				loc_size = TX_buff_intern_FIFOdata[TX_buff_intern_RD_pointer % 128][1];
+				loc_size = loc_size + 2 + SI4463_offset_size;
 				//+2 because timer byte and size byte
-				loc_FIFO->RD_point = loc_FIFO->RD_point + loc_size ;
+				if (loc_size <= 128) {
+					TX_buff_intern_RD_pointer = TX_buff_intern_RD_pointer + 1;
+				} else if (loc_size <= 256) {
+					TX_buff_intern_RD_pointer = TX_buff_intern_RD_pointer + 2;
+				} else {
+					TX_buff_intern_RD_pointer = TX_buff_intern_RD_pointer + 3;
+				}
+				//printf("purged!\r\n");
+				//printf("date1 %i date2 %i\r\n", loc_time_char, RX_frame_datation); 
 			}
 			else { //packet is recent
 				force_loop_exit = 1;
@@ -957,6 +940,7 @@ void Radio_purge_old_frames (TX_buffer_struct* loc_FIFO) {
 
 int TX_test_mode = 0;
 
+
 void SI4463_decide_new_TX_or_not (void) { //decides if new frame must be transmitted, and which frame
 	unsigned int loc_size;
 	unsigned int loc_time;
@@ -968,11 +952,10 @@ void SI4463_decide_new_TX_or_not (void) { //decides if new frame must be transmi
 	slave_new_burst_tx_pending = 0;
 	OK_send_PS = 0;
 	PS_data_available = 0;
-	Radio_purge_old_frames(TXPS_FIFO);
-	
-	if (TXPS_FIFO->RD_point < TXPS_FIFO->last_ready) {//data available in TXPS FIFO
+	Radio_purge_old_frames();
+	if (TX_buff_intern_RD_pointer < TX_buff_intern_last_ready) {//data available in TXPS
 		PS_data_available = 1;
-		loc_size = TXPS_FIFO->data [(TXPS_FIFO->RD_point+1) & TXPS_FIFO->mask] + 1 + SI4463_offset_size;
+		loc_size = TX_intern_FIFO_get_lastfrzize();
 	} else {
 		loc_size = 120; 
 	}
@@ -987,9 +970,6 @@ void SI4463_decide_new_TX_or_not (void) { //decides if new frame must be transmi
 	if (delta_end_burst < 0) { 
 		OK_send_PS = 1;
 	} 
-
-	//}
-	//printf("%i\r\n", OK_send_PS);
 	
 	if (TX_slot_frame_counter == 0) {
 		TDMA_sync = 1;
@@ -997,56 +977,71 @@ void SI4463_decide_new_TX_or_not (void) { //decides if new frame must be transmi
 		TDMA_sync = 0;
 	}
 	
-	if (is_TDMA_master) {
-		if (CONF_master_FDD==2) {
-			SI4463_TX_to_RX_transition();//Master FDD up, go immediately to RX
-		}
-		else if (TX_slot_frame_counter == 0) { // systematically send TDMA signaling frame
-			TX_buff = TX_signaling_TDMA;
-			TDMA_top_measure();
-			if (CONF_master_FDD == 1) {//Master FDD downlink
-				G_FDD_trig_pin->write(1);
-			}
+	if (CONF_radio_state_ON_OFF==0) {//radio off check for TX test
+		if (TX_test_inprogress == 1) {
+			TX_frame_to_send = TX_TDMA_intern_data;
 			SI4463_TX_new_frame(TDMA_sync); 
-			SI4463_set_TX_preamble_length(G_SI4463, CONF_preamble_TX_short);
-			TX_slot_frame_counter++;
-		} 
-		else if (PS_data_available && OK_send_PS) {
-			TX_buff = TXPS_FIFO;
-			SI4463_TX_new_frame(TDMA_sync); 
-			TX_slot_frame_counter++;
-		}
-		else {
-			TX_slot_frame_counter = 0;
-			if (CONF_master_FDD == 1) {//Master FDD downlink
-				G_FDD_trig_pin->write(0);
-			}
+		} else {
 			SI4463_TX_to_RX_transition();
 		}
-		
-	} else { // SLAVE
-		if ( (PS_data_available==0) && (TX_slot_frame_counter==0) && (my_client_radio_connexion_state==2) ) {//send a null frame
-			TX_buff = TX_signaling_TDMA;
-			SI4463_TX_new_frame(TDMA_sync); 
-			if (TX_slot_frame_counter == 0) {
-				SI4463_set_TX_preamble_length(G_SI4463, CONF_preamble_TX_short);
+	} 
+	else { //normal operation
+		if (is_TDMA_master) {
+			if (CONF_master_FDD==2) {
+				SI4463_TX_to_RX_transition();//Master FDD up, go immediately to RX
 			}
-			TX_slot_frame_counter++;
-		} 
-		else if ( (PS_data_available) && (OK_send_PS) ) {
-			TX_buff = TXPS_FIFO;
-			SI4463_TX_new_frame(TDMA_sync); 
-			if (TX_slot_frame_counter == 0) {
+			else if (TX_slot_frame_counter == 0) { // systematically send TDMA signaling frame
+				TX_frame_to_send = TX_TDMA_intern_data;
+				TDMA_top_measure();
+				//G_PTT_PA_pin->write(1);
+				if (CONF_master_FDD == 1) {//Master FDD downlink
+					G_FDD_trig_pin->write(1);
+				}
+				SI4463_TX_new_frame(TDMA_sync); 
 				SI4463_set_TX_preamble_length(G_SI4463, CONF_preamble_TX_short);
+				TX_slot_frame_counter++;
+			} 
+			else if (PS_data_available && OK_send_PS) {
+				TX_intern_FIFO_read (TX_temp_rframe);
+				TX_frame_to_send = TX_temp_rframe;
+				SI4463_TX_new_frame(TDMA_sync); 
+				TX_slot_frame_counter++;
 			}
-			TX_slot_frame_counter++;
-		} 
-		else {
-			TX_slot_frame_counter = 0;
-			SI4463_TX_to_RX_transition();
+			else {
+				TX_slot_frame_counter = 0;
+				//G_PTT_PA_pin->write(0);
+				if (CONF_master_FDD == 1) {//Master FDD downlink
+					G_FDD_trig_pin->write(0);
+				}
+				SI4463_TX_to_RX_transition();
+			}
+			
+		} else { // SLAVE
+			if ( (PS_data_available==0) && (TX_slot_frame_counter==0) && (my_client_radio_connexion_state==2) ) {//send a null frame
+				TX_frame_to_send = TX_TDMA_intern_data;
+				SI4463_TX_new_frame(TDMA_sync); 
+				if (TX_slot_frame_counter == 0) {
+					SI4463_set_TX_preamble_length(G_SI4463, CONF_preamble_TX_short);
+				}
+				TX_slot_frame_counter++;
+			} 
+			else if ( (PS_data_available) && (OK_send_PS) ) {
+				TX_intern_FIFO_read (TX_temp_rframe);
+				TX_frame_to_send = TX_temp_rframe;
+				SI4463_TX_new_frame(TDMA_sync); 
+				if (TX_slot_frame_counter == 0) {
+					SI4463_set_TX_preamble_length(G_SI4463, CONF_preamble_TX_short);
+				}
+				TX_slot_frame_counter++;
+			} 
+			else {
+				TX_slot_frame_counter = 0;
+				SI4463_TX_to_RX_transition();
+			}
 		}
 	}
 }
+
 
 static unsigned int TX_size_remaining = 0;
 
@@ -1055,26 +1050,20 @@ void SI4463_TX_new_frame(unsigned char synchro) {
 	unsigned int full_packet_size;
 	unsigned int size_to_send;
 	unsigned char trash[10];
-	if (TX_buff->is_single) { //specific for single frame structure (non FIFO)
-		TX_buff->RD_point = 0;
-	}
-	//timer_coarse = TX_buff->data [TX_buff->RD_point & TX_buff->mask];
-	TX_buff->RD_point++;
-	TX_size_remaining = TX_buff->data [TX_buff->RD_point & TX_buff->mask] + 1 + SI4463_offset_size;
-	//TX_buff->RD_point++;; //size byte has also to be sent
-	full_packet_size = TX_size_remaining;// + 1; //+1 because size field 1 Byte
-	//printf("size to send:%i\r\n", full_packet_size);
-	//prefill TX FIFO with small amount of data
-	
-	TX_buff->data [(TX_buff->RD_point+1) & TX_buff->mask] = TDMA_byte_elaboration(synchro);
-	
+
+	TX_in_progress = 1; 
+	//prefill TX FIFO with small amount of data	
+	TX_frame_to_send++; //1st byte ignored timer coarse
+	TX_size_remaining = TX_frame_to_send[0] + 1 + SI4463_offset_size;
+	full_packet_size = TX_size_remaining; 
+		
+	TX_frame_to_send[1] = TDMA_byte_elaboration(synchro);
 	SI4463_FIFO_TX_transfer(30);
 	TX_size_remaining = TX_size_remaining - 30;
 	
 	//start TX order
-	//SI4463_start_TX (G_SI4463, CONF_radio_frequency, full_packet_size);
 	SI4463_start_TX (G_SI4463, CONF_channel_TX, full_packet_size);
-	//wait_us(400);//TEST
+
 	//FIFO transfer
 	if (TX_size_remaining < 95) { //sent in 1 pass //95 
 		size_to_send = TX_size_remaining;
@@ -1085,7 +1074,6 @@ void SI4463_TX_new_frame(unsigned char synchro) {
 	
 	//CTS
 	SI4463_CTS_read_answer (G_SI4463, trash, 0, 55);//TEST previously 5
-	//SI4463_TX_HOP();
 	TX_size_remaining = TX_size_remaining - size_to_send;
 }
 
@@ -1115,9 +1103,8 @@ void SI4463_HW_TX_IT() {
 		Synth_pckt_sent = IT_pckt_sent ^ Treated_pckt_sent;
 		
 		if (Synth_pckt_sent) {  
-
+			TX_in_progress = 0;
 			SI4463_decide_new_TX_or_not();
-
 			Treated_pckt_sent = 1;
 			Treated_FIFO_almost_empty = IT_FIFO_almost_empty; // trick 
 		} 
@@ -1167,7 +1154,7 @@ int SI4463_configure_all(void) {
 	G_SI4463->SDN->write(1);
 	wait_ms(500);//100 20
 	G_SI4463->SDN->write(0);
-	wait_ms(100);//500 20
+	wait_ms(200);//500 20
 	while ( (answer_loc == 0) && (i < 5) ) {
 		i++; 
 		//if (CONF_radio_modulation == 10) {
@@ -1268,6 +1255,8 @@ void RADIO_off(int need_disconnect) {
 	SI4463_clear_IT (G_SI4463, 0, 0);//tentative 
 	wait_ms(10);
 	RX_FIFO_WR_point = RX_FIFO_last_received; //rewind FIFO pointer
+	G_PTT_PA_pin->write(0);
+	TX_in_progress = 0;
 }
 
 static int RADIO_previous_state;
@@ -1288,27 +1277,38 @@ void RADIO_restart_if_necessary(int need_disconnect, int need_radio_reconfigure,
 }
 
 void SI4432_TX_test(unsigned int req_duration) { //duration in ms
+	int toto;
 	unsigned int timer_begin;
 	unsigned int timer_snapshot;
 	unsigned int real_duration;
 	unsigned char SI4463_state;
+	unsigned char loc_answer[8];
+	unsigned char trash[4];
 	
-	TX_buff = TX_signaling_TDMA;
+	TX_test_inprogress = 1;
+	
+	TX_frame_to_send = TX_TDMA_intern_data;
 	req_duration = req_duration * 1000; //converts ms to microsec
 	
-
+	SI4463_FIFO_status(G_SI4463, &toto, &toto, 1); //reset FIFO (including CTS)
+	SI4463_clear_IT (G_SI4463, 0, 0);//without CTS
+	G_SI4463->RX_TX_state = 2; // activate TX HW IRQ
+	wait_us(20); 
+	SI4463_CTS_read_answer(G_SI4463, trash, 0, 20);
+	
+	G_SI4463->RX_TX_state = 2;
+	TDMA_NULL_frame_init(230);
+	SI4463_TX_new_frame(0);
 	timer_begin = GLOBAL_timer.read_us();
 	do {
-		SI4463_TX_new_frame(0);
-		do {
-			SI4463_state = SI4463_get_state (G_SI4463);
-		} while (SI4463_state == 0x07);
+		wait_ms(2);
 		timer_snapshot = GLOBAL_timer.read_us();
 		real_duration = (timer_snapshot - timer_begin);
 	} while (real_duration < (req_duration) ) ;
-	
+	TX_test_inprogress = 0;
+	wait_ms(200);
+	RADIO_off(1);
 }
-
 
 void SI4463_set_frequency(float freq_base, float freq_step) {
 	unsigned char radio_config[15] = {0x11, 0x40, 0x06, 0x00};
@@ -1339,51 +1339,7 @@ void SI4463_set_frequency(float freq_base, float freq_step) {
 	SI4463_CTS_read_answer(G_SI4463, SI_trash, 0, 200);
 	wait_ms(100);// 100us
 }
-/*
-void RADIO_compute_freq_params() {
-	float freq_local;
-	float freq_shift_loc;
-	float freq_base_loc;
-	float freq_step_loc;
-	int step_nb_loc;
-	freq_local = 420 + ((float)CONF_frequency_HD)/1000;//unit MHz
-	freq_shift_loc = ((float)CONF_freq_shift)/1000;//unit MHz
-	if (freq_shift_loc > 0) {
-		freq_base_loc = freq_local;//lower freq = downlink
-		freq_step_loc = freq_shift_loc;//upper freq = uplink
-		step_nb_loc = (freq_step_loc + 1)*2;
-		//printf ("\r\nstep nb : %i\r\n", step_nb_loc);
-		freq_step_loc = freq_step_loc / ((float) step_nb_loc);
-		if (is_TDMA_master == 1) {
-			CONF_channel_TX = 0;//downlink
-			CONF_channel_RX = step_nb_loc;//uplink
-		} else {//client 
-			CONF_channel_TX = step_nb_loc;//uplink
-			CONF_channel_RX = 0;//downlink
-		}
-	} else if ((freq_shift_loc < 0)) {
-		freq_base_loc = freq_local + freq_shift_loc;//lower freq = uplink
-		freq_step_loc = -freq_shift_loc;//positive
-		step_nb_loc = (freq_step_loc + 1)*2;
-		//printf ("\r\nstep nb : %i\r\n", step_nb_loc);
-		freq_step_loc = freq_step_loc / ((float) step_nb_loc);
-		if (is_TDMA_master == 1) {
-			CONF_channel_TX = step_nb_loc;//downlink
-			CONF_channel_RX = 0;//uplink
-		} else {//client
-			CONF_channel_TX = 0;//uplink
-			CONF_channel_RX = step_nb_loc;//downlink
-		}
-	} else {// shift = 0
-		freq_base_loc = freq_local;
-		freq_step_loc = 0;
-		CONF_channel_TX = 0;
-		CONF_channel_RX = 0;
-	}
-	//CONF_channel_TX = 0;
-	//CONF_channel_RX = 0;
-	SI4463_set_frequency(freq_base_loc, freq_step_loc);
-} */
+
 void RADIO_compute_freq_params() {
 	float freq_local, freq_shift_loc;
 	float loc_freq_float_RX;

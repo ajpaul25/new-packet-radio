@@ -1,6 +1,6 @@
 // This file is part of "NPR70 modem firmware" software
 // (A GMSK data modem for ham radio 430-440MHz, at several hundreds of kbps) 
-// Copyright (c) 2017-2018 Guillaume F. F4HDK (amateur radio callsign)
+// Copyright (c) 2017-2020 Guillaume F. F4HDK (amateur radio callsign)
 // 
 // "NPR70 modem firmware" is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -29,6 +29,8 @@ void IP_int2char (unsigned long int IP_int, unsigned char* IP_char);
 
 //int PS_read_from_ethernet(W5500_chip* W5500);
 int Eth_RX_dequeue (W5500_chip* W5500);
+
+void Eth_pause_frame_TX(unsigned int time);
 
 void IPv4_to_radio (unsigned char* RX_Eth_frame, int size);
 

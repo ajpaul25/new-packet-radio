@@ -1,6 +1,6 @@
 // This file is part of "NPR70 modem firmware" software
 // (A GMSK data modem for ham radio 430-440MHz, at several hundreds of kbps) 
-// Copyright (c) 2017-2018 Guillaume F. F4HDK (amateur radio callsign)
+// Copyright (c) 2017-2020 Guillaume F. F4HDK (amateur radio callsign)
 // 
 // "NPR70 modem firmware" is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -24,10 +24,9 @@
 #include "TDMA.h"
 #include "HMI_telnet.h"
 
-#ifdef EXT_SRAM_USAGE
-#include "ext_SRAM.h"
-#endif
- 
+#include "ext_SRAM2.h"
+
+static unsigned char rframe_TX[380];
 static unsigned char TX_signal_frame_raw[260]; //300
 static int TX_signal_frame_point = 0;
 
@@ -498,51 +497,30 @@ void signaling_frame_push(void) {
 		size_wo_FEC = 69;
 	}
 	rsize_needed = 100 + (size_wo_FEC * 1.4);
-#ifdef EXT_SRAM_USAGE
-	unsigned char radio_pckt[360];
-	//printf("sig ext SRAM\r\n");
-	if (extSRAM_testfreespace(1, 7) == 1) {//signaling = buffer 7
+
+	//printf("sig NO ext SRAM\r\n");
+	//if ((TXPS_FIFO->last_ready - TXPS_FIFO->RD_point) < (TXPS_FIFO_threshold_sig - rsize_needed) ) { //16380  
+	if (TX_FIFO_full_global(0) == 0) {
 		timer_snapshot = GLOBAL_timer.read_us();
-		//TXPS_FIFO->data[TXPS_FIFO->WR_point & TXPS_FIFO->mask] = (timer_snapshot >> 16) & 0xFF; //timer useless for tests
+		//TXPS_FIFO->data[TXPS_FIFO->WR_point & TXPS_FIFO->mask] = (timer_snapshot >> 16) & 0xFF; //timer 
+		rframe_TX[0] = (timer_snapshot >> 16) & 0xFF;
 		//TXPS_FIFO->WR_point++;
-		radio_pckt[0] = (timer_snapshot >> 16) & 0xFF;
 		size_w_FEC = size_w_FEC_compute (size_wo_FEC);
 		
 		rframe_length = size_w_FEC + 1 - SI4463_offset_size;
 		//if (rframe_length < 0) {rframe_length = 0;}
 		//TXPS_FIFO->data[TXPS_FIFO->WR_point & TXPS_FIFO->mask] = rframe_length; 
 		//TXPS_FIFO->WR_point++;
-		radio_pckt[1] = rframe_length;
+		rframe_TX[1] = rframe_length;
 		//TXPS_FIFO->data[TXPS_FIFO->WR_point & TXPS_FIFO->mask] = 0x00; //TDMA byte
 		//TXPS_FIFO->WR_point++;
-		radio_pckt[2] = 0x00;
+		rframe_TX[2] = 0x00; //TDMA byte
 		//size_w_FEC = FEC_encode(TX_signal_frame_raw, TXPS_FIFO, size_wo_FEC);
-		size_w_FEC = FEC_encode2(TX_signal_frame_raw, radio_pckt+3, size_wo_FEC);
+		size_w_FEC = FEC_encode2(TX_signal_frame_raw, rframe_TX+3, size_wo_FEC);
+		//TX_intern_FIFO_write(rframe_TX, size_w_FEC+3);
+		TX_FIFO_write_global(rframe_TX, size_w_FEC+3);
 		//TXPS_FIFO->last_ready = TXPS_FIFO->WR_point;
-		extSRAM_push(radio_pckt, size_w_FEC+3, 7);
 	}
-	else {
-		//printf("signal FIFO full\r\n");
-	}
-
-#else
-	//printf("sig NO ext SRAM\r\n");
-	if ((TXPS_FIFO->last_ready - TXPS_FIFO->RD_point) < (TXPS_FIFO_threshold_sig - rsize_needed) ) { //16380  
-		timer_snapshot = GLOBAL_timer.read_us();
-		TXPS_FIFO->data[TXPS_FIFO->WR_point & TXPS_FIFO->mask] = (timer_snapshot >> 16) & 0xFF; //timer useless for tests
-		TXPS_FIFO->WR_point++;
-		size_w_FEC = size_w_FEC_compute (size_wo_FEC);
-		
-		rframe_length = size_w_FEC + 1 - SI4463_offset_size;
-		//if (rframe_length < 0) {rframe_length = 0;}
-		TXPS_FIFO->data[TXPS_FIFO->WR_point & TXPS_FIFO->mask] = rframe_length; 
-		TXPS_FIFO->WR_point++;
-		TXPS_FIFO->data[TXPS_FIFO->WR_point & TXPS_FIFO->mask] = 0x00; //TDMA byte
-		TXPS_FIFO->WR_point++;
-		size_w_FEC = FEC_encode(TX_signal_frame_raw, TXPS_FIFO, size_wo_FEC);
-		TXPS_FIFO->last_ready = TXPS_FIFO->WR_point;
-	}
-#endif
 	TX_signal_frame_point = 0;
 }
 
@@ -597,5 +575,6 @@ void signaling_periodic_call() { // called every 2 to 6 seconds
 	signaling_whois_TX();
 	if (TX_signal_frame_point >0) {
 		signaling_frame_push();
+		
 	}
 }

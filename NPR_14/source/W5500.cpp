@@ -1,6 +1,6 @@
 // This file is part of "NPR70 modem firmware" software
 // (A GMSK data modem for ham radio 430-440MHz, at several hundreds of kbps) 
-// Copyright (c) 2017-2018 Guillaume F. F4HDK (amateur radio callsign)
+// Copyright (c) 2017-2020 Guillaume F. F4HDK (amateur radio callsign)
 // 
 // "NPR70 modem firmware" is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -269,9 +269,12 @@ void W5500_re_configure_gateway(W5500_chip* SPI_p_loc) {
 
 void W5500_re_configure_periodic_call(W5500_chip* SPI_p_loc) {
 	unsigned char data[10];
-	if (W5500_configured == 3) { // reboot
-		W5500_write_byte(SPI_p_loc, 0x002E, 0x00, 0xC8);
+	if (W5500_configured == 4) { // reboot
+		W5500_write_byte(SPI_p_loc, 0x002E, 0x00, 0xC8);//!!! 0xC8
 		W5500_configured = 1; //configured
+	}
+	if (W5500_configured == 3) { //wait 
+		W5500_configured = 4;
 	}
 	if (W5500_configured == 2) { //reconfigure
 		IP_int2char (LAN_conf_applied.LAN_modem_IP, data);
@@ -286,9 +289,10 @@ void W5500_re_configure_periodic_call(W5500_chip* SPI_p_loc) {
 			IP_int2char (0x01010101, data);
 			W5500_write_long(SPI_p_loc, 0x0001, 0x00, data, 4);
 		}
-		W5500_write_byte(SPI_p_loc, 0x002E, 0x00, 0x48); // Phy OFF
+		W5500_write_byte(SPI_p_loc, 0x002E, 0x00, 0x48); // Phy OFF !!! 0x48
 		W5500_configured = 3; //waiting reboot
 	}
+	
 }
 
 void W5500_initial_configure(W5500_chip* SPI_p_loc) {
@@ -298,9 +302,9 @@ void W5500_initial_configure(W5500_chip* SPI_p_loc) {
 	W5500_write_byte(SPI_p_loc, 0x0000, 0x00, 0x00);//0x10
 	//wait_ms(1600);
 	//W5500_write_byte(SPI_p_loc, 0x002E, 0x00, 0xC8);
-	W5500_write_byte(SPI_p_loc, 0x002E, 0x00, 0x48);//48 for 10MB full duplex / 40 half duplex
+	W5500_write_byte(SPI_p_loc, 0x002E, 0x00, 0x48);//48 for 10MB full duplex / 40 half duplex !!!
 	wait_ms(1600);
-	W5500_write_byte(SPI_p_loc, 0x002E, 0x00, 0xC8);//4c8 for 10MB full duplex / c0 half duplexc8
+	W5500_write_byte(SPI_p_loc, 0x002E, 0x00, 0xC8);//4c8 for 10MB full duplex / c0 half duplexc8 !!!
 	//W5500_write_byte(SPI_p_loc, 0x002E, 0x00, 0xC8);
 	//wait_ms(1600);
     

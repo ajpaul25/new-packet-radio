@@ -22,11 +22,10 @@
 
 //#define EXT_SRAM_USAGE
 //#define FREQ_BAND_2M
+//#define NPR_L476
 
-#ifdef EXT_SRAM_USAGE
-#include "ext_SRAM.h"
+#include "ext_SRAM2.h"
 extern ext_SRAM_chip* SPI_SRAM_p;
-#endif
 
 #ifdef FREQ_BAND_2M
 	#define CONF_DEF_FREQ 1000
@@ -36,7 +35,7 @@ extern ext_SRAM_chip* SPI_SRAM_p;
 	#define FREQ_BAND "2m"
 	#define SI4463_NOUTDIV 24
 #else 
-	//420 - 450MHz
+	/*420 - 450MHz*/
 	#define CONF_DEF_FREQ 17000
 	#define FREQ_RANGE_MIN 420
 	#define FREQ_RANGE_MAX 450
@@ -45,7 +44,7 @@ extern ext_SRAM_chip* SPI_SRAM_p;
 	#define SI4463_NOUTDIV 8
 #endif
 
-#define FW_VERSION "2019_10_20"
+#define FW_VERSION "2020_02_23"
 
 extern SI4463_Chip* G_SI4463;
 
@@ -53,25 +52,23 @@ extern W5500_chip* W5500_p1;
 
 extern DigitalInOut* G_FDD_trig_pin;
 extern InterruptIn* G_FDD_trig_IRQ;
+extern DigitalOut* G_PTT_PA_pin;
 
 extern Serial pc;
 
-//extern DigitalOut* LED_connected_p;
-
 extern Timeout SI4463_prepa_TX_1_call;
 
-struct TX_buffer_struct {
-	int is_single; // data structure contains only 1 packet (for signaling)
-	unsigned int WR_point;//unsigned
-	unsigned int RD_point;//unsigned
-	unsigned int last_ready;//unsigned
-	unsigned char* data; //the table
-	unsigned int mask;
-}; 
+extern unsigned char TX_buff_intern_FIFOdata[128][128];
+extern unsigned int TX_buff_intern_WR_pointer;
+extern unsigned int TX_buff_intern_RD_pointer;
+extern unsigned int TX_buff_intern_last_ready;
 
-extern TX_buffer_struct* TXPS_FIFO; 
+extern unsigned char TX_buff_ext_sizes[1024];//1024
+extern unsigned int TX_buff_ext_WR_pointer;
+extern unsigned int TX_buff_ext_RD_pointer;
+extern unsigned int TX_buff_ext_last_ready;
 
-extern TX_buffer_struct* TX_signaling_TDMA;
+extern unsigned char TX_TDMA_intern_data[384];
 
 extern char HMI_out_str[120];
 
@@ -83,21 +80,9 @@ extern unsigned int RX_FIFO_last_received;
 extern unsigned char RX_FIFO_data[0x2000]; //8kB
 #define RX_FIFO_mask 0x1FFF 
 
-// TX Packet Switch FIFO (TX to radio)
-//extern unsigned int TXPS_FIFO_WR_point;
-//extern unsigned int TXPS_FIFO_RD_point;
-//extern unsigned int TXPS_FIFO_last_ready;
-//extern unsigned char TXPS_FIFO_data[0x4000]; //16kB
-#ifdef EXT_SRAM_USAGE
 #define TXPS_FIFO_mask 0x3FFF
 #define TXPS_FIFO_threshold 14000
 #define TXPS_FIFO_threshold_sig 16380
-//4080
-#else
-#define TXPS_FIFO_mask 0x3FFF
-#define TXPS_FIFO_threshold 14000
-#define TXPS_FIFO_threshold_sig 16380
-#endif
 
 //#define CONF_Tx_rframe_timeout 30
 //CONF_Tx_rframe_timeout unit 1/65000 th of a second
@@ -139,6 +124,9 @@ extern int CONF_delay_prepTX1_2_TX;
 extern unsigned char my_radio_client_ID;
 extern int CONF_Tx_rframe_timeout;
 extern int CONF_signaling_period;
+extern int is_SRAM_ext;
+
+extern int DEBUG_max_rx_size_w5500;
 
 extern unsigned int TDMA_slave_last_master_top;
 

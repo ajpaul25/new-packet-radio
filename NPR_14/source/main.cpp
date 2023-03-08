@@ -1,6 +1,6 @@
 // This file is part of "NPR70 modem firmware" software
 // (A GMSK data modem for ham radio 430-440MHz, at several hundreds of kbps) 
-// Copyright (c) 2017-2018 Guillaume F. F4HDK (amateur radio callsign)
+// Copyright (c) 2017-2020 Guillaume F. F4HDK (amateur radio callsign)
 // 
 // "NPR70 modem firmware" is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -28,16 +28,15 @@
 #include "signaling.h"
 #include "config_flash.h"
 
-#ifdef EXT_SRAM_USAGE
-#include "ext_SRAM.h"
-#endif
+#include "ext_SRAM2.h"
 
-
+//#define NPR_L476
 //Serial pc(SERIAL_TX, SERIAL_RX); // Nucleo
 //Serial pc(USBTX, USBRX); //NXP LPC1769
 
-DigitalInOut FDD_trig_pin(PA_10);
-InterruptIn FDD_trig_IRQ(PA_10);
+DigitalInOut FDD_trig_pin(PA_10);//GPIO_11
+InterruptIn FDD_trig_IRQ(PA_10);//GPIO_11
+DigitalOut PTT_PA_pin(PA_9);//GPIO_10
 
 DigitalOut SI4463_SDN(PA_1);
 
@@ -45,11 +44,10 @@ AnalogIn Random_pin(PA_0);
 DigitalOut LED_RX_loc(PB_1);
 DigitalOut LED_connected(PA_12);
 
-//W5500 and ext-SRAM interface
 DigitalIn Int_W5500(PA_8);
 DigitalOut CS1(PA_11);//CS W5500
 SPI spi_2(PB_5, PB_4, PB_3); // mosi, miso, sclk
-DigitalOut CS3(PB_0);// CS ext SRAM
+DigitalOut CS3(PB_0);// CS ext SRAM PB_0 
 
 InterruptIn Int_SI4463(PA_3);
 DigitalOut CS2(PA_4);
@@ -57,7 +55,8 @@ SPI spi_1(PA_7, PA_6, PA_5); // mosi, miso, sclk
 
 int main()
 {
-    pc.baud(921600);
+    wait_ms(200);
+	pc.baud(921600);
     pc.printf("\r\n\r\nNPR FW %s\r\n", FW_VERSION);
 	
 	Timer slow_timer; 
@@ -73,12 +72,12 @@ int main()
     W5500_1.cs = &CS1;
     W5500_1.interrupt = &Int_W5500; 
 	
-#ifdef EXT_SRAM_USAGE
+//#ifdef EXT_SRAM_USAGE
 	static ext_SRAM_chip SPI_SRAM;
 	SPI_SRAM_p = &SPI_SRAM;
 	SPI_SRAM.spi_port = &spi_2;
 	SPI_SRAM.cs = &CS3;
-#endif
+//#endif
 	
 	static SI4463_Chip SI4463_1;
 	SI4463_1.spi = &spi_1;//1
@@ -91,7 +90,8 @@ int main()
 	
 	G_FDD_trig_pin = &FDD_trig_pin;
 	G_FDD_trig_IRQ = &FDD_trig_IRQ;
-
+	G_PTT_PA_pin = &PTT_PA_pin;
+	
 	reset_DHCP_table(LAN_conf_p);
 		
     spi_2.format(8,0);
@@ -104,6 +104,7 @@ int main()
 	}
 	
 	G_FDD_trig_pin->input();
+	G_PTT_PA_pin->write(0);
 	LED_RX_loc = 0;
 	LED_connected = 0;
     CS1=1;
@@ -111,14 +112,19 @@ int main()
 	CS3=1;
 	SI4463_SDN = 1;
 	
+	wait_ms(20);
+	is_SRAM_ext = ext_SRAM_detect();
+	
 	LED_RX_loc = 1; 
 	for (i=0; i<7; i++) {
 		wait_ms(200);
 		LED_RX_loc = !LED_RX_loc;
 		LED_connected = !LED_connected;
+		SI4463_SDN = !SI4463_SDN;
 	}
 	LED_RX_loc = 0;
 	LED_connected = 0;
+	SI4463_SDN = 1;
 	
 	printf("\r\n");
 
@@ -126,16 +132,16 @@ int main()
 	RX_FIFO_RD_point = 0;
 	RX_FIFO_last_received = 0;
 
-	TXPS_FIFO->is_single = 0;
-	TXPS_FIFO->WR_point = 0;
-	TXPS_FIFO->RD_point = 0;
-	TXPS_FIFO->last_ready = 0;
+	//TXPS_FIFO->is_single = 0;
+	//TXPS_FIFO->WR_point = 0;
+	//TXPS_FIFO->RD_point = 0;
+	//TXPS_FIFO->last_ready = 0;
 
 	GLOBAL_timer.reset();
 	GLOBAL_timer.start();
 	TDMA_init_all();
 	
-	TXPS_FIFO->last_ready = TXPS_FIFO->WR_point;
+	//TXPS_FIFO->last_ready = TXPS_FIFO->WR_point;
 	for (i=0; i<0x2000; i++) {
 		RX_FIFO_data[i] = 0;
 	}
@@ -145,14 +151,17 @@ int main()
 		CONF_radio_addr_table_IP_begin[i] = 0; // 0 = entry not active
 		
 	}
-#ifdef EXT_SRAM_USAGE
-	printf("config WITH ext SRAM\r\n");
-#else
-	printf("config WITHOUT ext SRAM\r\n");
-#endif
+	if (is_SRAM_ext) {
+		printf("config WITH ext SRAM\r\n");
+	} else {
+		printf("config WITHOUT ext SRAM\r\n");
+	}
 	
 	wait_ms(100);
 	NFPR_config_read(&Random_pin);
+
+	//SI4463_print_version(G_SI4463);//!!!!
+	SI4463_get_state(G_SI4463);
 
 	i = SI4463_configure_all();
 	if (i == 1) {
@@ -165,6 +174,8 @@ int main()
 			NVIC_SystemReset(); //reboot
 		}
 	}
+	//SI4463_print_version(G_SI4463);//!!!!
+	
 	W5500_initial_configure(W5500_p1);
 	wait_ms(2);
 #ifdef EXT_SRAM_USAGE
@@ -175,7 +186,6 @@ int main()
 	TDMA_NULL_frame_init(70);
 	
 	SI4463_periodic_temperature_check(G_SI4463);
-	
 	Int_SI4463.fall(&SI4463_HW_interrupt);
 	if (CONF_radio_default_state_ON_OFF) {
 		//TDMA_init_all();
@@ -190,6 +200,8 @@ int main()
 	int signaling_counter = 0;
 	//SI4463_temp_check_init();
 	
+	int telnet_counter = 0;
+	
 	while(1) {	
 		for (i=0; i<100; i++) {
 			if ( (is_TDMA_master == 1) && (CONF_master_FDD == 2) ) {
@@ -202,6 +214,9 @@ int main()
 #ifdef EXT_SRAM_USAGE
 			ext_SRAM_periodic_call();
 #endif
+			if (is_SRAM_ext == 1) {
+				ext_SRAM_periodic_call();
+			}
 			timer_snapshot = slow_timer.read_us();
 			if (timer_snapshot > 666000) {//666000
 				slow_timer.reset();
@@ -247,7 +262,12 @@ int main()
 			}
 		}
 		if (is_telnet_active) {
-			telnet_loop(W5500_p1);
+			
+			telnet_counter++;
+			if (telnet_counter>10) {
+				telnet_loop(W5500_p1);
+				telnet_counter = 0;
+			}
 		}
 		serial_term_loop();
 		

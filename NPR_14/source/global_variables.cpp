@@ -1,6 +1,6 @@
 // This file is part of "NPR70 modem firmware" software
 // (A GMSK data modem for ham radio 430-440MHz, at several hundreds of kbps) 
-// Copyright (c) 2017-2018 Guillaume F. F4HDK (amateur radio callsign)
+// Copyright (c) 2017-2020 Guillaume F. F4HDK (amateur radio callsign)
 // 
 // "NPR70 modem firmware" is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,15 +18,15 @@
 #include "SI4463.h"
 #include "W5500.h"
 #include "global_variables.h"
+#include "ext_SRAM2.h"
 
 SI4463_Chip* G_SI4463;
 W5500_chip* W5500_p1;
 DigitalInOut* G_FDD_trig_pin;
 InterruptIn* G_FDD_trig_IRQ;
+DigitalOut* G_PTT_PA_pin;
 
-#ifdef EXT_SRAM_USAGE
 ext_SRAM_chip* SPI_SRAM_p;
-#endif
 
 Serial pc(SERIAL_TX, SERIAL_RX);
 //DigitalOut* LED_connected_p;
@@ -51,38 +51,17 @@ unsigned int RSSI_stat_pkt_nb = 0;
 
 int slave_new_burst_tx_pending = 0;
 
-//TXPS_FIFO_data 16ko 0x4000 without ext SRAM
-//TXPS_FIFO_data 4ko 0x1000 with ext SRAM
-#ifdef EXT_SRAM_USAGE
-static unsigned char TXPS_FIFO_data[0x4000]; 
-#else
-static unsigned char TXPS_FIFO_data[0x4000]; 
-#endif
+unsigned char TX_buff_intern_FIFOdata[128][128];
+unsigned int TX_buff_intern_WR_pointer=0;
+unsigned int TX_buff_intern_RD_pointer=0;
+unsigned int TX_buff_intern_last_ready=0;
 
+unsigned char TX_buff_ext_sizes[1024];//1024
+unsigned int TX_buff_ext_WR_pointer;
+unsigned int TX_buff_ext_RD_pointer;
+unsigned int TX_buff_ext_last_ready;
 
-TX_buffer_struct TXPS_struct = {
-	0, // is_single; 
-	0, //WR_point;
-	0, //RD_point;
-	0, //last_ready;
-	TXPS_FIFO_data, //data (pointer)
-	TXPS_FIFO_mask // mask;
-}; 
-
-TX_buffer_struct* TXPS_FIFO = &TXPS_struct; 
-
-unsigned char TX_signaling_TDMA_frame[300]; // STATIC
-
-TX_buffer_struct TX_signaling_TDMA_struct = {
-	1, // is_single; 
-	0, //WR_point;
-	0, //RD_point;
-	0, //last_ready;
-	TX_signaling_TDMA_frame, //data (pointer)
-	0xFFFF // mask;
-}; 
-
-TX_buffer_struct* TX_signaling_TDMA = &TX_signaling_TDMA_struct; 
+unsigned char TX_TDMA_intern_data[384];
 
 unsigned char is_TDMA_master = 0; //truc
 unsigned char is_telnet_active = 1;
@@ -119,6 +98,8 @@ int CONF_delay_prepTX1_2_TX = 1030;
 unsigned char my_radio_client_ID = 0xFE;
 int CONF_Tx_rframe_timeout = 30;//unit 1/65000 th of a second
 int CONF_signaling_period = 1;
+int is_SRAM_ext=1;
+int DEBUG_max_rx_size_w5500=0;
 
 unsigned int TDMA_slave_last_master_top = 0;
 

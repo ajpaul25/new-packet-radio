@@ -1,6 +1,6 @@
 // This file is part of "NPR70 modem firmware" software
 // (A GMSK data modem for ham radio 430-440MHz, at several hundreds of kbps) 
-// Copyright (c) 2017-2018 Guillaume F. F4HDK (amateur radio callsign)
+// Copyright (c) 2017-2020 Guillaume F. F4HDK (amateur radio callsign)
 // 
 // "NPR70 modem firmware" is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -24,13 +24,14 @@
 #include "TDMA.h"
 #include "signaling.h"
 
-#ifdef EXT_SRAM_USAGE
-#include "ext_SRAM.h"
-#endif
+#include "ext_SRAM2.h"
 
 //Timeout SI4463_prepa_TX_1_call;
 
+static unsigned char trash[130];
+
 static unsigned char data_RX[360];//260
+static unsigned char rframe_TX[384];
 
 void FDDup_RX_FIFO_dequeue(void) {
 	int rframe_lgth, i;
@@ -125,6 +126,7 @@ void radio_RX_FIFO_dequeue (W5500_chip* W5500) {
 			TA_local = TDMA_TA_measure_single_frame(frame_timer, TDMA_byte, client_ID_byte, size_w_FEC);
 			if ( (timer_snapshot-last_rframe_seen) > (CONF_radio_timeout+1000000) ) {
 				last_rframe_seen = timer_snapshot;
+				wait_ms(20);//lets time for client to switch to RX
 				SI4463_prepa_TX_1();
 			}
 		}
@@ -190,7 +192,7 @@ void radio_RX_FIFO_dequeue (W5500_chip* W5500) {
 						// Raw Ethernet... Not implemented yet
 					}
 				} */
-				if ( (protocol == 0x02) && (LID < radio_addr_table_size) ) { //IPv4 Access !!! 0x02
+				if ( (protocol == 0x02) && (LID < radio_addr_table_size) ) { //IPv4 Access 0x02
 					//printf("IPv4 fr received\r\n");
 					segment_size = size_wo_FEC - 3;
 					segmenter_byte = data_RX[2];
@@ -253,54 +255,6 @@ void radio_signalisation_frame_building(void) {
 	
 }
 
-int FEC_encode (unsigned char* data_in, TX_buffer_struct* FIFO_out, int size_in) { // direct interface to FIFO (without ext SRAM)
-	int size_out;
-	int size_single_bloc;
-	int size_single_bloc_pl1;
-	unsigned char CRC_1; 
-	unsigned char CRC_2; 
-	unsigned char CRC_3; 
-	unsigned char CRC_4; 
-	unsigned char data_field_1;
-	unsigned char data_field_2;
-	unsigned char data_field_3;
-	unsigned char data_field_4;
-	int i; 
-	CRC_1 = 0;
-	CRC_2 = 0;
-	CRC_3 = 0;
-	CRC_4 = 0;
-	
-	size_single_bloc = size_in/3;
-	if (size_in % 3) {
-		size_single_bloc++;
-	}
-	size_single_bloc_pl1 = size_single_bloc + 1;
-	size_out = 4 * size_single_bloc_pl1; 
-	for (i=0; i<size_single_bloc; i++) {
-		data_field_1 = data_in[i];
-		data_field_2 = data_in[size_single_bloc + i];
-		data_field_3 = data_in[(2*size_single_bloc) + i];
-		data_field_4 = data_field_1 ^ data_field_2 ^ data_field_3; 
-		CRC_1 = CRC_1 ^ data_field_1; 
-		CRC_2 = CRC_2 ^ data_field_2; 
-		CRC_3 = CRC_3 ^ data_field_3; 
-		CRC_4 = CRC_4 ^ data_field_4; 
-		FIFO_out->data [(FIFO_out->WR_point + i) & FIFO_out->mask] = data_field_1; 
-		FIFO_out->data [(FIFO_out->WR_point + size_single_bloc_pl1 + i ) & FIFO_out->mask] = data_field_2; 
-		FIFO_out->data [(FIFO_out->WR_point + (2*size_single_bloc_pl1) + i ) & FIFO_out->mask] = data_field_3; 
-		FIFO_out->data [(FIFO_out->WR_point + (3*size_single_bloc_pl1) + i ) & FIFO_out->mask] = data_field_4; 
-	}
-	FIFO_out->data [(FIFO_out->WR_point + size_single_bloc) & FIFO_out->mask] = CRC_1; 
-	FIFO_out->data [(FIFO_out->WR_point + (2*size_single_bloc) + 1) & FIFO_out->mask] = CRC_2; 
-	FIFO_out->data [(FIFO_out->WR_point + (3*size_single_bloc) + 2) & FIFO_out->mask] = CRC_3; 
-	FIFO_out->data [(FIFO_out->WR_point + (4*size_single_bloc) + 3) & FIFO_out->mask] = CRC_4; 
-	FIFO_out->WR_point = FIFO_out->WR_point + size_out; 
-	return size_out;
-}
-
-// FEC encode 2 : interface with raw data output (with external SRAM)
-//#ifdef EXT_SRAM_USAGE
 int FEC_encode2 (unsigned char* data_in, unsigned char* data_out, int size_in) { 
 	int size_out;
 	int size_single_bloc;
@@ -345,7 +299,6 @@ int FEC_encode2 (unsigned char* data_in, unsigned char* data_out, int size_in) {
 	data_out[(4*size_single_bloc) + 3] = CRC_4;
 	return size_out;
 }
-//#endif
 
  int FEC_decode(unsigned char* data_out, int size_in, unsigned int* micro_BER) {
 	int size_out; 
@@ -468,10 +421,7 @@ void segment_and_push (unsigned char* data_unsegmented, int total_size, unsigned
 	size_sent = 0;
 	rsize_needed = 100 + (total_size * 1.4);
 	if (total_size < 1510) {
-
-#ifdef EXT_SRAM_USAGE
-		//printf("L2 ext SRAM\r\n");
-		if (extSRAM_testfreespace(rsize_needed / 346, client_addr) == 1) {//enough space
+		if (TX_FIFO_full_global(1) == 0) {
 			G_uplink_bandwidth_temp = G_uplink_bandwidth_temp + total_size; 
 			TX_radio_IPv4_counter++;
 			while (size_remaining > 0) {
@@ -488,71 +438,14 @@ void segment_and_push (unsigned char* data_unsegmented, int total_size, unsigned
 					size_to_send = segment_size;
 				}
 				timer_snapshot = GLOBAL_timer.read_us();
-				
-				//TXPS_FIFO->data[TXPS_FIFO->WR_point & TXPS_FIFO->mask] = (timer_snapshot >> 16) & 0xFF;
-				//TXPS_FIFO->WR_point++;
-				radio_pckt[0] = (timer_snapshot >> 16) & 0xFF;
-				size_wo_FEC = size_to_send + 3; //+ 3 inside FEC header
-				size_w_FEC = size_w_FEC_compute (size_wo_FEC);
-				rframe_length = size_w_FEC + 1 - SI4463_offset_size;
-				if (rframe_length < 0) {rframe_length = 0;}
-				//TXPS_FIFO->data[TXPS_FIFO->WR_point & TXPS_FIFO->mask] = rframe_length; 
-				//TXPS_FIFO->WR_point++;
-				radio_pckt[1] = rframe_length;
-				//TXPS_FIFO->data[TXPS_FIFO->WR_point & TXPS_FIFO->mask] = 0x01; //TDMA byte
-				//TXPS_FIFO->WR_point++;
-				radio_pckt[2] = 0x01; //TDMA byte
-				segmenter_byte = (packet_counter & 0x0F) * 0x10 + is_last_segment + (segment_counter & 0x07);
-				data_wo_FEC[0] = client_addr + parity_bit_elab[(client_addr&0x7F)]; //client address
-				data_wo_FEC[1] = protocol; //protocol : raw ethernet
-				data_wo_FEC[2] = segmenter_byte; // segmenter byte
-				memcpy(data_wo_FEC+3, (data_unsegmented + size_sent), size_to_send); 
-				size_sent = size_sent + size_to_send;
-				//size_w_FEC = FEC_encode(data_wo_FEC, TXPS_FIFO, size_wo_FEC); //mac_size-2
-				size_w_FEC = FEC_encode2(data_wo_FEC, radio_pckt+3, size_wo_FEC); //mac_size-2
-				//TXPS_FIFO->last_ready = TXPS_FIFO->WR_point;
-				extSRAM_push(radio_pckt, size_w_FEC+3, client_addr);
-				size_remaining = size_remaining - segment_size; 
-				segment_counter++;
-			}
-			packet_counter++;
-		} else {
-			//printf ("FULL\r\n");
-		}
-
-#else
-		//printf("L2 no ext SRAM\r\n");
-		if ((TXPS_FIFO->last_ready - TXPS_FIFO->RD_point) < (TXPS_FIFO_threshold - rsize_needed) ) { //16380!!! TEST 07/01
-			if (super_debug) {
-				printf ("OK last_ready:%08X RD_point:%08X\r\n", TXPS_FIFO->last_ready, TXPS_FIFO->RD_point);
-			}
-			G_uplink_bandwidth_temp = G_uplink_bandwidth_temp + total_size; 
-			TX_radio_IPv4_counter++;
-			while (size_remaining > 0) {
-				if (size_remaining <= 252) {
-					segment_size = size_remaining; 
-					is_last_segment = 0x08;
-				} else {
-					segment_size = 252;
-					is_last_segment = 0x00;
-				}
-				if (segment_size <63) {
-					size_to_send = 63;
-				} else {
-					size_to_send = segment_size;
-				}
-				timer_snapshot = GLOBAL_timer.read_us();
-				TXPS_FIFO->data[TXPS_FIFO->WR_point & TXPS_FIFO->mask] = (timer_snapshot >> 16) & 0xFF;
-				TXPS_FIFO->WR_point++;
+				rframe_TX[0] = (timer_snapshot >> 16) & 0xFF;
 			
 				size_wo_FEC = size_to_send + 3; //+ 3 inside FEC header
 				size_w_FEC = size_w_FEC_compute (size_wo_FEC);
 				rframe_length = size_w_FEC + 1 - SI4463_offset_size;
 				if (rframe_length < 0) {rframe_length = 0;}
-				TXPS_FIFO->data[TXPS_FIFO->WR_point & TXPS_FIFO->mask] = rframe_length; 
-				TXPS_FIFO->WR_point++;
-				TXPS_FIFO->data[TXPS_FIFO->WR_point & TXPS_FIFO->mask] = 0x01; //TDMA byte
-				TXPS_FIFO->WR_point++;
+				rframe_TX[1] = rframe_length;
+				rframe_TX[2] = 0x01; //TDMA byte
 				
 				segmenter_byte = (packet_counter & 0x0F) * 0x10 + is_last_segment + (segment_counter & 0x07);
 				data_wo_FEC[0] = client_addr + parity_bit_elab[(client_addr&0x7F)]; //client address
@@ -560,28 +453,284 @@ void segment_and_push (unsigned char* data_unsegmented, int total_size, unsigned
 				data_wo_FEC[2] = segmenter_byte; // segmenter byte
 				memcpy(data_wo_FEC+3, (data_unsegmented + size_sent), size_to_send); 
 				size_sent = size_sent + size_to_send;
-				size_w_FEC = FEC_encode(data_wo_FEC, TXPS_FIFO, size_wo_FEC); //mac_size-2
-					
-				TXPS_FIFO->last_ready = TXPS_FIFO->WR_point;
+				size_w_FEC = FEC_encode2(data_wo_FEC, rframe_TX+3, size_wo_FEC); 
+				TX_FIFO_write_global(rframe_TX, size_w_FEC+3);//3 for timer & length & TDMA_byte
 				size_remaining = size_remaining - segment_size; 
 				segment_counter++;
 				
 			}
 			packet_counter++;
 		} else {
-			//printf("FULL\r\n");
-			if (super_debug) {
-				printf ("FULL last_ready:%08X RD_point:%08X\r\n", TXPS_FIFO->last_ready, TXPS_FIFO->RD_point);
-			}
+			//if (super_debug) {
+			//	printf ("FULL last_ready:%08X RD_point:%08X\r\n", TXPS_FIFO->last_ready, TXPS_FIFO->RD_point);
+			//}
 		}
-#endif
 	}
 }
 
+//unsigned char TX_buff_intern_FIFOdata[42][384];
+//unsigned int TX_buff_intern_WR_pointer=0;
+//unsigned int TX_buff_intern_RD_pointer=0;
+//unsigned int TX_buff_intern_last_ready=0;
+
+void TX_FIFO_write_global(unsigned char* data, int size) {
+	if (is_SRAM_ext == 1) {
+		TX_ext_FIFO_write(data, size);
+	} else {
+		TX_intern_FIFO_write(data, size);
+	}
+}
+
+void TX_intern_FIFO_write(unsigned char* data, int size) {
+	if (size <= 128) {
+		memcpy (TX_buff_intern_FIFOdata[TX_buff_intern_WR_pointer % 128], data, 128);//size
+		TX_buff_intern_WR_pointer++;
+	}
+	else if (size <= 256) {
+		memcpy (TX_buff_intern_FIFOdata[TX_buff_intern_WR_pointer % 128], data, 128);
+		TX_buff_intern_WR_pointer++;
+		memcpy (TX_buff_intern_FIFOdata[TX_buff_intern_WR_pointer % 128], data+128, 128);//size-128
+		TX_buff_intern_WR_pointer++;
+	}
+	else {
+		memcpy (TX_buff_intern_FIFOdata[TX_buff_intern_WR_pointer % 128], data, 128);
+		TX_buff_intern_WR_pointer++;
+		memcpy (TX_buff_intern_FIFOdata[TX_buff_intern_WR_pointer % 128], data+128, 128);
+		TX_buff_intern_WR_pointer++;
+		memcpy (TX_buff_intern_FIFOdata[TX_buff_intern_WR_pointer % 128], data+256, 128);//size-256
+		TX_buff_intern_WR_pointer++;
+	}
+	TX_buff_intern_last_ready = TX_buff_intern_WR_pointer;
+}
+
+void ext_SRAM_write2(ext_SRAM_chip* loc_SPI, unsigned char* loc_data, unsigned int address, int size) {
+	//static unsigned char trash[350];
+	static unsigned char command[6] = {0x02, 0x00, 0x00, 0x00};
+	loc_SPI->cs->write(0);
+	command[3] = address & 0xFF;
+	command[2] = (address & 0xFF00) >> 8;
+	command[1] = (address & 0xFF0000) >> 16;
+	loc_SPI->spi_port->transfer_2 (command, 4, trash, 4);
+	loc_SPI->spi_port->transfer_2 (loc_data, size, trash, size);
+	loc_SPI->cs->write(1);
+}
+
+void TX_ext_FIFO_write(unsigned char* data, int size) {
+	unsigned int loc_address;
+	//printf("size_wr_ext %i\n\r", size);
+	if (size <= 128) {
+		loc_address = (TX_buff_ext_WR_pointer & 1023)*128;
+		ext_SRAM_write2(SPI_SRAM_p, data, loc_address, size);
+		TX_buff_ext_sizes[TX_buff_ext_WR_pointer & 1023] = data[1];
+		TX_buff_ext_WR_pointer++;
+	}
+	else if (size <= 256) {
+		loc_address = (TX_buff_ext_WR_pointer & 1023)*128;
+		ext_SRAM_write2(SPI_SRAM_p, data, loc_address, 128);
+		TX_buff_ext_sizes[TX_buff_ext_WR_pointer & 1023] = data[1];
+		TX_buff_ext_WR_pointer++;
+		loc_address = (TX_buff_ext_WR_pointer & 1023)*128;
+		ext_SRAM_write2(SPI_SRAM_p, data+128, loc_address, size-128);
+		TX_buff_ext_sizes[TX_buff_ext_WR_pointer & 1023] = 0;
+		TX_buff_ext_WR_pointer++;
+	}
+	else {
+		loc_address = (TX_buff_ext_WR_pointer & 1023)*128;
+		ext_SRAM_write2(SPI_SRAM_p, data, loc_address, 128);
+		TX_buff_ext_sizes[TX_buff_ext_WR_pointer & 1023] = data[1];
+		TX_buff_ext_WR_pointer++;
+		loc_address = (TX_buff_ext_WR_pointer & 1023)*128;
+		ext_SRAM_write2(SPI_SRAM_p, data+128, loc_address, 128);
+		TX_buff_ext_sizes[TX_buff_ext_WR_pointer & 1023] = 0;
+		TX_buff_ext_WR_pointer++;
+		loc_address = (TX_buff_ext_WR_pointer & 1023)*128;
+		ext_SRAM_write2(SPI_SRAM_p, data+256, loc_address, size-256);
+		TX_buff_ext_sizes[TX_buff_ext_WR_pointer & 1023] = 0;
+		TX_buff_ext_WR_pointer++;
+	}
+	TX_buff_ext_last_ready = TX_buff_ext_WR_pointer;
+}
+
+int TX_intern_FIFO_get_lastfrzize(void) {
+	int size_loc;
+	size_loc = TX_buff_intern_FIFOdata[TX_buff_intern_RD_pointer % 128][1];
+	size_loc = size_loc + 1 + SI4463_offset_size;
+	return size_loc;
+}
+
+int TX_intern_FIFO_read(unsigned char* data) {
+	int size_loc;
+	size_loc = TX_buff_intern_FIFOdata[TX_buff_intern_RD_pointer % 128][1];//42
+	size_loc = size_loc + 1 + SI4463_offset_size;
+	size_loc = size_loc + 1;//for timer coarse
+	//printf("sizeread: %i\r\n", size_loc);
+	if (size_loc <= 128) {
+		memcpy(data, TX_buff_intern_FIFOdata[TX_buff_intern_RD_pointer % 128], 128);//size_loc
+		TX_buff_intern_RD_pointer++;
+	} 
+	else if (size_loc<=256) {
+		memcpy(data, TX_buff_intern_FIFOdata[TX_buff_intern_RD_pointer % 128], 128);
+		TX_buff_intern_RD_pointer++;
+		memcpy(data+128, TX_buff_intern_FIFOdata[TX_buff_intern_RD_pointer % 128], 128);//size_loc-128
+		TX_buff_intern_RD_pointer++;
+	}
+	else {
+		memcpy(data, TX_buff_intern_FIFOdata[TX_buff_intern_RD_pointer % 128], 128); 
+		TX_buff_intern_RD_pointer++;
+		memcpy(data+128, TX_buff_intern_FIFOdata[TX_buff_intern_RD_pointer % 128], 128);
+		TX_buff_intern_RD_pointer++;
+		memcpy(data+256, TX_buff_intern_FIFOdata[TX_buff_intern_RD_pointer % 128], 128);//size_loc-256
+		TX_buff_intern_RD_pointer++;
+	}
+	return size_loc;
+}
+
+unsigned int compute_TX_buff_size_global(void) {//for TDMA
+	unsigned int size_loc;
+	if (is_SRAM_ext == 1) {
+		size_loc = (TX_buff_intern_last_ready - TX_buff_intern_RD_pointer);
+		size_loc = size_loc + (TX_buff_ext_last_ready - TX_buff_ext_RD_pointer);
+		size_loc = size_loc/3;
+	} else {
+		size_loc = (TX_buff_intern_last_ready - TX_buff_intern_RD_pointer)/3;
+	}
+	return size_loc;
+}
+
+int TX_FIFO_full_global (int priority) {
+	if (is_SRAM_ext == 1) {
+		return TX_FIFO_full_withSRAM(priority);
+	} else {
+		return TX_FIFO_full_woSRAM(priority);
+	}
+}
+
+int TX_FIFO_full_woSRAM (int priority) {
+	//priority : 1= normal, 0=high priority (signaling)
+	int FIFO_filling;
+	int loc_threshold;
+	FIFO_filling = TX_buff_intern_WR_pointer - TX_buff_intern_RD_pointer;
+	if (priority == 1) {
+		loc_threshold = 110;//low priority
+	} else {
+		loc_threshold = 120;//high priority
+	}
+	if (FIFO_filling > loc_threshold) {//40
+		//printf("FIFO_full!\r\n");
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+int TX_FIFO_full_withSRAM (int priority) {
+	int FIFO_filling;
+	int loc_threshold;
+	FIFO_filling = TX_buff_ext_WR_pointer - TX_buff_ext_RD_pointer;
+	if (priority == 1) {
+		loc_threshold = 950;//low priority
+	} else {
+		loc_threshold = 1000;//high priority
+	}
+	if (FIFO_filling > loc_threshold) {//40
+		//printf("FIFO_fullext!\r\n");
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+void ext_SRAM_read2(ext_SRAM_chip* loc_SPI, unsigned char* loc_data, unsigned int address, int size) {
+	static unsigned char command[6] = {0x03, 0x00, 0x00, 0x00};
+	loc_SPI->cs->write(0);
+	command[3] = address & 0xFF;
+	command[2] = (address & 0xFF00) >> 8;
+	command[1] = (address & 0xFF0000) >> 16;
+	loc_SPI->spi_port->transfer_2 (command, 4, trash, 4);
+	loc_SPI->spi_port->transfer_2 (trash, size, loc_data, size);
+	loc_SPI->cs->write(1);
+}
+
+void ext_SRAM_periodic_call(void) {
+	int intern_FIFO_filling;
+	int ext_FIFO_filling;
+	int i, loc_size;
+	int loc_bloc_nb=1;
+	unsigned int loc_address;
+	unsigned int loc_time_int;
+	unsigned char RX_frame_datation;
+	unsigned char loc_time_char;
+	loc_time_int = GLOBAL_timer.read_us();
+	loc_time_char = (loc_time_int >> 16) & 0xFF; 
+	intern_FIFO_filling = TX_buff_intern_WR_pointer - TX_buff_intern_RD_pointer;
+	ext_FIFO_filling = TX_buff_ext_WR_pointer - TX_buff_ext_RD_pointer;
+	while ( (ext_FIFO_filling > 0) && (intern_FIFO_filling <= 9) ) {
+		for (i=1; i<=loc_bloc_nb; i++) {
+			loc_address = (TX_buff_ext_RD_pointer & 1023) *128;
+			ext_SRAM_read2(SPI_SRAM_p, TX_buff_intern_FIFOdata[TX_buff_intern_WR_pointer % 128], loc_address, 128);
+			
+			if (i==1) {
+				RX_frame_datation = TX_buff_intern_FIFOdata[TX_buff_intern_WR_pointer % 128][0];
+				loc_size = TX_buff_intern_FIFOdata[TX_buff_intern_WR_pointer % 128][1];
+				loc_size = loc_size + SI4463_offset_size + 2;
+				//printf("size:%i\r\n", loc_size);
+				if (loc_size <= 128) {
+					loc_bloc_nb = 1;
+				} else if (loc_size <= 256) {
+					loc_bloc_nb = 2;
+				} else {
+					loc_bloc_nb = 3;
+				}
+			}
+			
+			//if (TX_buff_ext_sizes[TX_buff_ext_RD_pointer & 1023] > 0) {
+			//	TX_buff_intern_FIFOdata[TX_buff_intern_WR_pointer % 128][1] = TX_buff_ext_sizes[TX_buff_ext_RD_pointer & 1023];
+			//}
+			TX_buff_ext_RD_pointer++;
+			//printf("delay %i\r\n", (int)loc_time_char - (int)RX_frame_datation);
+			if ( (loc_time_char - RX_frame_datation) < CONF_Tx_rframe_timeout) {
+			//if (1) {
+				//purge old frames if condition false
+				TX_buff_intern_WR_pointer++;
+			} 
+			//else {
+			//	printf ("purged!\r\n");//!!!
+			//	printf("date1 %i date2 %i\r\n", loc_time_char, RX_frame_datation); 
+			//}
+		}
+		TX_buff_intern_last_ready = TX_buff_intern_WR_pointer;	
+		intern_FIFO_filling = TX_buff_intern_WR_pointer - TX_buff_intern_RD_pointer;
+		ext_FIFO_filling = TX_buff_ext_WR_pointer - TX_buff_ext_RD_pointer;
+	}
+}
+
+
+//void radio_flush_TX_FIFO(void) {
+//	TXPS_FIFO->WR_point = 0;
+//	TXPS_FIFO->RD_point = 0;
+//	TXPS_FIFO->last_ready = 0;
+//}
+
+int ext_SRAM_detect(void) {
+	unsigned char data_1[4] = {0x3C, 0x4A, 0xF3, 0x12};
+	unsigned char data_2[4] = {0xFF, 0xFF, 0xFF, 0xFF};
+	int i; 
+	int sram_detected = 1;
+	ext_SRAM_write2(SPI_SRAM_p, data_1, 2345, 4);
+	ext_SRAM_read2(SPI_SRAM_p, data_2, 2345, 4);
+	for (i=0; i<4; i++) {
+		if (data_2[i] != data_1[i]) {sram_detected = 0;}
+	}
+	return sram_detected;
+}
+
 void radio_flush_TX_FIFO(void) {
-	TXPS_FIFO->WR_point = 0;
-	TXPS_FIFO->RD_point = 0;
-	TXPS_FIFO->last_ready = 0;
+	TX_buff_intern_WR_pointer=0;
+	TX_buff_intern_RD_pointer=0;
+	TX_buff_intern_last_ready=0;
+	TX_buff_ext_WR_pointer=0;
+	TX_buff_ext_RD_pointer=0;
+	TX_buff_ext_last_ready=0;
 }
 
 void radio_save_RSSI_BER (unsigned char client_byte, unsigned char is_downlink, unsigned char RSSI_loc, unsigned int micro_BER) {
