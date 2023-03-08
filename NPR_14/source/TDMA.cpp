@@ -24,7 +24,7 @@ static unsigned char TDMA_table_uplink_st[radio_addr_table_size];
 static int TDMA_table_uplink_usage[radio_addr_table_size];
 static int TDMA_table_is_fast[radio_addr_table_size];
 //static long int TDMA_table_TA[radio_addr_table_size];
-static unsigned int TDMA_table_RX_time[radio_addr_table_size];
+static unsigned int TDMA_table_RX_time[radio_addr_table_size]; 
 static unsigned char TDMA_table_up2date[radio_addr_table_size];
 static unsigned char TDMA_table_slots[radio_addr_table_size];
 static unsigned int TDMA_table_offset[radio_addr_table_size];
@@ -33,7 +33,7 @@ static unsigned char master_allocated_slots;
 static unsigned int slave_alloc_RX_age = 2;
 static unsigned char my_multiframe_mask;
 static unsigned char my_multiframe_ID;
-static unsigned int TDMA_slave_last_master_top = 0;
+//static unsigned int TDMA_slave_last_master_top = 0;
 static unsigned int TDMA_offset_multi_frame;
 
 void TDMA_init_all(void) {
@@ -81,7 +81,11 @@ short int TDMA_TA_measure_single_frame(unsigned int frame_timer, unsigned char T
 	
 	if ( ((TDMA_byte & 0x20) == 0x20) && (is_downlink == 0) && (parity_bit_check[TDMA_byte]) && (parity_bit_check[client_byte]) ) { //first frame top-synchro
 		client_ID = client_byte & 0x7F;
-		measured_offset = frame_timer - ((TDMA_slave_last_master_top & 0xFFFFFF));// + 10*TDMA_table_offset[client_ID]);
+		if (CONF_master_FDD == 1) {
+			measured_offset = frame_timer;
+		} else {
+			measured_offset = frame_timer - ((TDMA_slave_last_master_top & 0xFFFFFF));// + 10*TDMA_table_offset[client_ID]);
+		}
 		if (frame_size_loc < 114) {
 			measured_offset = measured_offset + (114 - frame_size_loc) * 0.85; 
 		}
@@ -109,6 +113,13 @@ void TDMA_init_TA(unsigned char client_ID, int TA_input) {
 void TDMA_top_measure(void) {
 	TDMA_slave_last_master_top = GLOBAL_timer.read_us();
 	TDMA_slave_last_master_top = TDMA_slave_last_master_top + 0;
+}
+
+void TDMA_FDD_up_top_measure(void) {
+	TDMA_slave_last_master_top = GLOBAL_timer.read_us();
+	TDMA_slave_last_master_top = TDMA_slave_last_master_top + 0;
+	RX_top_FDD_up_counter++;
+	//printf("t\r\n");
 }
 
 void TDMA_byte_RX_interp (unsigned char TDMA_byte, unsigned char client_ID_byte, unsigned char protocol, unsigned int RX_time) {
@@ -147,7 +158,7 @@ void TDMA_byte_RX_interp (unsigned char TDMA_byte, unsigned char client_ID_byte,
 				if ( (slave_alloc_RX_age < 2) && (CONF_radio_state_ON_OFF) ) {
 					if ( (TDMA_frame_nb & my_multiframe_mask) == (my_multiframe_ID & my_multiframe_mask) ) {
 						loc_time = GLOBAL_timer.read_us();
-						time_next_TX_slave = (RX_time + offset_time_TX_slave) & 0xFFFFFF;//!!!test TA june 2018 +380
+						time_next_TX_slave = ((RX_time + offset_time_TX_slave) & 0xFFFFFF );//!!!test TA june 2018 +380
 						SI4463_prepa_TX_1_call.attach_us(&SI4463_prepa_TX_1, (time_next_TX_slave - loc_time - CONF_delay_prepTX1_2_TX) &0xFFFFFF  );
 						slave_alloc_RX_age++;
 						slave_new_burst_tx_pending = 1;

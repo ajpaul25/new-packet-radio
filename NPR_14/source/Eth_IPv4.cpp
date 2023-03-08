@@ -50,7 +50,10 @@ void IP_int2char (unsigned long int IP_int, unsigned char* IP_char) {
 int Eth_RX_dequeue (W5500_chip* W5500) {
 	int answer=0;
 	unsigned char RX_data[1600];//1600
-	
+	unsigned int RX_port=0;
+	unsigned char RX_proto;
+	unsigned long int RX_dest_IP=0;
+	//unsigned char* RX_Eth_pckt;
 	//static int match_RTP_index[12] = {8, 9, 10, 11, 12, 13}; //first ping tests : TX MAC filter
 	
 	static int more_to_read = 0;
@@ -94,11 +97,27 @@ int Eth_RX_dequeue (W5500_chip* W5500) {
 			
 			if (ethertype == 0x0806) { //ARP packet received
 				//printf("ARP packet received!!!\r\n");
-				ARP_RX_packet_treatment (RX_data+2, mac_size-2);
+				if ((is_TDMA_master == 0)||(CONF_master_FDD<2)) {
+					ARP_RX_packet_treatment (RX_data+2, mac_size-2);
+				}
 			}
 			
 			if (ethertype == 0x0800) { // IPv4 packet
-				IPv4_to_radio (RX_data+2, mac_size-2);
+				RX_port = 0;
+				RX_proto = 0;
+				RX_dest_IP = 0;
+				if ( (is_TDMA_master==1) && (CONF_master_FDD == 1) ) {//master down
+					//RX_Eth_pckt = RX_data+2;
+					RX_port = (RX_data[38] << 8) + RX_data[39];
+					RX_proto = RX_data[25];//11 for UDP
+					RX_dest_IP = IP_char2int(RX_data+32);
+				}
+				if ( (RX_proto == 0x11) && (RX_dest_IP == LAN_conf_applied.LAN_modem_IP) && (RX_port == 0x1A3C) ) { // data for FDD down
+					//printf("RX_from_Eth\r\n");
+					FDDdown_RX_pckt_treat(RX_data+44, mac_size-44);
+				} else {
+					IPv4_to_radio (RX_data+2, mac_size-2);
+				}
 			}
 			
 						

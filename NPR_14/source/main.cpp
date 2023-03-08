@@ -36,6 +36,9 @@
 //Serial pc(SERIAL_TX, SERIAL_RX); // Nucleo
 //Serial pc(USBTX, USBRX); //NXP LPC1769
 
+DigitalInOut FDD_trig_pin(PA_10);
+InterruptIn FDD_trig_IRQ(PA_10);
+
 DigitalOut SI4463_SDN(PA_1);
 
 AnalogIn Random_pin(PA_0);
@@ -85,6 +88,9 @@ int main()
 	SI4463_1.SDN = &SI4463_SDN;
 	
 	G_SI4463 = &SI4463_1;
+	
+	G_FDD_trig_pin = &FDD_trig_pin;
+	G_FDD_trig_IRQ = &FDD_trig_IRQ;
 
 	reset_DHCP_table(LAN_conf_p);
 		
@@ -97,6 +103,7 @@ int main()
 		CONF_radio_addr_table_status[i] = 0;
 	}
 	
+	G_FDD_trig_pin->input();
 	LED_RX_loc = 0;
 	LED_connected = 0;
     CS1=1;
@@ -185,7 +192,11 @@ int main()
 	
 	while(1) {	
 		for (i=0; i<100; i++) {
-			radio_RX_FIFO_dequeue(W5500_p1);
+			if ( (is_TDMA_master == 1) && (CONF_master_FDD == 2) ) {
+				FDDup_RX_FIFO_dequeue();
+			} else {
+				radio_RX_FIFO_dequeue(W5500_p1);
+			}
 			Eth_RX_dequeue(W5500_p1); 
 			TDMA_slave_timeout();
 #ifdef EXT_SRAM_USAGE

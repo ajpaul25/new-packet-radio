@@ -314,7 +314,7 @@ int SI4463_configure_from_h(SI4463_Chip* SI4463, unsigned char* radio_config_dat
 		i++;
 		if (current_command_length>0) {
 			SI4463_send_command(SI4463, radio_config_data+i, current_command_length);
-			answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 10000);//200
+			answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 15000);//10000
 			if (answer_loc == 0) {answer = 0;}
 		}
 		
@@ -327,7 +327,7 @@ int SI4463_configure_from_h(SI4463_Chip* SI4463, unsigned char* radio_config_dat
 	// specific GLOBAL_CONFIG : SEQUENCER_MODE=GUARANTEED and FIFO_MODE=FIFO_129
 	unsigned char radio_config_bis[10] = {0x11, 0x00, 0x01, 0x03, 0x10}; 
 	SI4463_send_command(SI4463, radio_config_bis, 5);
-	answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 200);
+	answer_loc = SI4463_CTS_read_answer(SI4463, SI_trash, 0, 200);//200
 	if (answer_loc == 0) {answer = 0;}
 	wait_ms(5);//50
 	
@@ -595,7 +595,10 @@ void SI4463_periodic_temperature_check_2(void) {
 	int i;
 	unsigned char trash [10];
 	timer_snapshot = GLOBAL_timer.read_us();
-	if ( (is_TDMA_master) && (CONF_radio_state_ON_OFF) && ((timer_snapshot-last_rframe_seen) > (CONF_radio_timeout+1000000) ) ) {
+	if ( (is_TDMA_master) && (CONF_master_FDD == 2) && (CONF_radio_state_ON_OFF) ) {
+		SI4463_prepa_TX_1_call.attach_us(&SI4463_prepa_TX_1, 500000);//simulates TX transition
+	}
+	else if ( (is_TDMA_master) && (CONF_radio_state_ON_OFF) && ((timer_snapshot-last_rframe_seen) > (CONF_radio_timeout+1000000) ) ) {
 		//if (G_need_temperature_check == 1) {
 			G_need_temperature_check = 0;
 			if (previous_temperature == 300) {
@@ -745,6 +748,9 @@ void SI4463_RX_IT() {
 		if (Synth_SYNC_detected) {//Sync detected
 			RSSI = FRR[2];
 			RX_timer = timer_snapshot - CONF_long_preamble_duration_for_TA;
+			if ( (is_TDMA_master == 1) && (CONF_master_FDD == 2) ) {//Master UP
+				RX_timer = RX_timer - TDMA_slave_last_master_top;
+			}
 			Treated_SYNC_detected = 1;
 			RSSI_total_stat = RSSI_total_stat + RSSI;
 			RSSI_stat_pkt_nb++;
@@ -847,7 +853,7 @@ void SI4463_prepa_TX_1(void) {
 		radio_lock_TX_pending = 1;
 		G_SI4463->RX_TX_state = 0; //temporary inhibit actions from HW IRQ
 		
-		if ( (is_TDMA_master) && (CONF_radio_state_ON_OFF) && (((timer_snapshot-last_rframe_seen)&0x7FFFFFFF) < CONF_radio_timeout) ) {
+		if ( (is_TDMA_master) && (CONF_master_FDD<2) && (CONF_radio_state_ON_OFF) && (((timer_snapshot-last_rframe_seen)&0x7FFFFFFF) < CONF_radio_timeout) ) {
 		//if ( (is_TDMA_master) && (CONF_radio_state_ON_OFF) ) {
 			SI4463_prepa_TX_1_call.attach_us(&SI4463_prepa_TX_1, CONF_TDMA_frame_duration);//master_TDMA_period
 			//TDMA_top_measure();
@@ -992,9 +998,15 @@ void SI4463_decide_new_TX_or_not (void) { //decides if new frame must be transmi
 	}
 	
 	if (is_TDMA_master) {
-		if (TX_slot_frame_counter == 0) { // systematically send TDMA signaling frame
+		if (CONF_master_FDD==2) {
+			SI4463_TX_to_RX_transition();//Master FDD up, go immediately to RX
+		}
+		else if (TX_slot_frame_counter == 0) { // systematically send TDMA signaling frame
 			TX_buff = TX_signaling_TDMA;
 			TDMA_top_measure();
+			if (CONF_master_FDD == 1) {//Master FDD downlink
+				G_FDD_trig_pin->write(1);
+			}
 			SI4463_TX_new_frame(TDMA_sync); 
 			SI4463_set_TX_preamble_length(G_SI4463, CONF_preamble_TX_short);
 			TX_slot_frame_counter++;
@@ -1006,6 +1018,9 @@ void SI4463_decide_new_TX_or_not (void) { //decides if new frame must be transmi
 		}
 		else {
 			TX_slot_frame_counter = 0;
+			if (CONF_master_FDD == 1) {//Master FDD downlink
+				G_FDD_trig_pin->write(0);
+			}
 			SI4463_TX_to_RX_transition();
 		}
 		
@@ -1200,7 +1215,7 @@ void SI4463_radio_start(void) {
 		//wait_ms(10);
 		SI4463_CTS_read_answer (G_SI4463, SI_trash, 0, 600);
 		CONF_radio_state_ON_OFF = 1;
-		if (is_TDMA_master) {
+		if ( (is_TDMA_master) && (CONF_master_FDD < 2) ) {
 			SI4463_prepa_TX_1();
 		} else {
 			SI4463_TX_to_RX_transition();
@@ -1378,6 +1393,9 @@ void RADIO_compute_freq_params() {
 	if (is_TDMA_master == 1) {
 		loc_freq_float_RX = freq_local + freq_shift_loc;
 		loc_freq_float_TX = freq_local;//downlink
+		if(CONF_master_FDD == 1) {//artificially disables RX for Master down
+			loc_freq_float_RX = freq_local;
+		}
 	} else {
 		loc_freq_float_RX = freq_local;//downlink
 		loc_freq_float_TX = freq_local + freq_shift_loc;//uplink

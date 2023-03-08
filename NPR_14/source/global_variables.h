@@ -45,13 +45,14 @@ extern ext_SRAM_chip* SPI_SRAM_p;
 	#define SI4463_NOUTDIV 8
 #endif
 
-#define FW_VERSION "2019_09_15"
+#define FW_VERSION "2019_10_20"
 
-extern SI4463_Chip* G_SI4463; 
+extern SI4463_Chip* G_SI4463;
 
 extern W5500_chip* W5500_p1;
 
-
+extern DigitalInOut* G_FDD_trig_pin;
+extern InterruptIn* G_FDD_trig_IRQ;
 
 extern Serial pc;
 
@@ -139,8 +140,11 @@ extern unsigned char my_radio_client_ID;
 extern int CONF_Tx_rframe_timeout;
 extern int CONF_signaling_period;
 
+extern unsigned int TDMA_slave_last_master_top;
+
 // *** STATISTIC and DEBUG variables ***
 //extern unsigned int debug_counter;
+extern unsigned int RX_top_FDD_up_counter;
 extern int RX_Eth_IPv4_counter;
 extern int TX_radio_IPv4_counter;
 extern int RX_radio_IPv4_counter;

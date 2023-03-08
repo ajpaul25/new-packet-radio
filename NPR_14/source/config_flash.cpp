@@ -20,6 +20,7 @@
 #include "global_variables.h"
 #include "Eth_IPv4.h"
 #include "HMI_telnet.h"
+#include "TDMA.h"
 
 static unsigned char raw_config_data[260];
 static unsigned int config_index;
@@ -224,7 +225,12 @@ void apply_config_from_raw_string(unsigned char* data_r) {
 		LAN_conf_applied.DHCP_range_size = CONF_radio_IP_size_requested;
 		
 	}
-	
+	if ( (is_TDMA_master == 1) && (CONF_master_FDD == 1) ) { // FDD Master down
+		G_FDD_trig_pin->output();
+	}
+	if ( (is_TDMA_master == 1) && (CONF_master_FDD == 2) ) {// FDD master up
+		G_FDD_trig_IRQ->rise(&TDMA_FDD_up_top_measure);
+	}
 }
 
 void write_config_to_raw_string (unsigned char* data_r) {

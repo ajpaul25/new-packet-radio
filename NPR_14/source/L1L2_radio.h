@@ -22,6 +22,10 @@
 #include "W5500.h"
 #include "global_variables.h"
 
+void FDDdown_RX_pckt_treat(unsigned char* in_data, int size);
+
+void FDDup_RX_FIFO_dequeue(void);
+
 void radio_RX_FIFO_dequeue (W5500_chip* W5500);
 
 void radio_signalisation_frame_building(void);

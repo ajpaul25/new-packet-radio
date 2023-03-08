@@ -21,6 +21,8 @@
 
 SI4463_Chip* G_SI4463;
 W5500_chip* W5500_p1;
+DigitalInOut* G_FDD_trig_pin;
+InterruptIn* G_FDD_trig_IRQ;
 
 #ifdef EXT_SRAM_USAGE
 ext_SRAM_chip* SPI_SRAM_p;
@@ -39,6 +41,7 @@ unsigned int RX_FIFO_last_received = 0;
 unsigned char RX_FIFO_data[0x2000]; //8kB
 
 //unsigned int debug_counter = 0;
+unsigned int RX_top_FDD_up_counter = 0;
 int RX_Eth_IPv4_counter = 0;
 int TX_radio_IPv4_counter = 0;
 int RX_radio_IPv4_counter = 0;
@@ -116,6 +119,8 @@ int CONF_delay_prepTX1_2_TX = 1030;
 unsigned char my_radio_client_ID = 0xFE;
 int CONF_Tx_rframe_timeout = 30;//unit 1/65000 th of a second
 int CONF_signaling_period = 1;
+
+unsigned int TDMA_slave_last_master_top = 0;
 
 Timer GLOBAL_timer;
 

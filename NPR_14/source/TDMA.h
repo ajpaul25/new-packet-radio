@@ -28,6 +28,8 @@ void TDMA_init_TA(unsigned char client_ID, int TA_input);
 
 void TDMA_top_measure(void);
 
+void TDMA_FDD_up_top_measure(void);
+
 void TDMA_byte_RX_interp (unsigned char TDMA_byte, unsigned char client_ID_byte, unsigned char protocol, unsigned int RX_time);
 
 void TDMA_slave_timeout (void);

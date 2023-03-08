@@ -504,7 +504,8 @@ void ARP_proxy (unsigned char* ARP_req_packet, int size) {
 	// determines if modem should reply or not 
 	if (ARP_requested_IP != LAN_conf_applied.LAN_modem_IP) { //only replies to non-modem IP
 	
-		if (is_TDMA_master == 1) { //TDMA Master answers to all IP in radio range
+		if (is_TDMA_master == 1) { 
+		//TDMA Master (and FDD down) answers to all IP in radio range
 			if ( (ARP_requested_IP >= CONF_radio_IP_start) && (ARP_requested_IP < (CONF_radio_IP_start + CONF_radio_IP_size) ) ) {
 				answer_needed = 1;
 			}

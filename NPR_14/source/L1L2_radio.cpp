@@ -30,6 +30,43 @@
 
 //Timeout SI4463_prepa_TX_1_call;
 
+static unsigned char data_RX[360];//260
+
+void FDDup_RX_FIFO_dequeue(void) {
+	int rframe_lgth, i;
+	unsigned char data_temp;
+	unsigned long int timer_snapshot;
+	i = 0;
+	if (RX_FIFO_last_received > RX_FIFO_RD_point) {
+		for (i=0; i<=3; i++) {//4 bytes for timer and RSSI
+			data_RX[i] = RX_FIFO_data[RX_FIFO_RD_point & RX_FIFO_mask];
+			RX_FIFO_RD_point++;
+		}
+		data_temp = RX_FIFO_data[RX_FIFO_RD_point & RX_FIFO_mask];
+		RX_FIFO_RD_point++;
+		rframe_lgth = data_temp + SI4463_offset_size;
+		data_RX[4] = data_temp;
+		
+		for (i=0; i<rframe_lgth; i++) {
+			data_RX[i+5] = RX_FIFO_data[RX_FIFO_RD_point & RX_FIFO_mask];
+			RX_FIFO_RD_point++;
+		}
+		W5500_write_TX_buffer(W5500_p1, 4, data_RX, rframe_lgth+5, 0);
+		timer_snapshot = GLOBAL_timer.read_us();
+		last_rframe_seen = timer_snapshot;
+		//debug_counter++;
+	}
+}
+
+void FDDdown_RX_pckt_treat(unsigned char* in_data, int size) {
+	//puts raw RX radio packet from Ethernet to RX buffer
+	memcpy (RX_FIFO_data, in_data, size+4);
+	RX_FIFO_RD_point = 0;
+	RX_FIFO_last_received = size;
+	radio_RX_FIFO_dequeue(W5500_p1);
+	//debug_counter++;
+}
+
 void radio_RX_FIFO_dequeue (W5500_chip* W5500) {
 	static unsigned char ethernet_buffer[radio_addr_table_size][1600]; 
 	static int size_received[radio_addr_table_size]; 
@@ -45,7 +82,7 @@ void radio_RX_FIFO_dequeue (W5500_chip* W5500) {
 	unsigned char protocol_byte;
 	unsigned char client_ID_byte;
 	unsigned char segmenter_byte;
-	static unsigned char data_RX[260];
+	//static unsigned char data_RX[260];
 	int TA_local = 100000;
 	int RSSI;
 	int rframe_lgth;

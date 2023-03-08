@@ -342,7 +342,7 @@ void W5500_initial_configure(W5500_chip* SPI_p_loc) {
 	W5500_write_byte(SPI_p_loc, 0x001F, 0x05, 0x02); //1 telnet
 	W5500_write_byte(SPI_p_loc, 0x001F, 0x09, 0x04); //2 RTP
 	W5500_write_byte(SPI_p_loc, 0x001F, 0x0D, 0x02); //3 DHCP
-	W5500_write_byte(SPI_p_loc, 0x001F, 0x11, 0x00); //4 
+	W5500_write_byte(SPI_p_loc, 0x001F, 0x11, 0x02); //4 UDP_FDD
 	W5500_write_byte(SPI_p_loc, 0x001F, 0x15, 0x00); //5 
 	W5500_write_byte(SPI_p_loc, 0x001F, 0x19, 0x00); //6 
 	W5500_write_byte(SPI_p_loc, 0x001F, 0x1D, 0x00); //7 
@@ -396,8 +396,18 @@ void W5500_initial_configure(W5500_chip* SPI_p_loc) {
 	W5500_write_short(SPI_p_loc, 0x000C, 0x0D, data, 4); //IP destination 255.255.255.255
 	W5500_write_short(SPI_p_loc, 0x0006, 0x0D, data, 6);
 	
-	// Socket 4
-	
+	// Socket 4 UDP_FDD
+	W5500_write_byte(SPI_p_loc, 0x0000, 0x11, 0x42); //config
+	wait_ms(10);
+	data[0]=0x1A; //port TX 0d6716 = 0x1A3E
+    data[1]=0x3E;
+	W5500_write_short(SPI_p_loc, 0x0004, 0x11, data, 2);
+	data[0]=0x1A; //port RX 0d6718 = 0x1A3C
+    data[1]=0x3C;
+	W5500_write_short(SPI_p_loc, 0x0010, 0x11, data, 2);
+	W5500_write_byte(SPI_p_loc, 0x0001, 0x11, 0x01); // open
+	IP_int2char (CONF_master_down_IP, data);
+	W5500_write_short(SPI_p_loc, 0x000C, 0x11, data, 4);
 	// Socket 5
 	
 	// Socket 6
